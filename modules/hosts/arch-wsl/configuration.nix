@@ -6,7 +6,6 @@
 
     modules = [
       self.homeModules.hostArchWsl
-      self.modules.generic.general
     ];
   };
 
@@ -16,10 +15,14 @@
 
     {
       imports = [
+
+        self.modules.generic.base
+        self.modules.generic.general
+	 
         {
 
-          home.username = config.preferences.user.name;
-          home.homeDirectory = "/home/rick";
+          home.username = "${config.preferences.user.name}";
+          home.homeDirectory = "${config.preferences.user.home}";
 
           xdg.enable = true;
 
