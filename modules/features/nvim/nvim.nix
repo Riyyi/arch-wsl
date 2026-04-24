@@ -44,7 +44,7 @@
       preferences.pacmanPackages = [
         "fzf"
         "gcc"
-        "gnumake"
+        "make"
         "libgcc"
         "neovim"
         "tree-sitter"
@@ -60,7 +60,7 @@
       # TODO: pacman
       # fzf
       # gcc
-      # gnumake
+      # make
       # libgcc
       # neovim
       # tree-sitter

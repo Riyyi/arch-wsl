@@ -78,6 +78,9 @@ EOF
 	#
 	# Make AUR package declpac-git
 	# Make AUR package niri-no-decorations-git
+	# (edit)/etc/locale.gen
+	# sudo locale-gen
+	# echo LANG=en_US.UTF-8 to /etc/locale.conf
 }
 
 case "$1" in

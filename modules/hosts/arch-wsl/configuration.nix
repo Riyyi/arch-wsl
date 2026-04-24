@@ -34,6 +34,48 @@
         self.homeModules.ghostty
 
         {
+          preferences.pacmanPackages = [
+            "base"
+            "base-devel"
+            "declpac-git"
+            #"egl-wayland"
+            "fastfetch"
+            "fzf"
+            "gcc"
+            "ghostty"
+            "git"
+            "glibc"
+            "go"
+            "less"
+            "libgcc"
+            "make"
+            "man-db"
+            "mesa"
+            "opencode"
+            "niri-no-decorations"
+            "neovim"
+            "sudo"
+            "tree"
+            "tree-sitter"
+            "trizen"
+            "ttf-dejavu"
+            "ttf-dejavu-nerd"
+            "vulkan-dzn"
+            "vulkan-icd-loader"
+            "wayland"
+            "xdg-desktop-portal-gtk"
+            "xdg-desktop-portal-gnome"
+            "xwayland-satellite"
+            "cowsay"
+
+            #noctalia-shell deps
+            "imagemagick"
+            "brightnessctl"
+            "qt6-multimedia"
+            "wlr-randr"
+            "noctalia-qs" # NOTE: put before noctalia-shell!
+            "noctalia-shell"
+          ];
 
           home.username = user;
           home.homeDirectory = home;
@@ -53,12 +95,9 @@
         }
       ];
 
-     home.activation.pacmanPackages =
-       ''
-         for package in ${lib.concatStringsSep " " packages}; do
-           echo "Installing pacman package: $package"
-         done
-       '';
+      home.activation.pacmanPackages = ''
+        printf '%s\n' "${lib.concatStringsSep "\n" packages}" > ''${XDG_CACHE_HOME:-~/.cache}/declpac
+      '';
 
     };
 
