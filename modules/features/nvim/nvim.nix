@@ -40,6 +40,17 @@
       ];
     in
     {
+
+      preferences.pacmanPackages = [
+        "fzf"
+        "gcc"
+        "gnumake"
+        "libgcc"
+        "neovim"
+        "tree-sitter"
+      ];
+
+      # These packages arent available the the official repos
       home.packages = with pkgs; [
         nixd
         nixfmt

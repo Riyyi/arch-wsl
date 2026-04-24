@@ -11,7 +11,18 @@
 
   flake.homeModules.hostArchWsl =
 
-    { config, pkgs, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
+
+    let
+      user = config.preferences.user.name;
+      home = config.preferences.user.home;
+      packages = config.preferences.pacmanPackages;
+    in
 
     {
       imports = [
@@ -24,8 +35,8 @@
 
         {
 
-          home.username = "${config.preferences.user.name}";
-          home.homeDirectory = "${config.preferences.user.home}";
+          home.username = user;
+          home.homeDirectory = home;
 
           xdg.enable = true;
 
@@ -41,6 +52,13 @@
 
         }
       ];
+
+     home.activation.pacmanPackages =
+       ''
+         for package in ${lib.concatStringsSep " " packages}; do
+           echo "Installing pacman package: $package"
+         done
+       '';
 
     };
 

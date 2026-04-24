@@ -2,6 +2,7 @@ $ powershell -ExecutionPolicy Bypass -File .\bootstrap.ps1
 
 $ nix run nixpkgs#home-manager -- switch --flake .#arch-wsl
 
+$ readlink ~/.local/state/home-manager/gcroots/current-home
 
 to hide niri cursor
 - create empty cursor theme via
