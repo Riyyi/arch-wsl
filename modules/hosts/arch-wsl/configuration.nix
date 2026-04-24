@@ -18,7 +18,10 @@
 
         self.modules.generic.base
         self.modules.generic.general
-	 
+
+        self.homeModules.nvim
+        self.homeModules.ghostty
+
         {
 
           home.username = "${config.preferences.user.name}";
@@ -28,8 +31,8 @@
 
           home.packages = with pkgs; [
             ncdu
-	    #ghostty
-	    kdePackages.konsole
+            #ghostty
+            kdePackages.konsole
             #self.packages.${pkgs.stdenv.hostPlatform.system}.niri
             #self.packages.${pkgs.stdenv.hostPlatform.system}.noctalia-shell
           ];

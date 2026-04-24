@@ -5,7 +5,7 @@
       options.preferences = {
         path.dotfiles = lib.mkOption {
           type = lib.types.str;
-          default = "${config.preferences.user.home}/nixvm";
+          default = "/mnt/c/Users/Rick/Desktop/arch-wsl";
           description = "Path where this repo is cloned to.";
         };
       };
