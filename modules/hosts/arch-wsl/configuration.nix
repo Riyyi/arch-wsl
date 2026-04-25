@@ -30,10 +30,14 @@
         self.modules.generic.base
         self.modules.generic.general
 
+        self.homeModules.nix
+
         self.homeModules.niri
         self.homeModules.noctalia
         self.homeModules.nvim
         self.homeModules.ghostty
+        self.homeModules.vscode
+        self.homeModules.zsh
 
         {
           preferences.pacmanPackages = [
