@@ -30,6 +30,8 @@
         self.modules.generic.base
         self.modules.generic.general
 
+        self.homeModules.niri
+        self.homeModules.noctalia
         self.homeModules.nvim
         self.homeModules.ghostty
 
@@ -52,7 +54,6 @@
             "man-db"
             "mesa"
             "opencode"
-            "niri-no-decorations"
             "neovim"
             "sudo"
             "tree"
@@ -63,8 +64,6 @@
             "vulkan-dzn"
             "vulkan-icd-loader"
             "wayland"
-            "xdg-desktop-portal-gtk"
-            "xdg-desktop-portal-gnome"
             "xwayland-satellite"
             "cowsay"
 
