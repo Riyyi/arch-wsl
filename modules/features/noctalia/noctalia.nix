@@ -27,7 +27,7 @@
         "wlsunset"
         "xdg-desktop-portal"
         "xdg-desktop-portal-gtk"
-        "xdg-desktop-portal-gnome("
+        "xdg-desktop-portal-gnome"
       ];
 
       # Deploy wallpapers from repo to home directory

@@ -31,6 +31,7 @@
         self.modules.generic.general
 
         self.homeModules.nix
+        self.homeModules.keyring
 
         self.homeModules.niri
         self.homeModules.noctalia
