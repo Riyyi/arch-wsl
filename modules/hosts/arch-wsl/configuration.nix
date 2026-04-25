@@ -91,6 +91,7 @@
             ncdu
             #ghostty
             kdePackages.konsole
+            self.packages.${pkgs.stdenv.hostPlatform.system}.ns
             #self.packages.${pkgs.stdenv.hostPlatform.system}.niri
             #self.packages.${pkgs.stdenv.hostPlatform.system}.noctalia-shell
           ];
