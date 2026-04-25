@@ -1,77 +1,44 @@
 {
   flake.homeModules.vscode =
     {
-      pkgs,
+      lib,
       ...
     }:
     {
 
-      home.packages = with pkgs; [
-        (vscode-with-extensions.override {
-          vscode = vscode-fhs;
-          vscodeExtensions =
-            with vscode-extensions;
-            [
-              bradlc.vscode-tailwindcss
-              dbaeumer.vscode-eslint
-              eamodio.gitlens
-              firefox-devtools.vscode-firefox-debug
-              github.copilot-chat
-              vscodevim.vim
-              vue.volar
-            ]
-            ++ vscode-utils.extensionsFromVscodeMarketplace [
-              # {
-              #   name = "noctaliatheme";
-              #   publisher = "noctalia";
-              #   version = "0.0.5";
-              #   sha256 = "aTSk3yYkBw5GrD0CbRL2wo3SlBffzBTDe1pZoZa1URQ=";
-              # }
-              {
-                name = "goto-alias";
-                publisher = "antfu";
-                version = "1.0.0";
-                sha256 = "24JYijk7K1OKwRzWQnhZE98UxrWduIujDj868TNBiYQ=";
-              }
-              {
-                name = "iconify";
-                publisher = "antfu";
-                version = "1.0.0";
-                sha256 = "Z36ZgkHabbHz0n3V+LdsuN7LT4exWuB+chkMcFwgtpM=";
-              }
-              {
-                name = "markdowntable";
-                publisher = "takumiI";
-                version = "0.13.0";
-                sha256 = "N1FZbDFiX5S+qKrtWpA+zGUhC81db5JiqcSPxeHmkhE=";
-              }
-              {
-                name = "mdc";
-                publisher = "Nuxt";
-                version = "0.5.0";
-                sha256 = "utSIlWOmvlTYuE/GoogNx13wIvjVTJ5LH81N0lJdfJE=";
-              }
-              {
-                name = "nuxtr-vscode";
-                publisher = "Nuxtr";
-                version = "0.2.16";
-                sha256 = "DVoq8zdlJ2ch8PCG34f1PRkILym9XdclUHQ9s2B5OME=";
-              }
-              {
-                name = "Theme-TomorrowKit";
-                publisher = "ms-vscode";
-                version = "0.1.4";
-                sha256 = "qakwJWak+IrIeeVcMDWV/fLPx5M8LQGCyhVt4TS/Lmc=";
-              }
-              {
-                name = "vscode-pbkit";
-                publisher = "pbkit";
-                version = "0.0.8";
-                sha256 = "xM6yKLx9rntZZO0VMGrpyvIFhNAV5pFWIFrUqKglZyI=";
-              }
-            ];
-        })
+      preferences.pacmanPackages = [
+        "code"
       ];
+
+      home.activation.vscodeExtensions = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        PATH_TMP="$PATH"
+        PATH="$PATH:/usr/bin:/usr/sbin"
+
+        install_ext() {
+          local id=$1 ver=''${2:-""}
+          code --list-extensions --show-versions \
+            | grep -qi "^''${id}''${ver}" || code --install-extension "''${id}''${ver}" --force
+        }
+
+        install_ext "antfu.goto-alias"
+        install_ext "antfu.iconify"
+        install_ext "bradlc.vscode-tailwindcss"
+        install_ext "dbaeumer.vscode-eslint"
+        install_ext "eamodio.gitlens"
+        install_ext "firefox-devtools.vscode-firefox-debug"
+        #install_ext "GitHub.copilot-chat" # this is built-in
+        install_ext "ms-vscode.Theme-TomorrowKit"
+        install_ext "Nuxt.mdc"
+        install_ext "Nuxtr.nuxtr-vscode"
+        install_ext "pbkit.vscode-pbkit"
+        install_ext "takumiI.markdowntable"
+        install_ext "vscodevim.vim"
+        install_ext "vue.volar"
+
+        PATH="$PATH_TMP"
+        unset PATH_TMP
+        unset install_ext
+      '';
 
       home.file = {
         ".vscode/argv.json".text = builtins.toJSON {
@@ -79,7 +46,7 @@
           # https://code.visualstudio.com/docs/configure/settings-sync#_recommended-configure-the-keyring-to-use-with-vs-code
           password-store = "gnome-libsecret"; # make gnome-keyring work
         };
-        ".config/Code/User/settings.json".text = builtins.toJSON {
+        ".config/Code - OSS/User/settings.json".text = builtins.toJSON {
           editor.cursorBlinking = "solid";
           editor.rulers = [ 80 ];
           editor.trimWhitespaceOnDelete = true;
@@ -95,3 +62,6 @@
 
     };
 }
+
+# TODO:
+# - Add "code --update-extensions" to zsh update alias
