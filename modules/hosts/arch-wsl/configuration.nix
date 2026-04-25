@@ -33,10 +33,11 @@
         self.homeModules.nix
         self.homeModules.keyring
 
+        self.homeModules.ghostty
+        self.homeModules.git
         self.homeModules.niri
         self.homeModules.noctalia
         self.homeModules.nvim
-        self.homeModules.ghostty
         self.homeModules.vscode
         self.homeModules.zsh
 

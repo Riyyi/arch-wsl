@@ -23,7 +23,7 @@
         "noctalia-qs" # NOTE: put before noctalia-shell!
         "noctalia-shell"
         "power-profiles-daemon"
-        "python3"
+        "python"
         "wlsunset"
         "xdg-desktop-portal"
         "xdg-desktop-portal-gtk"
