@@ -7,7 +7,6 @@
       ...
     }:
     let
-      home = config.preferences.user.home;
       dotfiles = config.preferences.path.dotfiles;
 
       # Calculate the subdirectory directory from root this module is in
@@ -22,7 +21,6 @@
         "gtk-4.0/gtk.css"
         "gtk-4.0/noctalia.css"
         "gtk-4.0/settings.ini"
-        "noctalia/colorschemes/One/One.json"
         "xsettingsd/xsettingsd.conf"
       ];
     in
@@ -52,13 +50,13 @@
         XCURSOR_SIZE = 24;
       };
 
-      # Don't link from the Nix store, so it remains writable
-      home.activation.theme = builtins.concatStringsSep "\n" (
-        map (file: ''
-          mkdir -p "${home}/.config/${dirOf file}"
-          ln -sf "${dotfiles}/${subDir}/dotfiles/${file}" \
-                 "${home}/.config/${file}"
-        '') files
+      home.file = builtins.listToAttrs (
+        map (file: {
+          name = ".config/${file}";
+          value = {
+            source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${subDir}/dotfiles/${file}";
+          };
+        }) files
       );
 
     };

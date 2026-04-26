@@ -31,23 +31,23 @@
       ];
 
       # Deploy wallpapers from repo to home directory
-      home.file = builtins.listToAttrs (
-        map (file: {
-          name = "Pictures/Wallpapers/${file}";
-          value = {
-            source = ./dotfiles/Pictures/Wallpapers + "/${file}";
-          };
-        }) files
-      );
+      home.file =
+        builtins.listToAttrs (
+          map (file: {
+            name = "Pictures/Wallpapers/${file}";
+            value = {
+              source = ./dotfiles/Pictures/Wallpapers + "/${file}";
+            };
+          }) files
+        )
+        // {
+          # settings.json and colorschemes wont be linked from Nix store, so it remains writable
+          ".config/noctalia/settings.json".source =
+            config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${subDir}/dotfiles/.config/noctalia/settings.json";
 
-      # settings.json and colorschemes wont be linked from Nix store, so it remains writable
-      home.activation.noctalia = ''
-        ln -sf "${dotfiles}/${subDir}/dotfiles/.config/noctalia/settings.json" \
-               "${home}/.config/noctalia/settings.json"
-
-        ln -sf "${dotfiles}/${subDir}/dotfiles/.config/noctalia/colorschemes" \
-               "${home}/.config/noctalia/colorschemes"
-      '';
+          ".config/noctalia/colorschemes".source =
+            config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${subDir}/dotfiles/.config/noctalia/colorschemes";
+        };
 
     };
 }

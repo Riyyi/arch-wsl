@@ -78,13 +78,12 @@
           ".config/nvim/lua/nix.lua".text = ''
             vim.g.sqlite_clib_path = "${pkgs.sqlite.out}/lib/libsqlite3${pkgs.stdenv.hostPlatform.extensions.sharedLibrary}"
           '';
-        };
 
-      # lazy-lock.json wont be linked from Nix store, so it remains writable
-      home.activation.nvim = ''
-        ln -sf "${dotfiles}/${subDir}/dotfiles/lazy-lock.json" \
-               "${home}/.config/nvim/lazy-lock.json"
-      '';
+          # lazy-lock.json wont be linked from Nix store, so it remains writable
+
+          ".config/nvim/lazy-lock.json".source =
+            config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${subDir}/dotfiles/lazy-lock.json";
+        };
 
     };
 }

@@ -206,12 +206,11 @@ in
           debug.honor-xdg-activation-with-invalid-serial = _: { }; # recommended by Noctalia
 
         };
+
+        # noctalia.kdl wont be linked from Nix store, so it remains writable
+        ".config/niri/noctalia.kdl".source =
+          config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${subDir}/dotfiles/.config/niri/noctalia.kdl";
       };
 
-      # noctalia.kdl wont be linked from Nix store, so it remains writable
-      home.activation.niri = ''
-        ln -sf "${dotfiles}/${subDir}/dotfiles/.config/niri/noctalia.kdl" \
-               "${home}/.config/niri/noctalia.kdl"
-      '';
     };
 }
