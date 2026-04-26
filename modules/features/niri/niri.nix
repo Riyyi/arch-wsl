@@ -44,9 +44,11 @@ in
           layout.gaps = 16;
 
           input = {
-            warp-mouse-to-focus = _: { };
             focus-follows-mouse = _: { };
             keyboard.xkb.layout = "us";
+            mod-key = "Super";
+            mod-key-nested = "Alt";
+            warp-mouse-to-focus = _: { };
           };
 
           binds = {

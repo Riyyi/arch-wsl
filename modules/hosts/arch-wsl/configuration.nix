@@ -32,6 +32,7 @@
 
         self.homeModules.nix
         self.homeModules.keyring
+        self.homeModules.theme
 
         self.homeModules.ghostty
         self.homeModules.git
@@ -65,21 +66,10 @@
             "tree"
             "tree-sitter"
             "trizen"
-            "ttf-dejavu"
-            "ttf-dejavu-nerd"
             "vulkan-dzn"
             "vulkan-icd-loader"
             "wayland"
             "xwayland-satellite"
-            "cowsay"
-
-            #noctalia-shell deps
-            "imagemagick"
-            "brightnessctl"
-            "qt6-multimedia"
-            "wlr-randr"
-            "noctalia-qs" # NOTE: put before noctalia-shell!
-            "noctalia-shell"
           ];
 
           home.username = user;
