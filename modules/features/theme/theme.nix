@@ -46,7 +46,7 @@
         QT_QPA_PLATFORMTHEME = "gtk3";
         QT_QPA_PLATFORMTHEME_QT6 = "gtk3";
 
-        XCURSOR_THEME = "capitaine-cursors-white";
+        XCURSOR_THEME = "capitaine-cursors-light";
         XCURSOR_SIZE = 24;
       };
 

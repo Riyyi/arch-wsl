@@ -33,7 +33,7 @@ in
 
           # NOTE: Cursor settings are duplicated here and in theme.nix
           cursor = {
-            xcursor-theme = "capitaine-cursors-white";
+            xcursor-theme = "capitaine-cursors-light";
             xcursor-size = 24;
           };
 

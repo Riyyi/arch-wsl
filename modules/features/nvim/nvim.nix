@@ -7,8 +7,6 @@
       ...
     }:
     let
-      user = config.preferences.user.name;
-      home = config.preferences.user.home;
       dotfiles = config.preferences.path.dotfiles;
 
       subDir = dot.subDir __curPos;
@@ -41,6 +39,7 @@
     in
     {
 
+      # Some additional packages needed for fzf compilation
       preferences.pacmanPackages = [
         "fzf"
         "gcc"
@@ -55,15 +54,6 @@
         nixd
         nixfmt
       ];
-
-      # Some additional packages needed for fzf compilation
-      # TODO: pacman
-      # fzf
-      # gcc
-      # make
-      # libgcc
-      # neovim
-      # tree-sitter
 
       home.file =
         builtins.listToAttrs (

@@ -5,7 +5,7 @@
       options.preferences = {
         path.dotfiles = lib.mkOption {
           type = lib.types.str;
-          default = "/mnt/c/Users/Rick/Desktop/arch-wsl";
+          default = "${config.preferences.user.home}/dotfiles";
           description = "Path where this repo is cloned to.";
         };
       };

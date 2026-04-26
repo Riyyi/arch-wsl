@@ -1,5 +1,10 @@
 {
   flake.homeModules.ghostty = {
+
+    preferences.pacmanPackages = [
+      "ghostty"
+    ];
+
     programs.ghostty = {
       enable = true;
       package = null; # nixpkg doesnt work in WSL
