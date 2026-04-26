@@ -14,3 +14,8 @@ to hide windows cursor:
 - rename /usr/share/icons/default to default2
 - set XCURSOR_THEME=default
 - set cursor to existing theme in config.kdl, to get that theme
+
+TODO:
+- zsh
+- push to git
+- try arch in vmware

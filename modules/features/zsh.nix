@@ -1,52 +1,8 @@
 {
-  inputs,
-  self,
-  ...
-}:
-{
   flake.homeModules.zsh =
     {
-      lib,
+      config,
       pkgs,
-      ...
-    }:
-    let
-      selfpkgs = self.packages.${pkgs.stdenv.hostPlatform.system};
-    in
-    {
-      home.packages = with pkgs; [
-        zsh-history-substring-search
-        zsh-syntax-highlighting
-      ];
-
-      programs.zsh = {
-        enable = true;
-        package = selfpkgs.zsh;
-        syntaxHighlighting = {
-          enable = true;
-          highlighters = [
-            "main"
-            "brackets"
-          ];
-          styles = lib.literalExpression ''
-            {
-              "path" = "fg=12,underline";
-            }
-          '';
-        };
-      };
-
-      home.file = {
-        ".config/wget/wgetrc".text = ''
-          hsts-file = ~/.cache/wget-hsts
-        '';
-      };
-    };
-
-  perSystem =
-    {
-      pkgs,
-      system,
       ...
     }:
     let
@@ -57,11 +13,41 @@
       switch-darwin = "sudo darwin-rebuild switch --flake .#$HOST";
       update-darwin = "sudo nix flake update --flake . && switch";
       clean-darwin = "sudo nix-env --delete-generations +5 --profile /nix/var/nix/profiles/system && sudo nix-collect-garbage && sudo nix-store --optimise --ignore-failures";
+
+      #TODO: Update commands for home-manager
+
+      system = pkgs.stdenv.hostPlatform.system;
     in
     {
-      packages.zsh = inputs.wrapper-modules.wrappers.zsh.wrap {
-        inherit pkgs;
-        zshrc.content = ''
+
+      preferences.pacmanPackages = [
+        "zsh"
+        "zsh-history-substring-search"
+        "zsh-syntax-highlighting"
+      ];
+
+      programs.zsh = {
+        enable = true;
+        package = pkgs.emptyDirectory; # use pacman package
+
+        dotDir = "${config.xdg.configHome}/zsh";
+
+        enableCompletion = true;
+        syntaxHighlighting = {
+          enable = true;
+          highlighters = [
+            "main"
+            "brackets"
+          ];
+          styles = {
+            path = "fg=12,underline";
+          };
+        };
+
+        defaultKeymap = "viins";
+        completionInit = "autoload -Uz promptinit colors vcs_info compinit history-search-end";
+
+        initContent = ''
           ## Terminal
 
           # Disable Ctrl+S and Ctrl+Q
@@ -78,8 +64,6 @@
 
           ## ZSH
 
-          autoload -Uz promptinit colors vcs_info compinit history-search-end
-
           # Prompt
           promptinit
           colors
@@ -89,7 +73,7 @@
           precmd() {
                 vcs_info
 
-                print -Pn "\e]0;%n@%m %~\a"
+                print -Pn "\e0;%n@%m %~\a"
           }
 
           # ZSH parameters
@@ -159,16 +143,7 @@
           bindkey "^R" history-incremental-pattern-search-backward  # ctrl-r
 
           # History
-          setopt APPEND_HISTORY
-          setopt EXTENDED_HISTORY
-          setopt HIST_FIND_NO_DUPS
-          setopt HIST_IGNORE_ALL_DUPS
-          setopt HIST_IGNORE_DUPS
-          setopt HIST_REDUCE_BLANKS
-          setopt HIST_SAVE_NO_DUPS
-          #HISTFILE="$XDG_CACHE_HOME/zsh/zsh_history" #TODO
-          HISTSIZE=10000
-          SAVEHIST=10000
+          HISTORY_SUBSTRING_SEARCH_PREFIXED=1
 
           # HACK: Prevent blinking cursor in Ghostty
           # https://github.com/ghostty-org/ghostty/discussions/2812#discussioncomment-12419014
@@ -183,10 +158,24 @@
           zle -N zle-keymap-select
           precmd_functions+=(__set_beam_cursor)
 
-          [ -f "$ZDOTDIR/.zshrc_extended" ] && source "$ZDOTDIR/.zshrc_extended" #TODO: Set ZDOTDIR/pull from other path
+          [ -f "$ZDOTDIR/.zshrc_extended" ] && source "$ZDOTDIR/.zshrc_extended"
         '';
 
-        zshAliases = {
+        history = {
+          size = 10000;
+          path = "${config.xdg.cacheHome}/zsh/zsh_history";
+          extended = true;
+          ignoreDups = true;
+          ignoreAllDups = true;
+          ignoreSpace = true;
+          share = false;
+        };
+
+        historySubstringSearch = {
+          enable = true;
+        };
+
+        shellAliases = {
           ## Aliases
 
           # General
@@ -258,7 +247,7 @@
           neofetch = "fastfetch -c neofetch";
         };
 
-        zshenv.content = ''
+        profileExtra = ''
           # Directories
           export FPATH="$FPATH:$HOME/.local/completion"
           export PATH="$PATH:$HOME/.local/bin"
@@ -325,5 +314,12 @@
           export WINEPREFIX="$XDG_DATA_HOME/wine"
         '';
       };
+
+      home.file = {
+        ".config/wget/wgetrc".text = ''
+          hsts-file = ${config.xdg.cacheHome}/wget-hsts
+        '';
+      };
+
     };
 }
