@@ -207,8 +207,10 @@
           se = "sudoedit";
           semacs = "sudoedit";
           ss = "sudo systemctl";
-          v = "vim --servername VIM";
-          vim = "vim --servername VIM";
+          v = "nvim";
+          nv = "nvim";
+          vim = "nvim";
+          nvim-dev = "NVIM_APPNAME=nvim-dev nvim";
 
           # Git
           g = "git";

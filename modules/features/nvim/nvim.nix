@@ -46,6 +46,7 @@
         "make"
         "libgcc"
         "neovim"
+        "sqlite"
         "tree-sitter"
       ];
 
@@ -65,20 +66,13 @@
           }) files
         )
         // {
-          ".config/nvim/lua/nix.lua".text = ''
-            vim.g.sqlite_clib_path = "${pkgs.sqlite.out}/lib/libsqlite3${pkgs.stdenv.hostPlatform.extensions.sharedLibrary}"
-          '';
-
           # lazy-lock.json wont be linked from Nix store, so it remains writable
-
           ".config/nvim/lazy-lock.json".source =
             config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${subDir}/dotfiles/lazy-lock.json";
+
+          # Used for nvim config testing
+          ".config/nvim-dev".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${subDir}/dotfiles";
         };
 
     };
 }
-
-# TODO: Nvim dev:
-# ln -s /home/rick/nixvm/modules/features/nvim/dotfiles ~/.config/nvim-dev
-# cp ~/.config/nvim/lua/nix.lua ~/.config/nvim-dev/lua
-# NVIM_APPNAME=nvim-dev nvim

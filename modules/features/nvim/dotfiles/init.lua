@@ -1,5 +1,4 @@
 require("core")
-require("nix")
 require("packages").setup({
 	require("ui"),
 	require("selection"),
