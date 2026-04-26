@@ -1,14 +1,13 @@
 { dot, inputs, ... }:
 let
-  ghostty = "/usr/sbin/ghostty";
+  ghostty = "/usr/bin/ghostty";
   noctalia = "qs -c noctalia-shell";
-  xwayland-satellite = "/usr/sbin/xwayland-satellite";
+  xwayland-satellite = "/usr/bin/xwayland-satellite";
 in
 {
   flake.homeModules.niri =
     { config, ... }:
     let
-      home = config.preferences.user.home;
       dotfiles = config.preferences.path.dotfiles;
 
       subDir = dot.subDir __curPos;

@@ -2,6 +2,7 @@
   flake.homeModules.vmware = {
 
     preferences.pacmanPackages = [
+      "gtkmm3"
       "mesa"
       "open-vm-tools"
       "vulkan-icd-loader"
