@@ -15,7 +15,7 @@ in
     {
 
       preferences.pacmanPackages = [
-        "niri-no-decorations"
+        "niri"
         "qt6-multimedia"
         "wlr-randr"
         "xwayland-satellite"

@@ -7,6 +7,7 @@
       self.homeModules.theme
       self.homeModules.greeter
 
+      self.homeModules.firefox
       self.homeModules.ghostty
       self.homeModules.niri
       self.homeModules.noctalia
