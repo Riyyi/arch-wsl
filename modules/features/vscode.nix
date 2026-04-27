@@ -62,6 +62,3 @@
 
     };
 }
-
-# TODO:
-# - Add "code --update-extensions" to zsh update alias

@@ -26,6 +26,7 @@
         self.modules.generic.base
 
         self.homeModules.arch
+        self.homeModules.docker
         self.homeModules.general
         self.homeModules.desktop
         self.homeModules.vmware
