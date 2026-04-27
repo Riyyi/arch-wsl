@@ -25,6 +25,7 @@
       imports = [
         self.modules.generic.base
 
+        self.homeModules.arch
         self.homeModules.general
         self.homeModules.desktop
         self.homeModules.vmware

@@ -6,17 +6,15 @@
       ...
     }:
     let
-      switch-nixos = "sudo nixos-rebuild switch --sudo --flake .#$HOST";
-      update-nixos = "sudo nix flake update --flake . && switch";
-      clean-nixos = "sudo nix-env --delete-generations +5 --profile /nix/var/nix/profiles/system && nix-collect-garbage && nix-store --optimise";
+      # switch-nixos = "sudo nixos-rebuild switch --sudo --flake .#$HOST";
+      # update-nixos = "sudo nix flake update --flake . && switch";
+      # clean-nixos = "sudo nix-env --delete-generations +5 --profile /nix/var/nix/profiles/system && nix-collect-garbage && nix-store --optimise";
 
-      switch-darwin = "sudo darwin-rebuild switch --flake .#$HOST";
-      update-darwin = "sudo nix flake update --flake . && switch";
-      clean-darwin = "sudo nix-env --delete-generations +5 --profile /nix/var/nix/profiles/system && sudo nix-collect-garbage && sudo nix-store --optimise --ignore-failures";
+      # switch-darwin = "sudo darwin-rebuild switch --flake .#$HOST";
+      # update-darwin = "sudo nix flake update --flake . && switch";
+      # clean-darwin = "sudo nix-env --delete-generations +5 --profile /nix/var/nix/profiles/system && sudo nix-collect-garbage && sudo nix-store --optimise --ignore-failures";
 
-      #TODO: Update commands for home-manager
-
-      system = pkgs.stdenv.hostPlatform.system;
+      # system = pkgs.stdenv.hostPlatform.system;
     in
     {
 
@@ -236,18 +234,19 @@
           gt = "git ls-tree -r --name-only $(git branch --show-current) .";
 
           # NixOS
-          list = "nixos-rebuild list-generations";
-          switch =
-            if system != "x86_64-darwin" && system != "aarch64-darwin" then switch-nixos else switch-darwin;
-          update =
-            if system != "x86_64-darwin" && system != "aarch64-darwin" then update-nixos else update-darwin;
-          clean =
-            if system != "x86_64-darwin" && system != "aarch64-darwin" then clean-nixos else clean-darwin;
+          # list = "nixos-rebuild list-generations";
+          # switch =
+          #   if system != "x86_64-darwin" && system != "aarch64-darwin" then switch-nixos else switch-darwin;
+          # update =
+          #   if system != "x86_64-darwin" && system != "aarch64-darwin" then update-nixos else update-darwin;
+          # clean =
+          #   if system != "x86_64-darwin" && system != "aarch64-darwin" then clean-nixos else clean-darwin;
 
           # Applications
           mpv-window = "nohup mpv --idle --force-window >/dev/null 2>&1 &";
           neofetch = "fastfetch -c neofetch";
-        };
+        }
+        // config.preferences.shell.aliases;
 
         profileExtra = ''
           # Directories
