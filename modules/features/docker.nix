@@ -1,14 +1,17 @@
 {
-  flake.homeModules.docker = {
+  flake.homeModules.docker =
+    { lib, ... }:
+    {
 
-    preferences.pacmanPackages = [
-      "docker"
-      "docker-compose"
-      "lazydocker"
-    ];
+      preferences.pacmanPackages = [
+        "docker"
+        "docker-compose"
+        "lazydocker"
+      ];
 
-    #TODO:
-    # systemctl enable docker.service
+      home.activation.docker = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        /bin/sudo systemctl enable --now docker.service
+      '';
 
-  };
+    };
 }
