@@ -7,6 +7,7 @@
       self.homeModules.theme
       self.homeModules.greeter
 
+      self.homeModules.emacs
       self.homeModules.firefox
       self.homeModules.ghostty
       self.homeModules.niri

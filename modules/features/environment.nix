@@ -19,6 +19,7 @@
         "cmake"
         "coreutils"
         "declpac-git"
+        "duf"
         "fastfetch"
         "fzf"
         "git"

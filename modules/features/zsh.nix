@@ -320,6 +320,22 @@
         ".config/wget/wgetrc".text = ''
           hsts-file = ${config.xdg.cacheHome}/wget-hsts
         '';
+
+        ".local/bin/aliases".executable = true;
+        ".local/bin/aliases".text = ''
+          #!/bin/sh
+
+          emacs() {
+              # Create new frame (if there isnt one or no file is specified)
+              if [ -z "$(pgrep -f emacsclient.*-c)" ] || [ "$1" = "" ]; then
+                  setsid -f emacsclient -a ''' -c "$@" > /dev/null 2>&1
+              else
+                  setsid -f emacsclient -a ''' "$@" > /dev/null 2>&1
+              fi
+          }
+
+          "$@"
+        '';
       };
 
     };
