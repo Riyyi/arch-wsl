@@ -152,6 +152,15 @@
                     ]
                 },
                 {
+                    "defaultSettings": {
+                        "connectedColor": "primary",
+                        "disableToastNotifications": false,
+                        "disconnectedColor": "none",
+                        "displayMode": "onhover"
+                    },
+                    "id": "plugin:network-manager-vpn"
+                },
+                {
                     "deviceNativePath": "__default__",
                     "displayMode": "graphic-clean",
                     "hideIfIdle": false,
@@ -180,7 +189,7 @@
                     "colorizeSystemText": "none",
                     "customIconPath": "",
                     "enableColorization": false,
-                    "icon": "hexagon",
+                    "icon": "settings-cog",
                     "id": "ControlCenter",
                     "useDistroLogo": false
                 },
@@ -510,7 +519,7 @@
         "overlayLayer": true
     },
     "plugins": {
-        "autoUpdate": false,
+        "autoUpdate": true,
         "notifyUpdates": true
     },
     "sessionMenu": {

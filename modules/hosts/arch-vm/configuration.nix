@@ -33,7 +33,12 @@
 
         {
           preferences.pacmanPackages = [
+            "dhcpcd"
             "neovim"
+            "networkmanager"
+            "networkmanager-openconnect"
+            "network-manager-applet" # this is required for the password prompt
+            "nm-connection-editor"
           ];
 
           home.username = user;
@@ -42,6 +47,10 @@
           xdg.enable = true;
 
           home.stateVersion = "25.11";
+
+          home.activation.configuration = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+            /bin/sudo systemctl enable --now NetworkManager.service
+          '';
 
         }
       ];

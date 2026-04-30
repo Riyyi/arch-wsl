@@ -11,7 +11,7 @@
       ];
 
       home.file = {
-        ".vscode/argv.json".text = builtins.toJSON {
+        ".vscode-oss/argv.json".text = builtins.toJSON {
           enable-crash-reporter = false;
           # https://code.visualstudio.com/docs/configure/settings-sync#_recommended-configure-the-keyring-to-use-with-vs-code
           password-store = "gnome-libsecret"; # make gnome-keyring work

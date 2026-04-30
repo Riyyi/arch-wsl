@@ -26,6 +26,7 @@ in
 
           include = [ "noctalia.kdl" ];
 
+          spawn-at-startup = [ "nm-applet" ];
           spawn-sh-at-startup = [
             "${noctalia}"
           ];

@@ -4,10 +4,14 @@
     {
 
       preferences.pacmanPackages = [
+        "aspnet-runtime"
+        "aspnet-targeting-pack"
         "docker"
         "docker-compose"
+        "dotnet-sdk"
         "keepassxc"
         "lazydocker"
+        "npm"
       ];
 
       # Prefer nixpkgs over AUR, where possible (OpenGL)
