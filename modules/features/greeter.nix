@@ -24,8 +24,11 @@
             session_log = ".local/state/ly-session.log";
           };
         in
-        # Deploy config, ensuring activation runs after all files are written
+        # Enabele ly on TTY1 and deploy its config
         lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+          /bin/sudo systemctl enable --now ly@tty1.service
+          /bin/sudo systemctl disable getty@tty1.service
+
           /bin/sudo mkdir -p /etc/ly
           printf '%s' "${lyConfig}" | /bin/sudo tee /etc/ly/config.ini > /dev/null
         '';

@@ -41,7 +41,10 @@
           }) files
         )
         // {
-          # settings.json and colorschemes wont be linked from Nix store, so it remains writable
+          # Dont link these from the Nix store, so it remains writable
+          ".config/noctalia/plugins.json".source =
+            config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${subDir}/dotfiles/.config/noctalia/plugins.json";
+
           ".config/noctalia/settings.json".source =
             config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${subDir}/dotfiles/.config/noctalia/settings.json";
 
