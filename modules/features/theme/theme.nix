@@ -29,12 +29,17 @@
       preferences.pacmanPackages = [
         "adw-gtk-theme"
         "capitaine-cursors"
+        "noto-fonts"
+        "noto-fonts-cjk"
+        "noto-fonts-emoji"
         "nwg-look"
         "papirus-icon-theme"
         "qt5-base" # contains QGtk3Style implementation for Qt5
         "qt6-base" # contains QGtk3Style implementation for Qt6
         "ttf-dejavu"
         "ttf-dejavu-nerd"
+        "ttf-nerd-fonts-symbols"
+        "ttf-nerd-fonts-symbols-mono"
       ];
 
       home.sessionVariables = {
