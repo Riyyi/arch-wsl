@@ -22,9 +22,11 @@ in
       ];
 
       home.file = {
-        ".config/niri/config.kdl".text = inputs.wrapper-modules.lib.toKdl {
-
-          include = [ "noctalia.kdl" ];
+        ".config/niri/config.kdl".text = ''
+          include "monitors.kdl"
+          include "noctalia.kdl"
+        ''
+        + inputs.wrapper-modules.lib.toKdl {
 
           spawn-at-startup = [ "nm-applet" ];
           spawn-sh-at-startup = [
@@ -207,7 +209,9 @@ in
 
         };
 
-        # noctalia.kdl wont be linked from Nix store, so it remains writable
+        # Do not link from the Nix store, so it remains writable
+        ".config/niri/monitors.kdl".source =
+          config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${subDir}/dotfiles/.config/niri/monitors.kdl";
         ".config/niri/noctalia.kdl".source =
           config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${subDir}/dotfiles/.config/niri/noctalia.kdl";
       };
