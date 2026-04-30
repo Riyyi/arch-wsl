@@ -7,16 +7,16 @@
     {
 
       preferences.pacmanPackages = [
-        "code"
+        "visual-studio-code-bin"
       ];
 
       home.file = {
-        ".vscode-oss/argv.json".text = builtins.toJSON {
+        ".vscode/argv.json".text = builtins.toJSON {
           enable-crash-reporter = false;
           # https://code.visualstudio.com/docs/configure/settings-sync#_recommended-configure-the-keyring-to-use-with-vs-code
           password-store = "gnome-libsecret"; # make gnome-keyring work
         };
-        ".config/Code - OSS/User/settings.json".text = builtins.toJSON {
+        ".config/Code/User/settings.json".text = builtins.toJSON {
           editor.cursorBlinking = "solid";
           editor.rulers = [ 80 ];
           editor.trimWhitespaceOnDelete = true;
@@ -25,6 +25,42 @@
           files.trimTrailingWhitespace = true;
           gitlens.ai.model = "vscode";
           gitlens.ai.vscode.model = "copilot:claude-haiku-4.5";
+          omnisharp.path = "/usr/bin/omnisharp";
+          omnisharp.waitForDebugger = true;
+          vim.leader = "<space>";
+          vim.normalModeKeyBindingsNonRecursive = [
+            {
+              before = [
+                "<leader>"
+                " "
+              ];
+              commands = [ "workbench.action.showCommands" ];
+            }
+            {
+              before = [
+                "<leader>"
+                "f"
+                "f"
+              ];
+              commands = [ "workbench.action.quickOpen" ];
+            }
+            {
+              before = [
+                "<leader>"
+                "w"
+                "m"
+              ];
+              commands = [ "markdown.showPreviewToSide" ];
+            }
+            {
+              before = [
+                "<leader>"
+                "w"
+                "M"
+              ];
+              commands = [ "markdown.showPreview" ];
+            }
+          ];
           vim.useSystemClipboard = true;
           workbench.colorTheme = "Tomorrow Night";
         };
@@ -47,6 +83,8 @@
         install_ext "eamodio.gitlens"
         install_ext "firefox-devtools.vscode-firefox-debug"
         #install_ext "GitHub.copilot-chat" # this is built-in
+        install_ext "ms-dotnettools.csharp"
+        install_ext "ms-dotnettools.csdevkit"
         install_ext "ms-vscode.Theme-TomorrowKit"
         install_ext "Nuxt.mdc"
         install_ext "Nuxtr.nuxtr-vscode"

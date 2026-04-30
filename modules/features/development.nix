@@ -11,7 +11,10 @@
         "dotnet-sdk"
         "keepassxc"
         "lazydocker"
+        "mono-msbuild"
         "npm"
+        "omnisharp-roslyn-bin"
+        "typescript-language-server"
       ];
 
       # Prefer nixpkgs over AUR, where possible (OpenGL)
