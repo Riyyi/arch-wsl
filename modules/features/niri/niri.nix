@@ -25,6 +25,21 @@ in
         ".config/niri/config.kdl".text = ''
           include "monitors.kdl"
           include "noctalia.kdl"
+
+          workspace "1"
+          workspace "2"
+          workspace "3"
+          workspace "4"
+          workspace "5"
+          workspace "6"
+          workspace "7"
+          workspace "8"
+          workspace "9" {
+            open-on-output "Virtual-2"
+          }
+          workspace "10" {
+            open-on-output "Virtual-2"
+          }
         ''
         + inputs.wrapper-modules.lib.toKdl {
 
