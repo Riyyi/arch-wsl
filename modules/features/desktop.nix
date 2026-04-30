@@ -12,6 +12,7 @@
       self.homeModules.ghostty
       self.homeModules.niri
       self.homeModules.noctalia
+      self.homeModules.sound
       self.homeModules.vscode
     ];
 
