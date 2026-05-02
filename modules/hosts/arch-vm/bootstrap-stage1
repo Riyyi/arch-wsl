@@ -61,6 +61,8 @@ sed -Ei '
 # Add user account
 useradd -m -G wheel -s /bin/bash "$user"
 passwd "$user"
+mv /dotfiles "/home/$user"
+chown -R "$user:$user" "/home/$user/dotfiles"
 
 # Enable pacman colors
 sed -Ei '

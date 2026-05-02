@@ -25,7 +25,7 @@ fi
 # Install nix
 curl -fsSL https://install.determinate.systems/nix | sh -s -- install
 . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-echo "extra-experimental-features = pipe-operators" | sudo tee -a /etc/nix/nix.custom.conf
+echo "extra-experimental-features = pipe-operators" | sudo tee -a /etc/nix/nix.custom.conf > /dev/null
 
 # Switch everything!
 nix run nixpkgs#home-manager -- switch --flake .#arch-vm
