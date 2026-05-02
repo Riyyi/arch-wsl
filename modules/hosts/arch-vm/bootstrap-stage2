@@ -1,0 +1,45 @@
+#!/bin/sh
+
+# Exit on any error
+set -e
+
+# ------------------------------------------
+# Check the environment
+
+[ "$(tty)" != "/dev/tty1" ] || { echo "error: script must not run from TTY1" >&2; exit 1; }
+
+# ------------------------------------------
+# Configure system
+
+if ! pacman -Qs declpac-git > /dev/null; then
+	rm -rf ./declpac-git
+	git clone https://aur.archlinux.org/declpac-git.git
+	cd ./declpac-git
+	makepkg -si
+	cd - > /dev/null
+	rm -rf ./declpac-git
+fi
+
+# Download dotfiles
+git clone https://github.com/riyyi/arch-wsl dotfiles
+cd dotfiles
+
+# Install nix
+curl -fsSL https://install.determinate.systems/nix | sh -s -- install
+. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+echo "extra-experimental-features = pipe-operators" >> /etc/nix/nix.custom.conf
+
+exit 0
+
+sudo pacman -S --noconfirm docker docker-compose ly
+nix run nixpkgs#home-manager -- switch --flake .#arch-vm
+# TODO: code: command not found (vscode auto extension install) visual-studio-code-bin
+sudo declpac --state /home/rick/.cache/declpac
+#TODO: fix declpac "~" file expansion
+#TODO: fix declpac aur dependency with aur dependency install issue
+chsh -s /bin/zsh
+reboot
+
+(for VPN): open noctalia settings, toggle plugins in settings, change order in bar
+TODO: (for VPN): setup secrets (sop-nix)
+TODO: configure .zshrc_extended via secrets
