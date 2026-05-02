@@ -2,6 +2,8 @@
 
 # NOTE: This script will automatically be run from stage0, inside the chroot
 
+user="${1:-rick}"
+
 # Exit on any error
 set -e
 
@@ -57,8 +59,8 @@ sed -Ei '
 ' /etc/sudoers
 
 # Add user account
-useradd -m -G wheel -s /bin/bash rick
-passwd rick
+useradd -m -G wheel -s /bin/bash "$user"
+passwd "$user"
 
 # Enable pacman colors
 sed -Ei '

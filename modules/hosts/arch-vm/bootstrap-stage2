@@ -20,10 +20,6 @@ if ! pacman -Qs declpac-git > /dev/null; then
 	rm -rf ./declpac-git
 fi
 
-# Download dotfiles
-git clone https://github.com/riyyi/arch-wsl dotfiles
-cd dotfiles
-
 # Install nix
 curl -fsSL https://install.determinate.systems/nix | sh -s -- install
 . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh

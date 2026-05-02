@@ -16,6 +16,9 @@ stage1="${stage1%0}1"
 
 # ------------------------------------------
 # Start installation
+#
+printf "Enter new username: "
+IFS= read -r user
 
 timedatectl
 
@@ -44,8 +47,13 @@ genfstab -U /mnt >> /mnt/etc/fstab
 
 # Run bootstrap-stage1 inside installation environment
 cp "$stage1" /mnt/stage1
-arch-chroot /mnt /stage1
+arch-chroot /mnt /stage1 "$user"
 rm -f /mnt/stage1
+
+# Copy dotfiles to user home
+directory="$(basename "$(pwd)")"
+cp -R "../$directory" "/mnt/home/$user/dotfiles"
+chown -R "$user:$user" "/mnt/home/$user/dotfiles"
 
 # Reboot
 umount -R /mnt
