@@ -23,8 +23,12 @@
         postman
       ];
 
-      home.activation.docker = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        /bin/sudo systemctl enable --now docker.service
+      home.activation.docker = lib.hm.dag.entryAfter [ "pacmanPackages" ] ''
+        if test -x /bin/docker > /dev/null 2>&1; then
+            /bin/sudo systemctl enable --now docker.service
+        else
+            _iError "Package not installed, skipping 'docker'"
+        fi
       '';
 
     };

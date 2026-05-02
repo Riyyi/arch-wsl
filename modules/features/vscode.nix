@@ -66,36 +66,35 @@
         };
       };
 
-      home.activation.vscodeExtensions = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        PATH_TMP="$PATH"
-        PATH="$PATH:/usr/bin:/usr/sbin"
+      home.activation.vscodeExtensions = lib.hm.dag.entryAfter [ "pacmanPackages" ] ''
+        if test -x /bin/code > /dev/null 2>&1; then
+            install_ext() {
+              local id=$1 ver=''${2:-""}
+              /bin/code --list-extensions --show-versions \
+                  | grep -qi "^''${id}''${ver}" || /bin/code --install-extension "''${id}''${ver}" --force
+            }
 
-        install_ext() {
-          local id=$1 ver=''${2:-""}
-          code --list-extensions --show-versions \
-            | grep -qi "^''${id}''${ver}" || code --install-extension "''${id}''${ver}" --force
-        }
+            install_ext "antfu.goto-alias"
+            install_ext "antfu.iconify"
+            install_ext "bradlc.vscode-tailwindcss"
+            install_ext "dbaeumer.vscode-eslint"
+            install_ext "eamodio.gitlens"
+            install_ext "firefox-devtools.vscode-firefox-debug"
+            #install_ext "GitHub.copilot-chat" # this is built-in
+            install_ext "ms-dotnettools.csharp"
+            install_ext "ms-dotnettools.csdevkit"
+            install_ext "ms-vscode.Theme-TomorrowKit"
+            install_ext "Nuxt.mdc"
+            install_ext "Nuxtr.nuxtr-vscode"
+            install_ext "pbkit.vscode-pbkit"
+            install_ext "takumiI.markdowntable"
+            install_ext "vscodevim.vim"
+            install_ext "vue.volar"
 
-        install_ext "antfu.goto-alias"
-        install_ext "antfu.iconify"
-        install_ext "bradlc.vscode-tailwindcss"
-        install_ext "dbaeumer.vscode-eslint"
-        install_ext "eamodio.gitlens"
-        install_ext "firefox-devtools.vscode-firefox-debug"
-        #install_ext "GitHub.copilot-chat" # this is built-in
-        install_ext "ms-dotnettools.csharp"
-        install_ext "ms-dotnettools.csdevkit"
-        install_ext "ms-vscode.Theme-TomorrowKit"
-        install_ext "Nuxt.mdc"
-        install_ext "Nuxtr.nuxtr-vscode"
-        install_ext "pbkit.vscode-pbkit"
-        install_ext "takumiI.markdowntable"
-        install_ext "vscodevim.vim"
-        install_ext "vue.volar"
-
-        PATH="$PATH_TMP"
-        unset PATH_TMP
-        unset install_ext
+            unset install_ext
+        else
+            _iError "Package not installed, skipping 'vscode'"
+        fi
       '';
 
     };

@@ -56,7 +56,9 @@
       ];
 
       home.activation.pacmanPackages = ''
-        printf '%s\n' "${lib.concatStringsSep "\n" packages}" > ${config.xdg.cacheHome}/declpac
+        declpac="${config.xdg.configHome}/declpac"
+        printf '%s\n' "${lib.concatStringsSep "\n" packages}" > $declpac
+        _i "Pacman state file written to $declpac"
       '';
 
     };

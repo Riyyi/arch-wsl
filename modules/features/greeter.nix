@@ -25,9 +25,13 @@
           };
         in
         # Enabele ly on TTY1 and deploy its config
-        lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-          /bin/sudo systemctl enable --now ly@tty1.service
-          /bin/sudo systemctl disable getty@tty1.service
+        lib.hm.dag.entryAfter [ "pacmanPackages" ] ''
+          if test -x /bin/ly-dm > /dev/null 2>&1; then
+              /bin/sudo systemctl enable --now ly@tty1.service
+              /bin/sudo systemctl disable getty@tty1.service
+          else
+              _iError "Package not installed, skipping 'ly'"
+          fi
 
           /bin/sudo mkdir -p /etc/ly
           printf '%s' "${lyConfig}" | /bin/sudo tee /etc/ly/config.ini > /dev/null
