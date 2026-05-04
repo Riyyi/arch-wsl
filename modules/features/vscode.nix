@@ -40,6 +40,13 @@
             {
               before = [
                 "<leader>"
+                ","
+              ];
+              commands = [ "workbench.action.tasks.runTask" ];
+            }
+            {
+              before = [
+                "<leader>"
                 "f"
                 "f"
               ];
