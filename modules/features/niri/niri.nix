@@ -68,6 +68,8 @@ in
             warp-mouse-to-focus = _: { };
           };
 
+          gestures.hot-corners.off = _: {};
+
           binds = {
             ##--- General ---##
 
