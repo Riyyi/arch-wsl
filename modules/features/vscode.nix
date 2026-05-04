@@ -18,6 +18,7 @@
         };
         ".config/Code/User/settings.json".text = builtins.toJSON {
           editor.cursorBlinking = "solid";
+          editor.formatOnSave = true;
           editor.rulers = [ 80 ];
           editor.trimWhitespaceOnDelete = true;
           files.insertFinalNewline = true;
