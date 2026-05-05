@@ -16,6 +16,14 @@
           # https://code.visualstudio.com/docs/configure/settings-sync#_recommended-configure-the-keyring-to-use-with-vs-code
           password-store = "gnome-libsecret"; # make gnome-keyring work
         };
+
+        ".config/Code/User/keybindings.json".text = builtins.toJSON [
+          {
+            key = "alt+w";
+            command = "workbench.action.closeActiveEditor";
+          }
+        ];
+
         ".config/Code/User/settings.json".text = builtins.toJSON {
           editor.cursorBlinking = "solid";
           editor.formatOnSave = true;
@@ -55,10 +63,26 @@
             {
               before = [
                 "<leader>"
+                "f"
+                "s"
+              ];
+              commands = [ "workbench.action.files.save" ];
+            }
+            {
+              before = [
+                "<leader>"
                 "w"
                 "m"
               ];
               commands = [ "markdown.showPreviewToSide" ];
+            }
+            {
+              before = [
+                "<leader>"
+                "w"
+                "q"
+              ];
+              commands = [ "workbench.action.closeActiveEditor" ];
             }
             {
               before = [
