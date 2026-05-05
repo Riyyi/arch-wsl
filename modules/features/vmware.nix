@@ -16,6 +16,8 @@
         in
         lib.hm.dag.entryAfter [ "pacmanPackages" ] ''
           if test -x /bin/vmtoolsd > /dev/null 2>&1; then
+              /bin/sudo mkdir -p /mnt/share
+
               /bin/sudo systemctl enable --now vmtoolsd.service
               /bin/sudo systemctl enable --now vmware-vmblock-fuse.service
 

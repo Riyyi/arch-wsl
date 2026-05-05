@@ -23,13 +23,15 @@ if ! pacman -Qs declpac-git > /dev/null; then
 fi
 
 # Install nix
-curl -fsSL https://install.determinate.systems/nix | sh -s -- install
-. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-echo "extra-experimental-features = pipe-operators" | sudo tee -a /etc/nix/nix.custom.conf > /dev/null
+if ! command -v nix > /dev/null 2>&1; then
+	curl -fsSL https://install.determinate.systems/nix | sh -s -- install
+	. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+	echo "extra-experimental-features = pipe-operators" | sudo tee -a /etc/nix/nix.custom.conf > /dev/null
+fi
 
 # Switch everything!
 nix run nixpkgs#home-manager -- switch --flake .#arch-vm
-sudo declpac --state /home/rick/.config/declpac
+declpac --state /home/rick/.config/declpac
 nix run nixpkgs#home-manager -- switch --flake .#arch-vm
 chsh -s /bin/zsh
 
@@ -37,9 +39,6 @@ chsh -s /bin/zsh
 reboot
 
 exit 0
-
-#TODO: fix declpac "~" file expansion
-#TODO: fix declpac aur dependency with aur dependency install issue
 
 (for VPN): open noctalia settings, toggle plugins in settings, change order in bar
 TODO: (for VPN): setup secrets (sop-nix)
