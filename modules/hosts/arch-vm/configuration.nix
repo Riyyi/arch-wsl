@@ -41,6 +41,12 @@
             "nm-connection-editor"
           ];
 
+          # Improve home-manager on non-NixOS distros
+          targets.genericLinux = {
+            enable = true;
+            gpu.enable = true;
+          };
+
           home.username = user;
           home.homeDirectory = home;
 
@@ -48,7 +54,7 @@
 
           home.stateVersion = "25.11";
 
-          home.activation.configuration = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+          home.activation.configuration = lib.hm.dag.entryAfter [ "pacmanPackages" ] ''
             /bin/sudo systemctl enable --now NetworkManager.service
           '';
 
