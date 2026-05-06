@@ -55,6 +55,14 @@
             {
               before = [
                 "<leader>"
+                "c"
+                "c"
+              ];
+              commands = [ "editor.action.commentLine" ];
+            }
+            {
+              before = [
+                "<leader>"
                 "f"
                 "f"
               ];
@@ -93,8 +101,21 @@
               commands = [ "markdown.showPreview" ];
             }
           ];
+
+          vim.visualModeKeyBindingsNonRecursive = [
+            {
+              before = [
+                "<leader>"
+                "c"
+                "c"
+              ];
+              commands = [ "editor.action.commentLine" ];
+            }
+          ];
+
           vim.useSystemClipboard = true;
           workbench.colorTheme = "Tomorrow Night";
+          workbench.editor.wrapTabs = true;
         };
       };
 
