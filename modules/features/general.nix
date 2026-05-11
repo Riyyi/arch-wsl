@@ -10,6 +10,7 @@
     imports = [
       self.homeModules.nix
       self.homeModules.environment
+      self.homeModules.sops
     ];
 
   };

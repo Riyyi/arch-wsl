@@ -156,7 +156,7 @@
           zle -N zle-keymap-select
           precmd_functions+=(__set_beam_cursor)
 
-          [ -f "$ZDOTDIR/.zshrc_extended" ] && source "$ZDOTDIR/.zshrc_extended"
+          [ -f "$ZDOTDIR/.zshrc-extended" ] && source "$ZDOTDIR/.zshrc-extended"
         '';
 
         history = {

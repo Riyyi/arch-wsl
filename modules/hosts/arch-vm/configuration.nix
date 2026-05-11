@@ -58,6 +58,14 @@
             /bin/sudo systemctl enable --now NetworkManager.service
           '';
 
+          sops.secrets.zshrc-extended = {
+            # owner = user; # not available in home-manager standalone
+            mode = "0550"; # add execute permissions
+            sopsFile = ./../../features/sops/secrets/arch-vm/zshrc-extended.sh; # from
+            key = "data"; # what
+            path = "${home}/.config/zsh/.zshrc-extended"; # to
+          };
+
         }
       ];
 
