@@ -1,4 +1,4 @@
-{ dot, ... }:
+{ self, ... }:
 {
   flake.homeModules.nvim =
     {
@@ -9,7 +9,8 @@
     let
       dotfiles = config.preferences.path.dotfiles;
 
-      subDir = dot.subDir __curPos;
+      # Calculate the subdirectory directory from root this module is in
+      subDir = self.lib.subDir __curPos;
 
       files = [
         "init.lua"

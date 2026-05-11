@@ -1,7 +1,7 @@
 { lib, rootPath, ... }:
 {
 
-  _module.args.dot = {
+  flake.lib = {
 
     # Calculate the subdirectory directory from root the calling module is in
     subDir =

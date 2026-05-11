@@ -1,17 +1,15 @@
-{ rootPath, ... }:
+{ self, ... }:
 {
   flake.homeModules.theme =
     {
       config,
-      lib,
       ...
     }:
     let
       dotfiles = config.preferences.path.dotfiles;
 
       # Calculate the subdirectory directory from root this module is in
-      modDir = dirOf __curPos.file;
-      subDir = lib.strings.removePrefix (toString rootPath + "/") (toString modDir);
+      subDir = self.lib.subDir __curPos;
 
       files = [
         "ghostty/themes/noctalia"

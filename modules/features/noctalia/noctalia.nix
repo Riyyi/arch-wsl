@@ -1,13 +1,13 @@
-{ dot, ... }:
+{ self, ... }:
 {
 
   flake.homeModules.noctalia =
     { config, ... }:
     let
-      home = config.preferences.user.home;
       dotfiles = config.preferences.path.dotfiles;
 
-      subDir = dot.subDir __curPos;
+      # Calculate the subdirectory directory from root this module is in
+      subDir = self.lib.subDir __curPos;
 
       modDir = dirOf __curPos.file;
       entries = builtins.readDir "${modDir}/dotfiles/Pictures/Wallpapers";

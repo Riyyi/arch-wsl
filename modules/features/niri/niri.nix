@@ -1,4 +1,4 @@
-{ dot, inputs, ... }:
+{ inputs, self, ... }:
 let
   ghostty = "/usr/bin/ghostty";
   noctalia = "qs -c noctalia-shell";
@@ -10,7 +10,8 @@ in
     let
       dotfiles = config.preferences.path.dotfiles;
 
-      subDir = dot.subDir __curPos;
+      # Calculate the subdirectory directory from root this module is in
+      subDir = self.lib.subDir __curPos;
     in
     {
 
