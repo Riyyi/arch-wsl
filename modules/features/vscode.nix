@@ -29,9 +29,12 @@
           editor.formatOnSave = true;
           editor.rulers = [ 80 ];
           editor.trimWhitespaceOnDelete = true;
+          explorer.autoReveal = false;
+          explorer.sortOrder = "type";
           files.insertFinalNewline = true;
           files.trimFinalNewlines = true;
           files.trimTrailingWhitespace = true;
+          git.openRepositoryInParentFolders = "never";
           gitlens.ai.model = "vscode";
           gitlens.ai.vscode.model = "copilot:claude-haiku-4.5";
           omnisharp.path = "/usr/bin/omnisharp";
@@ -75,6 +78,14 @@
                 "s"
               ];
               commands = [ "workbench.action.files.save" ];
+            }
+            {
+              before = [
+                "<leader>"
+                "p"
+                "p"
+              ];
+              commands = [ "workbench.action.quickOpenRecent" ];
             }
             {
               before = [
