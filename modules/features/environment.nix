@@ -33,7 +33,6 @@
         "man-pages"
         "ncdu"
         "neovim"
-        "opencode"
         "openssh"
         "rsync"
         "sudo"
