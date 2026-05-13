@@ -41,6 +41,33 @@ in
           workspace "10" {
             open-on-output "Virtual-2"
           }
+
+          // Window rules
+
+          window-rule {
+              match app-id="imv"
+              open-floating true
+          }
+          window-rule {
+              match app-id="mpv"
+              open-floating true
+          }
+          window-rule {
+              match app-id="firefox" title="Library"
+              open-floating true
+          }
+          window-rule {
+              match app-id="firefox" title="^About.*"
+              open-floating true
+          }
+          window-rule {
+              match app-id="thunar" title="File Operation Progress"
+              open-floating true
+          }
+          window-rule {
+              match app-id="thunar" title="Rename .*"
+              open-floating true
+          }
         ''
         + inputs.wrapper-modules.lib.toKdl {
 
