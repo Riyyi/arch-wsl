@@ -49,6 +49,7 @@
         "neovim"
         "sqlite"
         "tree-sitter"
+        "tree-sitter-cli"
       ];
 
       # These packages arent available the the official repos

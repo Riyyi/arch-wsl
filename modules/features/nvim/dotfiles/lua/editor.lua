@@ -8,34 +8,21 @@ return {
 
 	-- Highlight, edit, and navigate code
 	{
-		"nvim-treesitter/nvim-treesitter",
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter-textobjects",
-		},
-		branch = "master", -- nvim 0.11 or lower only!
-		build = ":TSUpdate",
-		opts = {
-			ensure_installed = {
-				"bash", "c", "cmake", "cpp", "c_sharp", "css", "go",
-				"haskell", "html", "java", "javascript", "jsdoc", "json",
-				"latex", "lua", "make", "markdown", "php", "python",
-				"query", "regex", "rust", "toml", "tsx", "typescript",
-				"vim", "vimdoc", "yaml",
-			},
-			sync_install = false,
-			auto_install = true,
-
-			-- Default install directory is <plugin_path>/parser
-			-- parser_install_dir
-
-			highlight = {
-				enable = true,
-				additional_vim_regex_highlighting = false,
-			},
-			indent = {
-				enable = true,
-			},
-		}
+		"romus204/tree-sitter-manager.nvim",
+		dependencies = {}, -- tree-sitter CLI must be installed system-wide
+		config = function()
+			require("tree-sitter-manager").setup({
+				ensure_installed = {
+					"bash", "c", "cmake", "cpp", "c_sharp", "css", "go",
+					"haskell", "html", "java", "javascript", "jsdoc", "json",
+					"latex", "lua", "make", "markdown", "php", "python",
+					"query", "regex", "rust", "toml", "tsx", "typescript",
+					"vim", "vimdoc", "yaml",
+				},
+				auto_install = true,
+				highlight = true,
+			})
+		end,
 	},
 
 	-- Auto-save
