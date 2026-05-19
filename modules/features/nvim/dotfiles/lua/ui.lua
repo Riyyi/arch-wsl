@@ -185,9 +185,19 @@ return {
 	},
 
 	-- Rainbow-mode
-	{ -- https://github.com/norcalli/nvim-colorizer.lua
-		"norcalli/nvim-colorizer.lua",
-		opts = {},
+	{ -- https://github.com/catgoose/nvim-colorizer.lua
+		"catgoose/nvim-colorizer.lua",
+		opts = {
+			options = {
+				parsers = {
+					css = true,
+					css_var_rgb = { enable = true, },
+					hex = {
+						rrggbbaa = true,
+					},
+				},
+			},
+		},
 	}, -- :ColorizerToggle
 
 	-- Popup terminal
