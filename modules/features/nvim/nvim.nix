@@ -46,6 +46,7 @@
         "gcc"
         "make"
         "libgcc"
+        "lua-language-server"
         "neovim"
         "sqlite"
         "tree-sitter"
