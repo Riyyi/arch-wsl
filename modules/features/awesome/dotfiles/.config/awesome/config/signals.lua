@@ -64,3 +64,7 @@ client.connect_signal("unfocus", function(c)
 	local color = beautiful.border_normal or "#1e2127"
 	c.border_color = color
 end)
+
+-- TODO: Do this properly via XDG autostart or systemd
+--https://wiki.archlinux.org/title/VMware/Install_Arch_Linux_as_a_guest#Drag_and_drop,_copy/paste
+awful.spawn.with_shell("pgrep -x vmware-user >/dev/null || vmware-user")
