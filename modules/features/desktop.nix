@@ -39,6 +39,7 @@
       "xorg-xinput"
       "xorg-xprop"
       "xorg-xrandr"
+      "xorg-xrdb"
       "xwayland-satellite"
     ];
 
