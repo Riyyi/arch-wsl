@@ -34,6 +34,7 @@
       "xdo"
       "xdotool"
       "xorg-server"
+      "xorg-xauth"
       "xorg-xev"
       "xorg-xinput"
       "xorg-xprop"

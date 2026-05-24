@@ -13,6 +13,7 @@
         ".config/awesome/config/variables.lua"
         ".config/awesome/config/wibar.lua"
         ".config/awesome/themes/noctalia/theme.lua"
+        ".config/X11/Xresources"
       ];
     in
     {
