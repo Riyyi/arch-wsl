@@ -23,6 +23,7 @@
         "aspnet-runtime"
         "aspnet-targeting-pack"
         "docker"
+        "docker-buildx"
         "docker-compose"
         "dotnet-sdk"
         "keepassxc"
