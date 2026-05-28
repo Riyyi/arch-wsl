@@ -22,6 +22,7 @@
       preferences.pacmanPackages = [
         "aspnet-runtime"
         "aspnet-targeting-pack"
+        "dive"
         "docker"
         "docker-buildx"
         "docker-compose"
