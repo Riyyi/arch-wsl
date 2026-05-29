@@ -25,6 +25,7 @@
         ];
 
         ".config/Code/User/settings.json".text = builtins.toJSON {
+          dotnet.formatting.organizeImportsOnFormat = true;
           editor.cursorBlinking = "solid";
           editor.formatOnSave = true;
           editor.rulers = [ 80 ];
