@@ -221,8 +221,10 @@
           gdc = "git diff --cached";
           gds = "git diff --staged";
           gf = "git fetch";
-          gl = "git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%ai%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d    %C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an <%cn>%C(reset)' --all";
+          gl = "git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%ai%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d    %C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an <%cn>%C(reset)'";
+          gla = "gl --all";
           gle = "git log --graph --stat --format=format:'%C(bold blue)commit %H%C(reset)%C(bold yellow)%d %C(reset)%nAuthor:    %C(dim white)%an <%ae>%C(reset)%nCommitter: %C(dim white)%cn <%ce>%C(reset)%nDate:      %C(bold cyan)%ai%C(reset) %C(bold green)(%ar)%C(reset)%n%n%w(64,4,4)%B'";
+          glea = "gle --all";
           gm = "git merge";
           gp = "git pull";
           gps = "git push || git push origin $(git branch --show-current)";
