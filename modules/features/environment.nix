@@ -25,6 +25,7 @@
         "git"
         "go"
         "htop"
+        "jq"
         "less"
         "libgcc"
         "linux"
