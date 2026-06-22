@@ -17,7 +17,7 @@ in
 
       preferences.dnfPackages = [
         "niri"
-        "qt6-multimedia"
+        "qt6-qtmultimedia"
         "wlr-randr"
         "xwayland-satellite"
       ];
