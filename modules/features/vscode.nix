@@ -137,7 +137,7 @@
             install_ext() {
               local id=$1 ver=''${2:-""}
               $HOME/.nix-profile/bin/code --list-extensions --show-versions \
-                  | grep -qi "^''${id}''${ver}" || /bin/code --install-extension "''${id}''${ver}" --force
+                  | grep -qi "^''${id}''${ver}" || $HOME/.nix-profile/bin/code --install-extension "''${id}''${ver}" --force
             }
 
             install_ext "antfu.goto-alias"
