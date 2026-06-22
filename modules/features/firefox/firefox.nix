@@ -51,6 +51,7 @@
       programs.firefox = {
         enable = true;
         package = pkgs.firefox;
+        configPath = ".mozilla/firefox";
         nativeMessagingHosts = [ pkgs.ff2mpv-go ];
 
         policies.ExtensionSettings = {
