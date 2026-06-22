@@ -3,6 +3,7 @@
   flake.homeModules.theme =
     {
       config,
+      pkgs,
       ...
     }:
     let
@@ -24,6 +25,17 @@
     in
     {
 
+      preferences.dnfPackages = [
+        "adw-gtk3-theme"
+        "google-noto-emoji-fonts"
+        "google-noto-fonts-all"
+        "google-noto-sans-cjk-fonts"
+        "papirus-icon-theme"
+        "qt5-qtbase"
+        "qt6-qtbase"
+        "dejavu-fonts-all"
+      ];
+
       preferences.pacmanPackages = [
         "adw-gtk-theme"
         "capitaine-cursors"
@@ -39,6 +51,16 @@
         "ttf-nerd-fonts-symbols"
         "ttf-nerd-fonts-symbols-mono"
       ];
+
+      home.packages =
+        with pkgs;
+        [ ]
+        ++ lib.optionals (config.preferences.distro == "fedora") [
+          capitaine-cursors
+          nerd-fonts.dejavu-sans-mono
+          nerd-fonts.symbols-only
+          nwg-look
+        ];
 
       home.sessionVariables = {
         GTK_THEME = "adw-gtk3";

@@ -15,6 +15,13 @@ in
     in
     {
 
+      preferences.dnfPackages = [
+        "niri"
+        "qt6-multimedia"
+        "wlr-randr"
+        "xwayland-satellite"
+      ];
+
       preferences.pacmanPackages = [
         "niri"
         "qt6-multimedia"

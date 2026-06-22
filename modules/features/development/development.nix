@@ -19,6 +19,18 @@
     in
     {
 
+      preferences.dnfPackages = [
+        "aspnetcore-runtime-10.0"
+        "aspnetcore-targeting-pack-10.0"
+        "docker"
+        "docker-buildx"
+        "docker-compose"
+        "dotnet-sdk-10.0"
+        "keepassxc"
+        "mono-complete"
+        "nodejs24-npm"
+      ];
+
       preferences.pacmanPackages = [
         "aspnet-runtime"
         "aspnet-targeting-pack"
@@ -37,10 +49,19 @@
       ];
 
       # Prefer nixpkgs over AUR, where possible (OpenGL)
-      home.packages = with pkgs; [
-        antares
-        postman
-      ];
+      home.packages =
+        with pkgs;
+        [
+          antares
+          postman
+        ]
+        ++ lib.optionals (config.preferences.distro == "fedora") [
+          dive
+          lazydocker
+          omnisharp-roslyn
+          opencode
+          typescript-language-server
+        ];
 
       home.file =
         builtins.listToAttrs (
@@ -57,7 +78,7 @@
             config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${subDir}/dotfiles/.local/state/opencode/kv.json";
         };
 
-      home.activation.docker = lib.hm.dag.entryAfter [ "pacmanPackages" ] ''
+      home.activation.docker = lib.hm.dag.entryAfter [ "pacmanPackages" "dnfPackages" ] ''
         if test -x /bin/docker > /dev/null 2>&1; then
             /bin/sudo systemctl enable --now docker.service
         else

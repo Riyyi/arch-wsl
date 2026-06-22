@@ -34,6 +34,11 @@
       };
     in
     {
+      preferences.dnfPackages = [
+        "mpv"
+        "yt-dlp"
+      ];
+
       preferences.pacmanPackages = [
         "mpv"
         "yt-dlp"

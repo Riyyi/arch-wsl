@@ -3,6 +3,14 @@
     { lib, pkgs, ... }:
     {
 
+      preferences.dnfPackages = [
+        "gtkmm3.0"
+        "mesa-dri-drivers"
+        "mesa-vulkan-drivers"
+        "open-vm-tools"
+        "vulkan-loader"
+      ];
+
       preferences.pacmanPackages = [
         "gtkmm3"
         "mesa"
@@ -14,7 +22,7 @@
         let
           service = "vmhgfs-fuse-mount-share.service";
         in
-        lib.hm.dag.entryAfter [ "pacmanPackages" ] ''
+        lib.hm.dag.entryAfter [ "pacmanPackages" "dnfPackages" ] ''
           if test -x /bin/vmtoolsd > /dev/null 2>&1; then
               /bin/sudo mkdir -p /mnt/share
 

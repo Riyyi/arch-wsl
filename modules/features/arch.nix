@@ -1,7 +1,11 @@
 {
   flake.homeModules.arch =
-    { config, ... }:
+    { config, lib, ... }:
+    let
+      packages = config.preferences.pacmanPackages;
+    in
     {
+      preferences.distro = "arch";
 
       preferences.pacmanPackages = [
         "pacman-contrib"
@@ -20,6 +24,12 @@
         update_mirrorlist = "sudo rm -f /etc/pacman.d/mirrorlist.pacnew && \
         sudo reflector --latest 100 --protocol https --sort rate --save /etc/pacman.d/mirrorlist";
       };
+
+      home.activation.pacmanPackages = ''
+        declpac="${config.xdg.configHome}/declpac"
+        printf '%s\n' "${lib.concatStringsSep "\n" packages}" > $declpac
+        _i "Pacman state file written to $declpac"
+      '';
 
     };
 }

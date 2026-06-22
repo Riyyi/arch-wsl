@@ -13,6 +13,36 @@
         self.homeModules.zsh
       ];
 
+      preferences.dnfPackages = [
+        "cmake"
+        "coreutils"
+        # TODO: declpac
+        "duf"
+        "fastfetch"
+        "fzf"
+        "git"
+        "golang"
+        "htop"
+        "jq"
+        "kernel"
+        "less"
+        "libgcc"
+        "libtree-sitter"
+        "linux-firmware"
+        "man-db"
+        "man-pages"
+        "ncdu"
+        "neovim"
+        "openssh"
+        "rsync"
+        "sudo"
+        "tokei"
+        "tree"
+        "util-linux"
+        "wget1"
+        "yt-dlp"
+      ];
+
       preferences.pacmanPackages = [
         "base"
         "base-devel"

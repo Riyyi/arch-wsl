@@ -40,6 +40,17 @@
     in
     {
 
+      preferences.dnfPackages = [
+        "fzf"
+        "gcc"
+        "make"
+        "libgcc"
+        "neovim"
+        "sqlite"
+        "libtree-sitter"
+        "tree-sitter-cli"
+      ];
+
       # Some additional packages needed for fzf compilation
       preferences.pacmanPackages = [
         "fzf"
@@ -54,10 +65,15 @@
       ];
 
       # These packages arent available the the official repos
-      home.packages = with pkgs; [
-        nixd
-        nixfmt
-      ];
+      home.packages =
+        with pkgs;
+        [
+          nixd
+          nixfmt
+        ]
+        ++ lib.optionals (config.preferences.distro == "fedora") [
+          lua-language-server
+        ];
 
       home.file =
         builtins.listToAttrs (
