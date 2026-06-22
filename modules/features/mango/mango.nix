@@ -1,5 +1,4 @@
 {
-  dot,
   inputs,
   self,
   ...
@@ -8,8 +7,8 @@ let
   noctalia-colors = ".config/mango/noctalia.conf";
 in
 {
-  flake.nixosModules.mangowc =
-   {
+  flake.homeModules.mangowc =
+    {
       config,
       pkgs,
       ...
@@ -17,38 +16,25 @@ in
     let
       mangowc = self.packages.${pkgs.stdenv.hostPlatform.system}.mangowc;
 
-      home = config.preferences.user.home;
       dotfiles = config.preferences.path.dotfiles;
 
-      subDir = dot.subDir __curPos;
+      # Calculate the subdirectory directory from root this module is in
+      subDir = self.lib.subDir __curPos;
     in
     {
-      programs.xwayland.enable = true;
+      preferences.dnfPackages = [
+        "xdg-desktop-portal-wlr"
+      ];
 
-      programs.mangowc = {
-        enable = true;
-        package = mangowc;
-      };
+      preferences.pacmanPackages = [
+        "xdg-desktop-portal-wlr"
+      ];
 
-      services.displayManager.sessionPackages = [ mangowc ];
-
-      systemd.packages = [ mangowc ];
-
-      xdg.portal = {
-        enable = true;
-        configPackages = [ mangowc ];
-        extraPortals = with pkgs; [
-          xdg-desktop-portal-gtk
-          xdg-desktop-portal-wlr
-        ];
-        wlr.enable = true;
-      };
+      home.packages = [ mangowc ];
 
       # noctalia.conf wont be linked from Nix store, so it remains writable
-      system.activationScripts.mango = ''
-        ln -sf "${dotfiles}/${subDir}/dotfiles/${noctalia-colors}" \
-               "${home}/${noctalia-colors}"
-      '';
+      home.file."${noctalia-colors}".source =
+        config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${subDir}/dotfiles/${noctalia-colors}";
     };
 
   perSystem =
