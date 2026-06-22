@@ -10,6 +10,7 @@ in
   flake.homeModules.mangowc =
     {
       config,
+      lib,
       pkgs,
       ...
     }:
@@ -35,6 +36,15 @@ in
       # noctalia.conf wont be linked from Nix store, so it remains writable
       home.file."${noctalia-colors}".source =
         config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${subDir}/dotfiles/${noctalia-colors}";
+
+      # Make mango discoverable by the display manager
+      home.activation.mango = lib.hm.dag.entryAfter [ "checkLinkTargets" ] ''
+        if test -f "${config.home.profileDirectory}/share/wayland-sessions/mangowc.desktop"; then
+          /bin/sudo mkdir -p /usr/share/wayland-sessions
+          /bin/sudo ln -sf "${config.home.profileDirectory}/share/wayland-sessions/mangowc.desktop" \
+            /usr/share/wayland-sessions/mangowc.desktop
+        fi
+      '';
     };
 
   perSystem =
