@@ -133,10 +133,10 @@
       };
 
       home.activation.vscodeExtensions = lib.hm.dag.entryAfter [ "pacmanPackages" "dnfPackages" ] ''
-        if test -x /bin/code || test -x $HOME/.nix-profile/bin/code; then
+        if test -x $HOME/.nix-profile/bin/code > /dev/null 2>&1; then
             install_ext() {
               local id=$1 ver=''${2:-""}
-              /bin/code --list-extensions --show-versions \
+              $HOME/.nix-profile/bin/code --list-extensions --show-versions \
                   | grep -qi "^''${id}''${ver}" || /bin/code --install-extension "''${id}''${ver}" --force
             }
 
