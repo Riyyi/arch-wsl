@@ -1,15 +1,15 @@
 { self, inputs, ... }:
 {
 
-  flake.homeConfigurations.arch-vm = inputs.home-manager.lib.homeManagerConfiguration {
+  flake.homeConfigurations.fedora-laptop = inputs.home-manager.lib.homeManagerConfiguration {
     pkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
 
     modules = [
-      self.homeModules.hostArchVm
+      self.homeModules.hostFedoraLaptop
     ];
   };
 
-  flake.homeModules.hostArchVm =
+  flake.homeModules.hostFedoraLaptop =
     {
       config,
       lib,
@@ -24,18 +24,18 @@
       imports = [
         self.modules.generic.base
 
-        self.homeModules.arch
+        self.homeModules.fedora
         self.homeModules.development
         self.homeModules.general
         self.homeModules.desktop
         self.homeModules.vmware
 
         {
-          preferences.pacmanPackages = [
+          preferences.dnfPackages = [
             "dhcpcd"
             "neovim"
-            "networkmanager"
-            "networkmanager-openconnect"
+            "NetworkManager"
+            "NetworkManager-openconnect"
             "network-manager-applet" # this is required for the password prompt
             "nm-connection-editor"
           ];
@@ -53,7 +53,7 @@
 
           home.stateVersion = "25.11";
 
-          home.activation.configuration = lib.hm.dag.entryAfter [ "pacmanPackages" ] ''
+          home.activation.configuration = lib.hm.dag.entryAfter [ "dnfPackages" ] ''
             /bin/sudo systemctl enable --now NetworkManager.service
           '';
 

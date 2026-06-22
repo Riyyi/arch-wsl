@@ -3,6 +3,10 @@
     { config, pkgs, ... }:
     {
 
+      preferences.dnfPackages = [
+        "git"
+      ];
+
       preferences.pacmanPackages = [
         "git"
       ];

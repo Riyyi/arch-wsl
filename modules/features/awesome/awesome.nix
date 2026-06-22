@@ -18,6 +18,10 @@
     in
     {
 
+      preferences.dnfPackages = [
+        "awesome"
+      ];
+
       preferences.pacmanPackages = [
         "awesome"
       ];

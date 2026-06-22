@@ -2,7 +2,12 @@
 {
 
   flake.homeModules.noctalia =
-    { config, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     let
       dotfiles = config.preferences.path.dotfiles;
 
@@ -14,6 +19,19 @@
       files = builtins.filter (name: entries.${name} == "regular") (builtins.attrNames entries);
     in
     {
+
+      preferences.dnfPackages = [
+        "brightnessctl"
+        "cliphist"
+        "evolution-data-server"
+        "ImageMagick"
+        "power-profiles-daemon"
+        "python3"
+        "wlsunset"
+        "xdg-desktop-portal"
+        "xdg-desktop-portal-gtk"
+        "xdg-desktop-portal-gnome"
+      ];
 
       preferences.pacmanPackages = [
         "brightnessctl"
@@ -28,6 +46,13 @@
         "xdg-desktop-portal"
         "xdg-desktop-portal-gtk"
         "xdg-desktop-portal-gnome"
+      ];
+
+      home.packages = with pkgs; [
+      ]
+      ++ lib.optionals (config.preferences.distro == "fedora") [
+        noctalia-qs
+        noctalia-shell
       ];
 
       # Deploy wallpapers from repo to home directory

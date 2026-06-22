@@ -17,7 +17,13 @@
     in
     {
 
-      # Some additional packages needed for fzf compilation
+      preferences.dnfPackages = [
+        "emacs"
+        "hunspell"
+        "hunspell-en"
+        "hunspell-nl"
+      ];
+
       preferences.pacmanPackages = [
         "emacs"
         "hunspell"

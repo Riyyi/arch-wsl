@@ -18,11 +18,23 @@
     in
     {
 
+      preferences.dnfPackages = [
+        "zsh"
+        "zsh-syntax-highlighting"
+      ];
+
       preferences.pacmanPackages = [
         "zsh"
         "zsh-history-substring-search"
         "zsh-syntax-highlighting"
       ];
+
+      home.packages =
+        with pkgs;
+        [ ]
+        ++ lib.optionals (config.preferences.distro == "fedora") [
+          zsh-history-substring-search
+        ];
 
       programs.zsh = {
         enable = true;

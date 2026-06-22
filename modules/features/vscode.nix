@@ -1,7 +1,9 @@
 {
   flake.homeModules.vscode =
     {
+      config,
       lib,
+      pkgs,
       ...
     }:
     {
@@ -9,6 +11,13 @@
       preferences.pacmanPackages = [
         "visual-studio-code-bin"
       ];
+
+      home.packages =
+        with pkgs;
+        [ ]
+        ++ lib.optionals (config.preferences.distro == "fedora") [
+          vscode-fhs
+        ];
 
       home.file = {
         ".vscode/argv.json".text = builtins.toJSON {
@@ -131,7 +140,7 @@
         };
       };
 
-      home.activation.vscodeExtensions = lib.hm.dag.entryAfter [ "pacmanPackages" ] ''
+      home.activation.vscodeExtensions = lib.hm.dag.entryAfter [ "pacmanPackages" "dnfPackages" ] ''
         if test -x /bin/code > /dev/null 2>&1; then
             install_ext() {
               local id=$1 ver=''${2:-""}

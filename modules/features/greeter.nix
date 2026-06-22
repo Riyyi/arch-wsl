@@ -3,6 +3,10 @@
     { lib, ... }:
     {
 
+      preferences.dnfPackages = [
+        "ly"
+      ];
+
       preferences.pacmanPackages = [
         "ly"
       ];
@@ -25,7 +29,7 @@
           };
         in
         # Enabele ly on TTY1 and deploy its config
-        lib.hm.dag.entryAfter [ "pacmanPackages" ] ''
+        lib.hm.dag.entryAfter [ "pacmanPackages" "dnfPackages" ] ''
           if test -x /bin/ly-dm > /dev/null 2>&1; then
               /bin/sudo systemctl enable --now ly@tty1.service
               /bin/sudo systemctl disable getty@tty1.service
