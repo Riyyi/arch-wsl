@@ -1,7 +1,7 @@
 { inputs, self, ... }:
 let
-  ghostty = "/usr/bin/ghostty";
-  noctalia = "qs -c noctalia-shell";
+  ghostty = "ghostty";
+  noctalia = "noctalia-shell";
   xwayland-satellite = "/usr/bin/xwayland-satellite";
 in
 {

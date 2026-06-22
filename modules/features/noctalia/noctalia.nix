@@ -38,8 +38,6 @@
         "cliphist"
         "evolution-data-server"
         "imagemagick"
-        "noctalia-qs" # NOTE: put before noctalia-shell!
-        "noctalia-shell"
         "power-profiles-daemon"
         "python"
         "wlsunset"

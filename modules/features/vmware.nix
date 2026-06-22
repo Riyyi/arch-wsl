@@ -8,6 +8,7 @@
         "mesa-dri-drivers"
         "mesa-vulkan-drivers"
         "open-vm-tools"
+        "open-vm-tools-desktop"
         "vulkan-loader"
       ];
 
