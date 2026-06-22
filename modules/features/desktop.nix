@@ -18,6 +18,7 @@
         self.homeModules.emacs
         self.homeModules.firefox
         self.homeModules.ghostty
+        self.homeModules.mangowc
         self.homeModules.niri
         self.homeModules.noctalia
         self.homeModules.sound
