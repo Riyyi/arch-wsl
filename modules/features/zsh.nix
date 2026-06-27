@@ -265,7 +265,9 @@
         profileExtra = ''
           # Directories
           export FPATH="$FPATH:$HOME/.local/completion"
-          export PATH="$PATH:$HOME/.local/bin:$HOME/.dotnet/tools"
+          export PATH="$PATH:$HOME/.nix-profile/bin"
+          export PATH="$PATH:$HOME/.local/bin"
+          export PATH="$PATH:$HOME/.dotnet/tools"
           export XDG_CACHE_HOME="$HOME/.cache"
           export XDG_CONFIG_HOME="$HOME/.config"
           export XDG_DATA_HOME="$HOME/.local/share"

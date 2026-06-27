@@ -1,6 +1,6 @@
 {
   flake.homeModules.greeter =
-    { lib, ... }:
+    { config, lib, ... }:
     {
 
       preferences.dnfPackages = [
@@ -24,6 +24,8 @@
 
             hide_version_string = true;
 
+            waylandsessions = "/usr/share/wayland-sessions:${config.preferences.user.home}/.local/share/wayland-sessions";
+
             ly_log = "/var/log/ly.log";
             session_log = ".local/state/ly-session.log";
           };
@@ -38,7 +40,7 @@
           fi
 
           /bin/sudo mkdir -p /etc/ly
-          printf '%s' "${lyConfig}" | /bin/sudo tee /etc/ly/config.ini > /dev/null
+          printf '%s' '${lyConfig}' | /bin/sudo tee /etc/ly/config.ini > /dev/null
         '';
 
     };
