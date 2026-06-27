@@ -15,3 +15,7 @@ to hide windows cursor:
 - rename /usr/share/icons/default to default2
 - set XCURSOR_THEME=default
 - set cursor to existing theme in config.kdl, to get that theme
+
+# See activationScripts
+
+less ~/.local/state/nix/profiles/home-manager/activate

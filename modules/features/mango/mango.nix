@@ -29,7 +29,7 @@
 
       home.packages = [ pkgs.mangowc ];
 
-      home.file.".config/mango/config.conf".source = ''
+      home.file.".config/mango/config.conf".text = ''
         exec-once = ${noctalia}
 
         cursor_theme = capitaine-cursors-white
@@ -235,15 +235,21 @@
         config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${subDir}/dotfiles/${noctalia-colors}";
 
       # Make mango discoverable by the display manager
-      home.activation.mango = lib.hm.dag.entryAfter [ "checkLinkTargets" ] ''
-        if test -f "${config.home.profileDirectory}/share/wayland-sessions/mango.desktop"; then
+      home.activation.mango =
+        let
+          mango = ''
+[Desktop Entry]
+Name=Mango
+Comment=Lightweight Wayland compositor based on dwl
+Exec=mango
+Type=Application
+DesktopNames=mango
+          '';
+        in
+        lib.hm.dag.entryAfter [ "checkLinkTargets" ] ''
           /bin/sudo mkdir -p /usr/share/wayland-sessions
-          /bin/sudo ln -sf "${config.home.profileDirectory}/share/wayland-sessions/mango.desktop" \
-            /usr/share/wayland-sessions/mango.desktop
-        fi
-
-        # toby engage mango
-      '';
+          printf '%s' '${mango}' | /bin/sudo tee /usr/share/wayland-sessions/mango.desktop > /dev/null
+        '';
     };
 
 }
