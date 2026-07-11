@@ -1,15 +1,15 @@
 { self, inputs, ... }:
 {
 
-  flake.homeConfigurations.fedora-laptop = inputs.home-manager.lib.homeManagerConfiguration {
+  flake.homeConfigurations.ubuntu-laptop = inputs.home-manager.lib.homeManagerConfiguration {
     pkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
 
     modules = [
-      self.homeModules.hostFedoraLaptop
+      self.homeModules.hostUbuntuLaptop
     ];
   };
 
-  flake.homeModules.hostFedoraLaptop =
+  flake.homeModules.hostUbuntuLaptop =
     {
       config,
       lib,
@@ -24,14 +24,14 @@
       imports = [
         self.modules.generic.base
 
-        self.homeModules.fedora
+        self.homeModules.ubuntu
         self.homeModules.development
         self.homeModules.general
         self.homeModules.desktop
         self.homeModules.vmware
 
         {
-          preferences.dnfPackages = [
+          preferences.aptPackages = [
             "dhcpcd"
             "neovim"
             "NetworkManager"
@@ -53,7 +53,7 @@
 
           home.stateVersion = "25.11";
 
-          home.activation.configuration = lib.hm.dag.entryAfter [ "dnfPackages" ] ''
+          home.activation.configuration = lib.hm.dag.entryAfter [ "aptPackages" ] ''
             /bin/sudo systemctl enable --now NetworkManager.service
           '';
 

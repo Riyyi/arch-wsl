@@ -18,7 +18,7 @@
     in
     {
 
-      preferences.dnfPackages = [
+      preferences.aptPackages = [
         "awesome"
       ];
 

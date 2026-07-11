@@ -15,7 +15,7 @@ in
     in
     {
 
-      preferences.dnfPackages = [
+      preferences.aptPackages = [
         "niri"
         "qt6-qtmultimedia"
         "wlr-randr"

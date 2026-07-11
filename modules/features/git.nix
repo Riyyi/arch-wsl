@@ -3,7 +3,7 @@
     { config, pkgs, ... }:
     {
 
-      preferences.dnfPackages = [
+      preferences.aptPackages = [
         "git"
       ];
 

@@ -18,7 +18,7 @@
     in
     {
 
-      preferences.dnfPackages = [
+      preferences.aptPackages = [
         "zsh"
         "zsh-syntax-highlighting"
       ];
@@ -32,7 +32,7 @@
       home.packages =
         with pkgs;
         [ ]
-        ++ lib.optionals (config.preferences.distro == "fedora") [
+        ++ lib.optionals (config.preferences.distro == "ubuntu") [
           zsh-history-substring-search
         ];
 

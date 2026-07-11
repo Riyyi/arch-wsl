@@ -17,7 +17,7 @@
     in
     {
 
-      preferences.dnfPackages = [
+      preferences.aptPackages = [
         "emacs"
         "hunspell"
         "hunspell-en"

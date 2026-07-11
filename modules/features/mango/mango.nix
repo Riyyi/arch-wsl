@@ -19,7 +19,7 @@
       subDir = self.lib.subDir __curPos;
     in
     {
-      preferences.dnfPackages = [
+      preferences.aptPackages = [
         "xdg-desktop-portal-wlr"
       ];
 

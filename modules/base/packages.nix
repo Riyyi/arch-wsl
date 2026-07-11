@@ -6,16 +6,16 @@
         distro = lib.mkOption {
           type = lib.types.enum [
             "arch"
-            "fedora"
+            "ubuntu"
           ];
           default = "arch";
           description = "Distro to assume package installation for.";
         };
 
-        dnfPackages = lib.mkOption {
+        aptPackages = lib.mkOption {
           type = lib.types.listOf lib.types.str;
           default = [ ];
-          description = "List of dnf packages to sync.";
+          description = "List of apt packages to sync.";
         };
 
         pacmanPackages = lib.mkOption {
