@@ -44,10 +44,10 @@
         "fzf"
         "gcc"
         "make"
-        "libgcc"
+        "libgcc-s1"
         "neovim"
-        "sqlite"
-        "libtree-sitter"
+        "sqlite3"
+        "libtree-sitter0"
         "tree-sitter-cli"
       ];
 

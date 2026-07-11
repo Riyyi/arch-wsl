@@ -22,13 +22,12 @@
       preferences.aptPackages = [
         "aspnetcore-runtime-10.0"
         "aspnetcore-targeting-pack-10.0"
-        "docker"
+        "docker.io"
         "docker-buildx"
         "docker-compose"
         "dotnet-sdk-10.0"
         "keepassxc"
         "mono-complete"
-        "nodejs24-npm"
       ];
 
       preferences.pacmanPackages = [
@@ -58,6 +57,7 @@
         ++ lib.optionals (config.preferences.distro == "ubuntu") [
           dive
           lazydocker
+          nodejs_24
           omnisharp-roslyn
           opencode
           typescript-language-server

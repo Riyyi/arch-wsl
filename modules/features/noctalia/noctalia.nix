@@ -24,7 +24,7 @@
         "brightnessctl"
         "cliphist"
         "evolution-data-server"
-        "ImageMagick"
+        "imagemagick"
         "power-profiles-daemon"
         "python3"
         "wlsunset"

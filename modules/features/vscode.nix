@@ -8,7 +8,7 @@
     {
 
       home.packages = with pkgs; [
-          vscode-fhs
+        vscode-fhs
       ];
 
       home.file = {
