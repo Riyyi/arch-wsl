@@ -1,30 +1,29 @@
 {
-  flake.homeModules.fedora =
+  flake.homeModules.ubuntu =
     { config, lib, ... }:
     let
-      packages = config.preferences.dnfPackages;
+      packages = config.preferences.aptPackages;
     in
     {
-      preferences.distro = "fedora";
+      preferences.distro = "ubuntu";
 
-      preferences.dnfPackages = [
-        "dnf-plugins-core"
+      preferences.aptPackages = [
       ];
 
       preferences.shell.aliases = {
-        clean = "sudo dnf autoremove ; \
+        clean = "sudo apt autoremove ; \
         nix-env --delete-generations +5 --profile ${config.xdg.stateHome}/nix/profiles/home-manager && \
         nix-collect-garbage && nix-store --optimise";
-        install = "sudo dnf install";
-        remove = "sudo dnf remove";
+        install = "sudo apt install";
+        remove = "sudo apt remove";
         switch = "nix run nixpkgs#home-manager -- switch --flake .#$HOST";
-        update = "sudo dnf upgrade --refresh && nix flake update && switch";
+        update = "sudo apt update && sudo apt upgrade && nix flake update && switch";
       };
 
-      home.activation.dnfPackages = ''
+      home.activation.aptPackages = ''
         declpac="${config.xdg.configHome}/declpac"
         printf '%s\n' "${lib.concatStringsSep "\n" packages}" > $declpac
-        _i "DNF state file written to $declpac"
+        _i "APT state file written to $declpac"
       '';
 
     };

@@ -13,7 +13,7 @@
         self.homeModules.zsh
       ];
 
-      preferences.dnfPackages = [
+      preferences.aptPackages = [
         "cmake"
         "coreutils"
         # TODO: declpac

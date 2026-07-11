@@ -25,7 +25,7 @@
         self.homeModules.vscode
       ];
 
-      preferences.dnfPackages = [
+      preferences.aptPackages = [
         "gedit"
         "gvfs"
         "imv"
@@ -82,7 +82,7 @@
       home.packages =
         with pkgs;
         [ ]
-        ++ lib.optionals (config.preferences.distro == "fedora") [
+        ++ lib.optionals (config.preferences.distro == "ubuntu") [
           xdo
         ];
 

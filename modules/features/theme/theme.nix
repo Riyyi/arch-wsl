@@ -25,7 +25,7 @@
     in
     {
 
-      preferences.dnfPackages = [
+      preferences.aptPackages = [
         "adw-gtk3-theme"
         "google-noto-emoji-fonts"
         "google-noto-fonts-all"
@@ -55,7 +55,7 @@
       home.packages =
         with pkgs;
         [ ]
-        ++ lib.optionals (config.preferences.distro == "fedora") [
+        ++ lib.optionals (config.preferences.distro == "ubuntu") [
           capitaine-cursors
           nerd-fonts.dejavu-sans-mono
           nerd-fonts.symbols-only

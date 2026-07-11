@@ -1,7 +1,7 @@
 {
   flake.homeModules.sound = {
 
-    preferences.dnfPackages = [
+    preferences.aptPackages = [
       "pipewire"
       "pipewire-alsa"
       "pipewire-plugin-jack"

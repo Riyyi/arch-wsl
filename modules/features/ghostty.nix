@@ -15,7 +15,7 @@
       home.packages =
         with pkgs;
         [ ]
-        ++ lib.optionals (config.preferences.distro == "fedora") [
+        ++ lib.optionals (config.preferences.distro == "ubuntu") [
           ghostty
         ];
 

@@ -34,7 +34,7 @@
       };
     in
     {
-      preferences.dnfPackages = [
+      preferences.aptPackages = [
         "mpv"
         "yt-dlp"
       ];

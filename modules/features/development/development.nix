@@ -19,7 +19,7 @@
     in
     {
 
-      preferences.dnfPackages = [
+      preferences.aptPackages = [
         "aspnetcore-runtime-10.0"
         "aspnetcore-targeting-pack-10.0"
         "docker"
@@ -55,7 +55,7 @@
           antares
           postman
         ]
-        ++ lib.optionals (config.preferences.distro == "fedora") [
+        ++ lib.optionals (config.preferences.distro == "ubuntu") [
           dive
           lazydocker
           omnisharp-roslyn
@@ -78,7 +78,7 @@
             config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${subDir}/dotfiles/.local/state/opencode/kv.json";
         };
 
-      home.activation.docker = lib.hm.dag.entryAfter [ "pacmanPackages" "dnfPackages" ] ''
+      home.activation.docker = lib.hm.dag.entryAfter [ "pacmanPackages" "aptPackages" ] ''
         if test -x /bin/docker > /dev/null 2>&1; then
             /bin/sudo systemctl enable --now docker.service
         else

@@ -40,7 +40,7 @@
     in
     {
 
-      preferences.dnfPackages = [
+      preferences.aptPackages = [
         "fzf"
         "gcc"
         "make"
@@ -71,7 +71,7 @@
           nixd
           nixfmt
         ]
-        ++ lib.optionals (config.preferences.distro == "fedora") [
+        ++ lib.optionals (config.preferences.distro == "ubuntu") [
           lua-language-server
         ];
 

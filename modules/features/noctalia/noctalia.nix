@@ -20,7 +20,7 @@
     in
     {
 
-      preferences.dnfPackages = [
+      preferences.aptPackages = [
         "brightnessctl"
         "cliphist"
         "evolution-data-server"
@@ -46,12 +46,14 @@
         "xdg-desktop-portal-gnome"
       ];
 
-      home.packages = with pkgs; [
-      ]
-      ++ lib.optionals (config.preferences.distro == "fedora") [
-        noctalia-qs
-        noctalia-shell
-      ];
+      home.packages =
+        with pkgs;
+        [
+        ]
+        ++ lib.optionals (config.preferences.distro == "ubuntu") [
+          noctalia-qs
+          noctalia-shell
+        ];
 
       # Deploy wallpapers from repo to home directory
       home.file =

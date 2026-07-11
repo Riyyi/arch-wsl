@@ -132,7 +132,7 @@
         };
       };
 
-      home.activation.vscodeExtensions = lib.hm.dag.entryAfter [ "pacmanPackages" "dnfPackages" ] ''
+      home.activation.vscodeExtensions = lib.hm.dag.entryAfter [ "pacmanPackages" "aptPackages" ] ''
         if test -x $HOME/.nix-profile/bin/code > /dev/null 2>&1; then
             install_ext() {
               local id=$1 ver=''${2:-""}
