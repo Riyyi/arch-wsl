@@ -4,12 +4,12 @@
     {
 
       preferences.aptPackages = [
-        "gtkmm3.0"
-        "mesa-dri-drivers"
+        "libgtkmm-3.0-1t64"
+        "libgl1-mesa-dri"
         "mesa-vulkan-drivers"
         "open-vm-tools"
         "open-vm-tools-desktop"
-        "vulkan-loader"
+        "libvulkan1"
       ];
 
       preferences.pacmanPackages = [

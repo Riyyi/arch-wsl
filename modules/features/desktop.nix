@@ -30,27 +30,24 @@
         "gvfs"
         "imv"
         "kolourpaint"
-        "libwayland-client"
-        "libwayland-cursor"
-        "libwayland-egl"
-        "libwayland-server"
+        "libwayland-client0"
+        "libwayland-cursor0"
+        "libwayland-egl1"
+        "libwayland-server0"
         "mpv"
         "pavucontrol"
         "wev"
-        "Thunar"
+        "thunar"
         "thunar-volman"
         "wayland-utils"
         "wl-clipboard"
         "xclip"
         "xdotool"
-        "xev"
+        "x11-utils"
         "xinput"
-        "xorg-x11-server-Xorg"
-        "xorg-x11-xauth"
-        "xprop"
-        "xrandr"
-        "xrdb"
-        "xwayland-satellite"
+        "xserver-xorg-core"
+        "xauth"
+        "x11-xserver-utils"
       ];
 
       preferences.pacmanPackages = [
@@ -84,6 +81,7 @@
         [ ]
         ++ lib.optionals (config.preferences.distro == "ubuntu") [
           xdo
+          xwayland-satellite
         ];
 
     };

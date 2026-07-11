@@ -1,7 +1,12 @@
 { self, ... }:
 {
   flake.homeModules.environment =
-    { pkgs, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     let
       selfpkgs = self.packages.${pkgs.stdenv.hostPlatform.system};
     in
@@ -18,28 +23,27 @@
         "coreutils"
         # TODO: declpac
         "duf"
-        "fastfetch"
         "fzf"
         "git"
         "golang"
         "htop"
         "jq"
-        "kernel"
+        "linux-generic"
         "less"
-        "libgcc"
-        "libtree-sitter"
+        "libgcc-s1"
+        "libtree-sitter0"
         "linux-firmware"
         "man-db"
-        "man-pages"
+        "manpages"
         "ncdu"
         "neovim"
-        "openssh"
+        "openssh-client"
+        "openssh-server"
         "rsync"
         "sudo"
-        "tokei"
         "tree"
         "util-linux"
-        "wget1"
+        "wget"
         "yt-dlp"
       ];
 
@@ -76,9 +80,13 @@
         "yt-dlp"
       ];
 
-      home.packages = [
-        selfpkgs.ns
-      ];
+      home.packages =
+        with pkgs;
+        [ selfpkgs.ns ]
+        ++ lib.optionals (config.preferences.distro == "ubuntu") [
+          fastfetch
+          tokei
+        ];
 
     };
 }

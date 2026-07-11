@@ -4,8 +4,8 @@
     preferences.aptPackages = [
       "pipewire"
       "pipewire-alsa"
-      "pipewire-plugin-jack"
-      "pipewire-pulseaudio"
+      "pipewire-jack"
+      "pipewire-pulse"
     ];
 
     preferences.pacmanPackages = [

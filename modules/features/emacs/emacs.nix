@@ -20,7 +20,7 @@
       preferences.aptPackages = [
         "emacs"
         "hunspell"
-        "hunspell-en"
+        "hunspell-en-us"
         "hunspell-nl"
       ];
 

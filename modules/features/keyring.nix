@@ -2,7 +2,7 @@
   flake.homeModules.keyring = {
 
     preferences.aptPackages = [
-      "libsecret"
+      "libsecret-1-0"
       "gnome-keyring"
       "gcr"
       "seahorse"

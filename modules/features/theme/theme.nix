@@ -26,14 +26,13 @@
     {
 
       preferences.aptPackages = [
-        "adw-gtk3-theme"
-        "google-noto-emoji-fonts"
-        "google-noto-fonts-all"
-        "google-noto-sans-cjk-fonts"
+        "fonts-noto-color-emoji"
+        "fonts-noto"
+        "fonts-noto-cjk"
         "papirus-icon-theme"
-        "qt5-qtbase"
-        "qt6-qtbase"
-        "dejavu-fonts-all"
+        "libqt5gui5t64"
+        "libqt6gui6t64"
+        "fonts-dejavu"
       ];
 
       preferences.pacmanPackages = [
@@ -56,6 +55,7 @@
         with pkgs;
         [ ]
         ++ lib.optionals (config.preferences.distro == "ubuntu") [
+          adw-gtk3
           capitaine-cursors
           nerd-fonts.dejavu-sans-mono
           nerd-fonts.symbols-only

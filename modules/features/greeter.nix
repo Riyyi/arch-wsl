@@ -1,15 +1,26 @@
 {
   flake.homeModules.greeter =
-    { config, lib, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     {
 
       preferences.aptPackages = [
-        "ly"
       ];
 
       preferences.pacmanPackages = [
         "ly"
       ];
+
+      home.packages =
+        with pkgs;
+        [ ]
+        ++ lib.optionals (config.preferences.distro == "ubuntu") [
+          ly
+        ];
 
       home.activation.greeter =
         let

@@ -34,10 +34,9 @@
           preferences.aptPackages = [
             "dhcpcd"
             "neovim"
-            "NetworkManager"
-            "NetworkManager-openconnect"
-            "network-manager-applet" # this is required for the password prompt
-            "nm-connection-editor"
+            "network-manager"
+            "network-manager-openconnect"
+            "network-manager-gnome" # this is required for the password prompt
           ];
 
           # Improve home-manager on non-NixOS distros

@@ -6,7 +6,12 @@ let
 in
 {
   flake.homeModules.niri =
-    { config, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     let
       dotfiles = config.preferences.path.dotfiles;
 
@@ -16,10 +21,7 @@ in
     {
 
       preferences.aptPackages = [
-        "niri"
-        "qt6-qtmultimedia"
         "wlr-randr"
-        "xwayland-satellite"
       ];
 
       preferences.pacmanPackages = [
@@ -28,6 +30,15 @@ in
         "wlr-randr"
         "xwayland-satellite"
       ];
+
+      home.packages =
+        with pkgs;
+        [ ]
+        ++ lib.optionals (config.preferences.distro == "ubuntu") [
+          niri
+          qt6.qtmultimedia
+          xwayland-satellite
+        ];
 
       home.file = {
         ".config/niri/config.kdl".text = ''
@@ -103,7 +114,7 @@ in
             warp-mouse-to-focus = _: { };
           };
 
-          gestures.hot-corners.off = _: {};
+          gestures.hot-corners.off = _: { };
 
           binds = {
             ##--- General ---##
