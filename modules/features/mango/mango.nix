@@ -241,7 +241,7 @@
 [Desktop Entry]
 Name=Mango
 Comment=Lightweight Wayland compositor based on dwl
-Exec=mango
+Exec=${pkgs.mangowc}/bin/mango
 Type=Application
 DesktopNames=mango
           '';
