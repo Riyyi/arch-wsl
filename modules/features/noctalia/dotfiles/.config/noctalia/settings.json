@@ -152,15 +152,6 @@
                     ]
                 },
                 {
-                    "defaultSettings": {
-                        "connectedColor": "primary",
-                        "disableToastNotifications": false,
-                        "disconnectedColor": "none",
-                        "displayMode": "onhover"
-                    },
-                    "id": "plugin:network-manager-vpn"
-                },
-                {
                     "deviceNativePath": "__default__",
                     "displayMode": "graphic-clean",
                     "hideIfIdle": false,
@@ -168,6 +159,15 @@
                     "id": "Battery",
                     "showNoctaliaPerformance": false,
                     "showPowerProfiles": false
+                },
+                {
+                    "defaultSettings": {
+                        "connectedColor": "primary",
+                        "disableToastNotifications": false,
+                        "disconnectedColor": "none",
+                        "displayMode": "onhover"
+                    },
+                    "id": "plugin:network-manager-vpn"
                 },
                 {
                     "displayMode": "onhover",

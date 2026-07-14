@@ -12,14 +12,11 @@
       imports = [
         self.homeModules.keyring
         self.homeModules.theme
-        self.homeModules.greeter
 
-        self.homeModules.awesome
         self.homeModules.emacs
         self.homeModules.firefox
         self.homeModules.ghostty
         self.homeModules.mangowc
-        self.homeModules.niri
         self.homeModules.noctalia
         self.homeModules.sound
         self.homeModules.vscode
@@ -78,7 +75,9 @@
 
       home.packages =
         with pkgs;
-        [ ]
+        [
+          chromium
+        ]
         ++ lib.optionals (config.preferences.distro == "ubuntu") [
           xdo
           xwayland-satellite

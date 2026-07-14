@@ -44,7 +44,7 @@ user_pref("ui.key.menuAccessKeyFocuses", false);
 user_pref("ui.prefersReducedMotion", true);
 
 // Fix dark GTK themes
-user_pref("widget.content.gtk-theme-override", "Arc");
+user_pref("widget.content.gtk-theme-override", "adw-gtk3");
 
 // Disable tracking
 user_pref("privacy.resistFingerprinting", true);
