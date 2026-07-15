@@ -60,6 +60,7 @@
           # nodejs_24 # installed via nvm, non-deterministically
           omnisharp-roslyn
           opencode
+          pnpm
           typescript-language-server
         ];
 
