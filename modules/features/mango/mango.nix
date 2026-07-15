@@ -71,6 +71,7 @@
         # Input
 
         xkb_rules_layout = us
+        #xkb_rules_options = caps:swapescape
 
         # ----------------------------
         # Keybinds
@@ -79,6 +80,7 @@
 
         # Terminal
         bind = ${mod}, Return, spawn, ${ghostty}
+        #bind = ${mod}, O, spawn, gnome-terminal
 
         # App launcher
         bind = ${mod}, D, spawn, ${noctalia} ipc call launcher toggle
