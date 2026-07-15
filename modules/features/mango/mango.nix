@@ -9,7 +9,7 @@
     }:
     let
       mod = "SUPER";
-      noctalia = "noctalia-shell";
+      noctalia = "${pkgs.noctalia-shell}/bin/noctalia-shell";
       noctalia-colors = ".config/mango/noctalia.conf";
       ghostty = "ghostty";
 
