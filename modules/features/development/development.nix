@@ -57,7 +57,7 @@
           docker-compose
           dive
           lazydocker
-          nodejs_24
+          # nodejs_24 # installed via nvm, non-deterministically
           omnisharp-roslyn
           opencode
           typescript-language-server
