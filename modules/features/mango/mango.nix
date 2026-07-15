@@ -71,7 +71,7 @@
         # Input
 
         xkb_rules_layout = us
-        #xkb_rules_options = caps:swapescape
+        xkb_rules_options = caps:swapescape
 
         # ----------------------------
         # Keybinds

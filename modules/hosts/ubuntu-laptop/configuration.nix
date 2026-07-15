@@ -36,6 +36,7 @@
             "neovim"
             "network-manager"
             "network-manager-openconnect"
+            "network-manager-openconnect-gnome"
             "network-manager-gnome" # this is required for the password prompt
           ];
 
