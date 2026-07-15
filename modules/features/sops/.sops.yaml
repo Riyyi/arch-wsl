@@ -11,3 +11,8 @@ creation_rules:
     key_groups:
       - age:
         - *primary
+
+  - path_regex: secrets/ubuntu-laptop/.+\.(yaml|json|env|ini|sops|sh)$
+    key_groups:
+      - age:
+        - *primary
