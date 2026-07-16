@@ -20,9 +20,6 @@
     {
 
       preferences.aptPackages = [
-        "aspnetcore-runtime-10.0"
-        "aspnetcore-targeting-pack-10.0"
-        "dotnet-sdk-10.0"
         "keepassxc"
         "mono-complete"
       ];
@@ -55,6 +52,7 @@
           docker
           docker-buildx
           docker-compose
+          dotnetCorePackages.sdk_10_0
           dive
           lazydocker
           # nodejs_24 # installed via nvm, non-deterministically
