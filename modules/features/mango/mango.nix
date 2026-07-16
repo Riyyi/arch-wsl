@@ -68,10 +68,10 @@
         drag_tile_to_tile = 1
 
         # ----------------------------
-        # Monitors (left to right: eDP-1, DP-8, HDMI-A-1)
+        # Monitors (left to right: eDP-1, DP-6, HDMI-A-1)
 
         monitorrule = name:^eDP-1$,width:1920,height:1080,x:0,y:0,scale:1.25
-        monitorrule = name:^DP-8$,width:2560,height:1440,x:1536,y:0,scale:1.25
+        monitorrule = name:^DP-6$,width:2560,height:1440,x:1536,y:0,scale:1.25
         monitorrule = name:^HDMI-A-1$,width:2560,height:1440,x:3584,y:0,scale:1.25
 
         # ----------------------------
