@@ -305,11 +305,15 @@
           # Make
           export MAKEFLAGS="-j $(getconf _NPROCESSORS_ONLN)"
 
+          # .NET
+          export DOTNET_CLI_TELEMETRY_OPTOUT="1"
+
           # npm
           export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 
           # OpenSSL
           export RANDFILE="$XDG_CACHE_HOME/rnd"
+          export SSL_CERT_DIR="/usr/lib/ssl/certs:$HOME/.aspnet/dev-certs/trust"
 
           # Python
           export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"

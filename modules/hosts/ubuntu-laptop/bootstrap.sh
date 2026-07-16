@@ -18,3 +18,6 @@
 #   https://dot.net/v1/dotnet-install.sh --channel 10.0
 # - node (nvm)
 #   https://nodejs.org/en/download
+
+# Create .NET dev cert
+dotnet dev-certs https --trust
