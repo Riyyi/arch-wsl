@@ -52,7 +52,7 @@
           docker
           docker-buildx
           docker-compose
-          dotnetCorePackages.sdk_10_0
+          # dotnetCorePackages.sdk_10_0 # installed via https://dot.net/v1/dotnet-install.sh --channel 10.0
           dive
           lazydocker
           # nodejs_24 # installed via nvm, non-deterministically
