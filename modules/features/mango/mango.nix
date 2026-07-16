@@ -39,9 +39,9 @@
         # Environment variables
 
         # HACK: 3D accel is broken on mango
-        env = LIBGL_ALWAYS_SOFTWARE,1
-        env = WLR_RENDERER,pixman
-        env = WLR_NO_HARDWARE_CURSORS,1
+        #env = LIBGL_ALWAYS_SOFTWARE,1
+        #env = WLR_RENDERER,pixman
+        #env = WLR_NO_HARDWARE_CURSORS,1
 
         # ----------------------------
         # Look and feel
