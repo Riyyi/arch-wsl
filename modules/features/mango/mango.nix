@@ -11,7 +11,7 @@
       mod = "SUPER";
       noctalia = "${pkgs.noctalia-shell}/bin/noctalia-shell";
       noctalia-colors = ".config/mango/noctalia.conf";
-      ghostty = "ghostty";
+      ghostty = "${pkgs.ghostty}/bin/ghostty";
 
       dotfiles = config.preferences.path.dotfiles;
 
