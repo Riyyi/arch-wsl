@@ -1,6 +1,7 @@
 {
   flake.homeModules.vscode =
     {
+      config,
       lib,
       pkgs,
       ...
@@ -51,7 +52,7 @@
           git.openRepositoryInParentFolders = "never";
           gitlens.ai.model = "vscode";
           gitlens.ai.vscode.model = "copilot:claude-haiku-4.5";
-          omnisharp.path = "/usr/bin/omnisharp";
+          omnisharp.path = "${config.preferences.user.home}/.nix-profile/bin/OmniSharp";
           omnisharp.waitForDebugger = true;
           vim.leader = "<space>";
           vim.normalModeKeyBindingsNonRecursive = [
