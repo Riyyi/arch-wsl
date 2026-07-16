@@ -23,6 +23,18 @@
             key = "alt+w";
             command = "workbench.action.closeActiveEditor";
           }
+          {
+            # Go to normal mode on escape
+            key = "capslock";
+            command = "extension.vim_escape";
+            when = "editorTextFocus && vim.active && !inDebugRepl";
+          }
+          {
+            # Close command pallete on escape
+            key = "capslock";
+            command = "workbench.action.closeQuickOpen";
+            when = "inQuickOpen";
+          }
         ];
 
         ".config/Code/User/settings.json".text = builtins.toJSON {
