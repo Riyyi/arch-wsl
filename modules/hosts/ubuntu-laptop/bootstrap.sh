@@ -24,4 +24,10 @@ dotnet dev-certs https --trust # this needs to run after installing libnss3-tool
 
 gsettings set org.gnome.desktop.wm.preferences resize-with-right-button true
 gsettings set org.gnome.desktop.input-sources xkb-options "['caps:swapescape']"
+
+# Conflicts with manually binding super+<num>
 gsettings set org.gnome.shell.extensions.dash-to-dock hot-keys false
+
+# Remap super -> super+d for Activities Overview page
+gsettings set org.gnome.mutter overlay-key ''
+gsettings set org.gnome.shell.keybindings toggle-overview "['<Super>d']"
