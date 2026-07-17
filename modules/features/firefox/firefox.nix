@@ -63,6 +63,7 @@
           (mkExtension "decentraleyes" "jid1-BoFifL9Vbdl2zQ@jetpack" "menupanel")
           (mkExtension "fastforwardteam" "addon@fastforward.team" "menupanel")
           (mkExtension "ff2mpv" "ff2mpv@yossarian.net" "navbar")
+          (mkExtension "gnome-shell-integration" "chrome-gnome-shell@gnome.org" "menupanel")
           (mkExtension "tree-style-tab" "treestyletab@piro.sakura.ne.jp" "menupanel")
           (mkExtension "ublock-origin" "uBlock0@raymondhill.net" "navbar")
           (mkExtension "vimium" "{d7742d87-e61d-4b78-b8a1-b469842139fa}" "navbar")

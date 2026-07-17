@@ -52,6 +52,7 @@
           home.packages = with pkgs; [
             unstable.claude-code
             unstable.teams-for-linux
+            gnome-browser-connector
           ];
 
           xdg.enable = true;
