@@ -21,3 +21,6 @@
 
 # Create .NET dev cert
 dotnet dev-certs https --trust
+
+gsettings set org.gnome.desktop.wm.preferences resize-with-right-button true
+gsettings set org.gnome.desktop.input-sources xkb-options "['caps:swapescape']"
