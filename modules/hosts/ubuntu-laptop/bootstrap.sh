@@ -20,7 +20,7 @@
 #   https://nodejs.org/en/download
 
 # Create .NET dev cert
-dotnet dev-certs https --trust
+dotnet dev-certs https --trust # this needs to run after installing libnss3-tools!
 
 gsettings set org.gnome.desktop.wm.preferences resize-with-right-button true
 gsettings set org.gnome.desktop.input-sources xkb-options "['caps:swapescape']"
