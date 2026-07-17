@@ -21,6 +21,7 @@
 
       preferences.aptPackages = [
         "keepassxc"
+        "libnss3-tools"
         "mono-complete"
       ];
 
