@@ -14,13 +14,13 @@
 
       files = [
         "ghostty/themes/noctalia"
-        "gtk-3.0/gtk.css"
-        "gtk-3.0/noctalia.css"
-        "gtk-3.0/settings.ini"
-        "gtk-4.0/gtk.css"
-        "gtk-4.0/noctalia.css"
-        "gtk-4.0/settings.ini"
-        "xsettingsd/xsettingsd.conf"
+        # "gtk-3.0/gtk.css"
+        # "gtk-3.0/noctalia.css"
+        # "gtk-3.0/settings.ini"
+        # "gtk-4.0/gtk.css"
+        # "gtk-4.0/noctalia.css"
+        # "gtk-4.0/settings.ini"
+        #"xsettingsd/xsettingsd.conf"
       ];
     in
     {
@@ -63,7 +63,7 @@
         ];
 
       home.sessionVariables = {
-        GTK_THEME = "adw-gtk3";
+        # GTK_THEME = "adw-gtk3";
 
         # Qt apps use Gtk passthrough styling, for simplification
         # https://wiki.archlinux.org/title/Uniform_look_for_Qt_and_GTK_applications#QGtk3Style

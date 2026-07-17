@@ -37,7 +37,7 @@
           shell-integration-features = "no-cursor";
           term = "xterm-256color";
           theme = "noctalia";
-          window-decoration = "server";
+          window-decoration = "none";
           window-inherit-working-directory = true;
 
           keybind = [
