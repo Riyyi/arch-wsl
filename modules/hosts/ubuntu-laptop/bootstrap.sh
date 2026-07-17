@@ -24,3 +24,4 @@ dotnet dev-certs https --trust # this needs to run after installing libnss3-tool
 
 gsettings set org.gnome.desktop.wm.preferences resize-with-right-button true
 gsettings set org.gnome.desktop.input-sources xkb-options "['caps:swapescape']"
+gsettings set org.gnome.shell.extensions.dash-to-dock hot-keys false
