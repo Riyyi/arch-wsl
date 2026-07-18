@@ -25,12 +25,14 @@
       config = {
         preferences.aptPackages = [
           "zsh"
+          "zsh-autosuggestions"
           "zsh-syntax-highlighting"
         ];
 
         preferences.pacmanPackages = [
           "fzf"
           "zsh"
+          "zsh-autosuggestions"
           "zsh-history-substring-search"
           "zsh-syntax-highlighting"
         ];
@@ -49,6 +51,7 @@
 
           dotDir = "${config.xdg.configHome}/zsh";
 
+          autosuggestion.enable = true;
           enableCompletion = true;
           syntaxHighlighting = {
             enable = true;
