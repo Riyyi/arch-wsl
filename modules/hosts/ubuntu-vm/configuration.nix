@@ -25,6 +25,7 @@
       imports = [
         self.modules.generic.base
 
+        self.homeModules.ghostty
         self.homeModules.zsh
 
         {
