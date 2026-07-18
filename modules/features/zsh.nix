@@ -3,20 +3,24 @@
     {
       config,
       pkgs,
+      lib,
       ...
     }:
-    let
-      # switch-nixos = "sudo nixos-rebuild switch --sudo --flake .#$HOST";
-      # update-nixos = "sudo nix flake update --flake . && switch";
-      # clean-nixos = "sudo nix-env --delete-generations +5 --profile /nix/var/nix/profiles/system && nix-collect-garbage && nix-store --optimise";
-
-      # switch-darwin = "sudo darwin-rebuild switch --flake .#$HOST";
-      # update-darwin = "sudo nix flake update --flake . && switch";
-      # clean-darwin = "sudo nix-env --delete-generations +5 --profile /nix/var/nix/profiles/system && sudo nix-collect-garbage && sudo nix-store --optimise --ignore-failures";
-
-      # system = pkgs.stdenv.hostPlatform.system;
-    in
     {
+
+      options.preferences = {
+        zsh.aliasesExtra = lib.mkOption {
+          type = lib.types.attrsOf lib.types.str;
+          default = { };
+          description = "Set of aliases to append to the existing zsh aliases.";
+        };
+
+        zsh.initExtra = lib.mkOption {
+          type = lib.types.lines;
+          default = "";
+          description = "Extra zsh init content appended to programs.zsh.initContent.";
+        };
+      };
 
       preferences.aptPackages = [
         "zsh"
@@ -169,7 +173,7 @@
           precmd_functions+=(__set_beam_cursor)
 
           [ -f "$ZDOTDIR/.zshrc-extended" ] && source "$ZDOTDIR/.zshrc-extended"
-        '';
+        '' + config.preferences.zsh.initExtra;
 
         history = {
           size = 10000;
@@ -260,7 +264,7 @@
           mpv-window = "nohup mpv --idle --force-window >/dev/null 2>&1 &";
           neofetch = "fastfetch -c neofetch";
         }
-        // config.preferences.shell.aliases;
+        // config.preferences.zsh.aliasesExtra;
 
         profileExtra = ''
           # Directories

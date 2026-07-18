@@ -12,7 +12,7 @@
         "reflector"
       ];
 
-      preferences.shell.aliases = {
+      preferences.zsh.aliasesExtra = {
         cache = "sudo paccache -r -k 2";
         clean = "sudo pacman -Rns $(pacman -Qdtq) ; \
         nix-env --delete-generations +5 --profile ${config.xdg.stateHome}/nix/profiles/home-manager && \
