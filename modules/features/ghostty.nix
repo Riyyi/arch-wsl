@@ -8,51 +8,64 @@
     }:
     {
 
-      preferences.pacmanPackages = [
-        "ghostty"
-      ];
-
-      home.packages =
-        with pkgs;
-        [ ]
-        ++ lib.optionals (config.preferences.distro == "ubuntu") [
-          ghostty
-        ];
-
-      programs.ghostty = {
-        enable = true;
-        package = null; # nixpkg doesnt work in WSL
-        systemd.enable = false; # doesnt work in combination with package=null
-        settings = {
-          app-notifications = "no-clipboard-copy";
-          confirm-close-surface = false;
-          copy-on-select = "clipboard";
-          cursor-style-blink = false;
-          font-family = "DejaVuSansM Nerd Font Mono";
-          font-feature = "-calt, -liga, -dlig"; # disable ligatures
-          font-size = 10;
-          link-url = true;
-          macos-titlebar-style = "hidden";
-          selection-foreground = "cell-foreground";
-          shell-integration-features = "no-cursor";
-          term = "xterm-256color";
-          theme = "noctalia";
-          window-decoration = "none";
-          window-inherit-working-directory = true;
-
-          keybind = [
-            "super+d=unbind"
-            "super+t=unbind"
-            "super+w=unbind"
-
-            # Neovim fixes:
-
-            # forward command + backtick the <C-6> (Ctrl-^) sequence
-            "super+grave_accent=text:\\x1E"
-            # make command + h work
-            "unconsumed:super+h=text:h"
-          ];
+      options.preferences.ghostty = {
+        theme = lib.mkOption {
+          type = lib.types.str;
+          default = "Tomorrow Night";
+          description = "Built-in theme name, custom theme name, or an absolute path.";
         };
       };
+
+      # ------------------------------------
+
+      config = {
+        preferences.pacmanPackages = [
+          "ghostty"
+        ];
+
+        home.packages =
+          with pkgs;
+          [ ]
+          ++ lib.optionals (config.preferences.distro == "ubuntu") [
+            ghostty
+          ];
+
+        programs.ghostty = {
+          enable = true;
+          package = null; # nixpkg doesnt work in WSL
+          systemd.enable = false; # doesnt work in combination with package=null
+          settings = {
+            app-notifications = "no-clipboard-copy";
+            confirm-close-surface = false;
+            copy-on-select = "clipboard";
+            cursor-style-blink = false;
+            font-family = "DejaVuSansM Nerd Font Mono";
+            font-feature = "-calt, -liga, -dlig"; # disable ligatures
+            font-size = 10;
+            link-url = true;
+            macos-titlebar-style = "hidden";
+            selection-foreground = "cell-foreground";
+            shell-integration-features = "no-cursor";
+            term = "xterm-256color";
+            theme = config.preferences.ghostty.theme;
+            window-decoration = "none";
+            window-inherit-working-directory = true;
+
+            keybind = [
+              "super+d=unbind"
+              "super+t=unbind"
+              "super+w=unbind"
+
+              # Neovim fixes:
+
+              # forward command + backtick the <C-6> (Ctrl-^) sequence
+              "super+grave_accent=text:\\x1E"
+              # make command + h work
+              "unconsumed:super+h=text:h"
+            ];
+          };
+        };
+      };
+
     };
 }

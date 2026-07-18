@@ -2,25 +2,27 @@
   flake.homeModules.zsh =
     {
       config,
-      pkgs,
       lib,
+      pkgs,
       ...
     }:
     {
 
-      options.preferences = {
-        zsh.aliasesExtra = lib.mkOption {
+      options.preferences.zsh = {
+        aliasesExtra = lib.mkOption {
           type = lib.types.attrsOf lib.types.str;
           default = { };
           description = "Set of aliases to append to the existing zsh aliases.";
         };
 
-        zsh.initExtra = lib.mkOption {
+        initExtra = lib.mkOption {
           type = lib.types.lines;
           default = "";
-          description = "Extra zsh init content appended to programs.zsh.initContent.";
+          description = "Extra zsh init content appended to existing init content.";
         };
       };
+
+      # ------------------------------------
 
       config = {
         preferences.aptPackages = [
@@ -162,7 +164,7 @@
             bindkey "\el" accept-line                                 # meta-l
             bindkey "^R" history-incremental-pattern-search-backward  # ctrl-r
 
-            # History (arrow up) only does prefix matching
+            # History (arrow up) will only do prefix matching
             HISTORY_SUBSTRING_SEARCH_PREFIXED=1
 
             # History (Ctrl-R) improved
@@ -260,15 +262,6 @@
             gs = "git status";
             gsh = "git show --format=format:'%C(bold blue)commit %H%C(reset) %C(bold yellow)%d %C(reset)%nAuthor:    %C(dim white)%an <%ae>%C(reset)%nCommitter: %C(dim white)%cn <%ce>%C(reset)%nDate:      %C(bold cyan)%ai%C(reset) %C(bold green)(%ar)%C(reset)%n%n%w(64,4,4)%B'";
             gt = "git ls-tree -r --name-only $(git branch --show-current) .";
-
-            # NixOS
-            # list = "nixos-rebuild list-generations";
-            # switch =
-            #   if system != "x86_64-darwin" && system != "aarch64-darwin" then switch-nixos else switch-darwin;
-            # update =
-            #   if system != "x86_64-darwin" && system != "aarch64-darwin" then update-nixos else update-darwin;
-            # clean =
-            #   if system != "x86_64-darwin" && system != "aarch64-darwin" then clean-nixos else clean-darwin;
 
             # Applications
             mpv-window = "nohup mpv --idle --force-window >/dev/null 2>&1 &";
