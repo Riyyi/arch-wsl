@@ -29,6 +29,7 @@
         self.homeModules.development
         self.homeModules.general
         self.homeModules.desktop
+        self.homeModules.systemdUserUnits
 
         {
           preferences.aptPackages = [
