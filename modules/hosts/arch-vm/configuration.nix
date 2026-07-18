@@ -29,6 +29,7 @@
         self.homeModules.general
         self.homeModules.desktop
         self.homeModules.vmware
+        self.homeModules.systemdUserUnits
 
         {
           preferences.pacmanPackages = [
