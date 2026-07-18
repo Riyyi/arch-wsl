@@ -27,7 +27,7 @@
       preferences.aptPackages = [
       ];
 
-      preferences.shell.aliases = {
+      preferences.zsh.aliasesExtra = {
         clean = "sudo apt autoremove ; \
         nix-env --delete-generations +5 --profile ${config.xdg.stateHome}/nix/profiles/home-manager && \
         nix-collect-garbage && nix-store --optimise";
