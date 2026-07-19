@@ -46,8 +46,6 @@
         "make"
         "libgcc-s1"
         "sqlite3"
-        "libtree-sitter0"
-        "tree-sitter-cli"
       ];
 
       # Some additional packages needed for fzf compilation
@@ -72,8 +70,9 @@
         ]
         ++ lib.optionals (config.preferences.distro == "ubuntu") [
           git # Ubuntu 24.04 ships old git 2.43, which doesnt have the --no-advice flag
-          neovim # this is also old
+          neovim # also too old
           lua-language-server
+          tree-sitter # also too old
         ];
 
       home.file =
