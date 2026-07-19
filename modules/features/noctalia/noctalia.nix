@@ -55,9 +55,11 @@
           noctalia-shell
         ];
 
-      # Deploy wallpapers from repo to home directory
+      preferences.ghostty.theme = "noctalia";
+
       home.file =
         builtins.listToAttrs (
+          # Deploy wallpapers from repo to home directory
           map (file: {
             name = "Pictures/Wallpapers/${file}";
             value = {
