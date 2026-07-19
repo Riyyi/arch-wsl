@@ -318,6 +318,7 @@
 
             # npm
             export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
+            export NVM_DIR="$XDG_CONFIG_HOME/nvm"
 
             # OpenSSL
             export RANDFILE="$XDG_CACHE_HOME/rnd"

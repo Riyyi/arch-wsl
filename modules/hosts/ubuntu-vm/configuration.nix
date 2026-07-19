@@ -25,10 +25,10 @@
       imports = [
         self.modules.generic.base
 
+        self.homeModules.development
+        self.homeModules.general
         self.homeModules.ghostty
-        self.homeModules.nvim
         self.homeModules.systemdUserUnits
-        self.homeModules.zsh
 
         {
           preferences.distro = "ubuntu";
