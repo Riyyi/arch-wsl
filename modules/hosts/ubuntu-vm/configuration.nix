@@ -29,6 +29,7 @@
         self.homeModules.emacs
         self.homeModules.general
         self.homeModules.ghostty
+        self.homeModules.gnome
         self.homeModules.systemdUserUnits
 
         {
