@@ -31,7 +31,6 @@
         "linux-generic"
         "less"
         "libgcc-s1"
-        "libtree-sitter0"
         "linux-firmware"
         "man-db"
         "manpages"
@@ -86,6 +85,7 @@
         ++ lib.optionals (config.preferences.distro == "ubuntu") [
           fastfetch
           tokei
+          tree-sitter
         ];
 
     };
