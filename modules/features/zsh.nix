@@ -272,7 +272,7 @@
           profileExtra = ''
             # Directories
             export FPATH="$FPATH:$HOME/.local/completion"
-            export PATH="$PATH:$HOME/.nix-profile/bin"
+            export PATH="$HOME/.nix-profile/bin:$PATH" # prefer nixpkgs
             export PATH="$PATH:$HOME/.local/bin"
             export PATH="$PATH:$HOME/.dotnet/tools"
             export PATH="$PATH:/nix/var/nix/profiles/default/bin"
