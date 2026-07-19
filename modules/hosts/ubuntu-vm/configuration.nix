@@ -26,6 +26,7 @@
         self.modules.generic.base
 
         self.homeModules.development
+        self.homeModules.emacs
         self.homeModules.general
         self.homeModules.ghostty
         self.homeModules.systemdUserUnits
