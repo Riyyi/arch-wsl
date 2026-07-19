@@ -26,6 +26,7 @@
         self.modules.generic.base
 
         self.homeModules.ghostty
+        self.homeModules.nvim
         self.homeModules.systemdUserUnits
         self.homeModules.zsh
 

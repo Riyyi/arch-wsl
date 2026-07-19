@@ -45,7 +45,6 @@
         "gcc"
         "make"
         "libgcc-s1"
-        "neovim"
         "sqlite3"
         "libtree-sitter0"
         "tree-sitter-cli"
@@ -72,6 +71,8 @@
           nixfmt
         ]
         ++ lib.optionals (config.preferences.distro == "ubuntu") [
+          git # Ubuntu 24.04 ships old git 2.43, which doesnt have the --no-advice flag
+          neovim # this is also old
           lua-language-server
         ];
 
