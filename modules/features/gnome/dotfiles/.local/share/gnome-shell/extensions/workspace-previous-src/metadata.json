@@ -1,0 +1,15 @@
+{
+  "uuid": "workspace-previous@dotfiles",
+  "name": "Workspace Previous",
+  "description": "Provides a keybinding to move to the previously active workspace by tracking the current and previous workspace indices.",
+  "shell-version": [
+    "46",
+    "47",
+    "48",
+    "49",
+    "50"
+  ],
+  "version": 1,
+  "url": "",
+  "settings-schema": "org.gnome.shell.extensions.workspace-previous"
+}
