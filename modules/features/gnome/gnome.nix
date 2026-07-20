@@ -16,7 +16,7 @@
       workspacePreviousExt = pkgs.stdenv.mkDerivation {
         pname = "gnome-shell-extension-workspace-previous";
         version = "1";
-        src = ./dotfiles/.local/share/gnome-shell/extensions/workspace-previous-src;
+        src = ./extensions/workspace-previous-src;
         # Source is already a flat directory; no unpacking step needed.
         dontUnpack = true;
 
