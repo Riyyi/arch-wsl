@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.workspace-previous"
+          path="/org/gnome/shell/extensions/workspace-previous/">
+    <key name="switch-to-previous-workspace" type="as">
+      <default>[]</default>
+      <summary>Switch to previous workspace</summary>
+      <description>Keybinding to switch to the previously active workspace.</description>
+    </key>
+  </schema>
+</schemalist>
