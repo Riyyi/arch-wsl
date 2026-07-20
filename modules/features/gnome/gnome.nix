@@ -13,10 +13,10 @@
 
       # GNOME 46 extension that tracks current/previous workspace and exposes
       # a "switch to previous workspace" keybinding.
-      workspacePreviousExt = pkgs.stdenv.mkDerivation {
-        pname = "gnome-shell-extension-workspace-previous";
+      previousWorkspaceExt = pkgs.stdenv.mkDerivation {
+        pname = "gnome-shell-extension-previous-workspace";
         version = "1";
-        src = ./extensions/workspace-previous-src;
+        src = ./extensions/previous-workspace;
         # Source is already a flat directory; no unpacking step needed.
         dontUnpack = true;
 
@@ -25,7 +25,7 @@
         installPhase = ''
           runHook preInstall
 
-          uuid="workspace-previous@dotfiles"
+          uuid="previous-workspace@dotfiles"
           dst="$out/share/gnome-shell/extensions/$uuid"
           mkdir -p "$dst"
           cp -r "$src"/. "$dst/"
@@ -35,6 +35,29 @@
 
           # gschema needs to be compiled for the shell to pick it up.
           glib-compile-schemas "$dst/schemas"
+
+          runHook postInstall
+        '';
+      };
+
+      # Third-party extension that suppresses the workspace switcher overlay
+      # popup shown when switching between workspaces.
+      # https://github.com/cleardevice/gnome-disable-workspace-switcher
+      disableWorkspaceSwitcherOverlayExt = pkgs.stdenv.mkDerivation {
+        pname = "gnome-shell-extension-disable-workspace-switcher-overlay";
+        version = "7";
+        src = ./extensions/disable-workspace-switcher-overlay;
+        # Source is already a flat directory; no unpacking step needed.
+        dontUnpack = true;
+
+        installPhase = ''
+          runHook preInstall
+
+          uuid="disable-workspace-switcher-overlay@cleardevice"
+          dst="$out/share/gnome-shell/extensions/$uuid"
+          mkdir -p "$dst"
+          cp -r "$src"/. "$dst/"
+          chmod -R u+w "$dst"
 
           runHook postInstall
         '';
@@ -119,11 +142,12 @@
 
         # ----------------------------------
 
-        # Enable the workspace-previous GNOME extension.
+        # Enable the previous-workspace GNOME extension.
         {
           "org/gnome/shell" = {
             enabled-extensions = [
-              "workspace-previous@dotfiles"
+              "previous-workspace@dotfiles"
+              "disable-workspace-switcher-overlay@cleardevice"
             ];
             disable-user-extensions = false;
           };
@@ -250,9 +274,14 @@
           }) files
         )
         // {
-          # Install the workspace-previous GNOME extension.
-          ".local/share/gnome-shell/extensions/workspace-previous@dotfiles" = {
-            source = "${workspacePreviousExt}/share/gnome-shell/extensions/workspace-previous@dotfiles";
+          # Install the previous-workspace GNOME extension.
+          ".local/share/gnome-shell/extensions/previous-workspace@dotfiles" = {
+            source = "${previousWorkspaceExt}/share/gnome-shell/extensions/previous-workspace@dotfiles";
+            recursive = true;
+          };
+          # Install the disable-workspace-switcher-overlay GNOME extension.
+          ".local/share/gnome-shell/extensions/disable-workspace-switcher-overlay@cleardevice" = {
+            source = "${disableWorkspaceSwitcherOverlayExt}/share/gnome-shell/extensions/disable-workspace-switcher-overlay@cleardevice";
             recursive = true;
           };
         };
