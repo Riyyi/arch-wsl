@@ -17,7 +17,7 @@
         self.homeModules.firefox
         self.homeModules.ghostty
         self.homeModules.mangowc
-        self.homeModules.noctalia
+        # self.homeModules.noctalia
         self.homeModules.sound
         self.homeModules.vscode
       ];
