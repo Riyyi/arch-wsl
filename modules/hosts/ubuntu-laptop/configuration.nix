@@ -25,11 +25,12 @@
       imports = [
         self.modules.generic.base
 
-        self.homeModules.ubuntu
         self.homeModules.development
         self.homeModules.general
+        self.homeModules.gnome
         self.homeModules.desktop
         self.homeModules.systemdUserUnits
+        self.homeModules.ubuntu
 
         {
           preferences.aptPackages = [
