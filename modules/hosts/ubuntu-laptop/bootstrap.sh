@@ -31,3 +31,6 @@ gsettings set org.gnome.shell.extensions.dash-to-dock hot-keys false
 # Remap super -> super+d for Activities Overview page
 gsettings set org.gnome.mutter overlay-key ''
 gsettings set org.gnome.shell.keybindings toggle-overview "['<Super>d']"
+
+# entity framework migrations
+# dotnet tool install --global dotnet-ef
