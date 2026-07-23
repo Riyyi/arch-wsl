@@ -27,6 +27,7 @@
 
         self.homeModules.development
         self.homeModules.emacs
+        self.homeModules.fonts
         self.homeModules.general
         self.homeModules.ghostty
         self.homeModules.gnome

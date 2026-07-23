@@ -25,30 +25,23 @@
     in
     {
 
+      imports = [
+        self.homeModules.fonts
+      ];
+
       preferences.aptPackages = [
-        "fonts-noto-color-emoji"
-        "fonts-noto"
-        "fonts-noto-cjk"
         "papirus-icon-theme"
         "libqt5gui5t64"
         "libqt6gui6t64"
-        "fonts-dejavu"
       ];
 
       preferences.pacmanPackages = [
         "adw-gtk-theme"
         "capitaine-cursors"
-        "noto-fonts"
-        "noto-fonts-cjk"
-        "noto-fonts-emoji"
         "nwg-look"
         "papirus-icon-theme"
         "qt5-base" # contains QGtk3Style implementation for Qt5
         "qt6-base" # contains QGtk3Style implementation for Qt6
-        "ttf-dejavu"
-        "ttf-dejavu-nerd"
-        "ttf-nerd-fonts-symbols"
-        "ttf-nerd-fonts-symbols-mono"
       ];
 
       home.packages =
@@ -57,8 +50,6 @@
         ++ lib.optionals (config.preferences.distro == "ubuntu") [
           adw-gtk3
           capitaine-cursors
-          nerd-fonts.dejavu-sans-mono
-          nerd-fonts.symbols-only
           nwg-look
         ];
 
