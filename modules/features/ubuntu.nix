@@ -9,12 +9,6 @@
       # This breaks otherwise-unconfined Nix-built binaries that rely on
       # user namespaces instead of disabling the restriction system-wide;
       # grant each one a scoped userns exception.
-      #
-      # - bwrap: used by bwrap-based sandboxes (e.g. vscode-fhs).
-      # - postman: Electron's chrome-sandbox SUID helper can never be a
-      #   real setuid-root binary (Nix builds can't chown to root), so
-      #   Chromium finds it misconfigured and aborts instead of falling
-      #   back to the unprivileged-userns sandbox on its own.
       apparmorProfiles = {
         nix-bwrap = ''
           abi <abi/4.0>,

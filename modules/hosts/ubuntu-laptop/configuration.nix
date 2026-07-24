@@ -65,11 +65,12 @@
             /bin/sudo systemctl enable --now NetworkManager.service
           '';
 
-          # Nix builds electron with a chrome-sandbox helper that needs to be
-          # owned by root with the setuid bit set, otherwise electron apps
-          # abort on launch. NixOS fixes this via security.wrappers, but we
-          # are on generic Linux, so fix it up ourselves after each switch.
-          home.activation.electron-sandbox = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+          # Nix builds electron (and chromium itself) with a SUID sandbox
+          # helper that needs to be owned by root with the setuid bit set,
+          # otherwise these apps abort on launch. NixOS fixes this via
+          # security.wrappers, but we are on generic Linux, so fix it up
+          # ourselves after each switch.
+          home.activation.suidSandboxHelpers = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
             while read -r sandbox; do
               owner_mode="$(stat -c '%U:%a' "$sandbox")"
               if [ "$owner_mode" != "root:4755" ]; then
@@ -77,8 +78,8 @@
                 /bin/sudo chmod 4755 "$sandbox"
               fi
             done < <(
-              ${pkgs.nix}/bin/nix-store -qR ${pkgs.unstable.teams-for-linux} \
-                | xargs -r find -maxdepth 4 -name chrome-sandbox -type f 2>/dev/null
+              ${pkgs.nix}/bin/nix-store -qR ${pkgs.unstable.teams-for-linux} ${pkgs.chromium} \
+                | xargs -r sh -c 'find -L "$@" -maxdepth 4 \( -name chrome-sandbox -o -name __chromium-suid-sandbox \) -type f' sh 2>/dev/null
             )
           '';
 
