@@ -9,27 +9,22 @@
       # This breaks otherwise-unconfined Nix-built binaries that rely on
       # user namespaces instead of disabling the restriction system-wide;
       # grant each one a scoped userns exception.
+      mkUsernsProfile = name: path: ''
+        abi <abi/4.0>,
+        include <tunables/global>
+
+        profile ${name} ${path} flags=(unconfined) {
+          userns,
+
+          include if exists <local/${name}>
+        }
+      '';
+
       apparmorProfiles = {
-        nix-bwrap = ''
-          abi <abi/4.0>,
-          include <tunables/global>
-
-          profile nix-bwrap /nix/store/*-bubblewrap-*/bin/bwrap flags=(unconfined) {
-            userns,
-
-            include if exists <local/nix-bwrap>
-          }
-        '';
-        nix-postman = ''
-          abi <abi/4.0>,
-          include <tunables/global>
-
-          profile nix-postman /nix/store/*-postman-*/share/postman/postman flags=(unconfined) {
-            userns,
-
-            include if exists <local/nix-postman>
-          }
-        '';
+        nix-bwrap = mkUsernsProfile "nix-bwrap" "/nix/store/*-bubblewrap-*/bin/bwrap";
+        nix-chromium = mkUsernsProfile "nix-chromium" "/nix/store/*-chromium-unwrapped-*/libexec/chromium/chromium";
+        nix-electron = mkUsernsProfile "nix-electron" "/nix/store/*-electron-unwrapped-*/libexec/electron/electron";
+        nix-postman = mkUsernsProfile "nix-postman" "/nix/store/*-postman-*/share/postman/postman";
       };
     in
     {
