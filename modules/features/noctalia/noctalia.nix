@@ -4,7 +4,6 @@
   flake.homeModules.noctalia =
     {
       config,
-      lib,
       pkgs,
       ...
     }:
@@ -46,14 +45,10 @@
         "xdg-desktop-portal-gnome"
       ];
 
-      home.packages =
-        with pkgs;
-        [
-        ]
-        ++ lib.optionals (config.preferences.distro == "ubuntu") [
-          noctalia-qs
-          noctalia-shell
-        ];
+      home.packages = with pkgs; [
+        noctalia-qs
+        noctalia-shell
+      ];
 
       preferences.ghostty.theme = "noctalia";
 

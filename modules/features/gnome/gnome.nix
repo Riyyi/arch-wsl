@@ -65,6 +65,8 @@
     in
     {
 
+      preferences.firefox.gnomeIntegration = true;
+
       preferences.aptPackages = [
         "dconf-editor"
         "gnome-tweaks"

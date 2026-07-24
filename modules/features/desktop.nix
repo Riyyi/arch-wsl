@@ -48,6 +48,7 @@
       ];
 
       preferences.pacmanPackages = [
+        "chromium"
         "gedit"
         "gvfs"
         "imv"
@@ -76,9 +77,9 @@
       home.packages =
         with pkgs;
         [
-          chromium
         ]
         ++ lib.optionals (config.preferences.distro == "ubuntu") [
+          chromium
           xdo
           xwayland-satellite
         ];

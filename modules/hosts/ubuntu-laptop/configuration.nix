@@ -54,7 +54,6 @@
           home.packages = with pkgs; [
             unstable.claude-code
             unstable.teams-for-linux
-            gnome-browser-connector
           ];
 
           xdg.enable = true;
@@ -62,7 +61,6 @@
           home.stateVersion = "25.11";
 
           home.activation.configuration = lib.hm.dag.entryAfter [ "aptPackages" ] ''
-            /bin/sudo systemctl enable --now NetworkManager.service
           '';
 
           sops.secrets.zshrc-extended = {

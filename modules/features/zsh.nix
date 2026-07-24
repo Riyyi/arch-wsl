@@ -20,6 +20,12 @@
           default = "";
           description = "Extra zsh init content appended to existing init content.";
         };
+
+        profileExtra = lib.mkOption {
+          type = lib.types.lines;
+          default = "";
+          description = "Extra zsh profile content appended to existing profile content.";
+        };
       };
 
       # ------------------------------------
@@ -274,7 +280,6 @@
             export FPATH="$FPATH:$HOME/.local/completion"
             export PATH="$HOME/.nix-profile/bin:$PATH" # prefer nixpkgs
             export PATH="$PATH:$HOME/.local/bin"
-            export PATH="$PATH:$HOME/.dotnet/tools"
             export PATH="$PATH:/nix/var/nix/profiles/default/bin"
             export XDG_CACHE_HOME="$HOME/.cache"
             export XDG_CONFIG_HOME="$HOME/.config"
@@ -342,7 +347,8 @@
 
             # Wine
             export WINEPREFIX="$XDG_DATA_HOME/wine"
-          '';
+          ''
+          + config.preferences.zsh.profileExtra;
         };
 
         home.file = {

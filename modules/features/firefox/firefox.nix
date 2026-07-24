@@ -1,7 +1,7 @@
 {
   flake.homeModules.firefox =
     {
-      #config,
+      config,
       lib,
       pkgs,
       ...
@@ -34,61 +34,79 @@
       };
     in
     {
-      preferences.aptPackages = [
-        "mpv"
-        "yt-dlp"
-      ];
-
-      preferences.pacmanPackages = [
-        "mpv"
-        "yt-dlp"
-      ];
-
-      home.packages = with pkgs; [
-        ff2mpv-go
-      ];
-
-      programs.firefox = {
-        enable = true;
-        package = pkgs.firefox;
-        configPath = ".mozilla/firefox";
-        nativeMessagingHosts = [ pkgs.ff2mpv-go ];
-
-        policies.ExtensionSettings = {
-          "*".installation_mode = "blocked"; # blocks all addons except specified below
-        }
-        // lib.mkMerge [
-          # https://gitlab.com/rycee/nur-expressions/-/blob/master/pkgs/firefox-addons/generated-firefox-addons.nix
-          (mkExtension "clearurls" "{74145f27-f039-47ce-a470-a662b129930a}" "menupanel")
-          (mkExtension "decentraleyes" "jid1-BoFifL9Vbdl2zQ@jetpack" "menupanel")
-          (mkExtension "fastforwardteam" "addon@fastforward.team" "menupanel")
-          (mkExtension "ff2mpv" "ff2mpv@yossarian.net" "navbar")
-          (mkExtension "gnome-shell-integration" "chrome-gnome-shell@gnome.org" "menupanel")
-          (mkExtension "tree-style-tab" "treestyletab@piro.sakura.ne.jp" "menupanel")
-          (mkExtension "ublock-origin" "uBlock0@raymondhill.net" "navbar")
-          (mkExtension "vimium" "{d7742d87-e61d-4b78-b8a1-b469842139fa}" "navbar")
-          (mkExtension "violentmonkey" "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}" "menupanel")
-        ];
+      options.preferences.firefox = {
+        gnomeIntegration = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          description = "Whether to force-install the GNOME Shell integration extension.";
+        };
       };
 
-      home.file = builtins.listToAttrs (
-        map (file: {
-          name = ".config/mozilla/firefox/${file}";
-          value = {
-            source = ./dotfiles + "/${file}";
-          };
-        }) files
-      );
+      # ------------------------------------
 
-      # This is needed for nixos firefox, auto-install of "nativeMessagingHosts" is broken in it,
-      # it works properly with the home-manager module
-      ## BUG: native-messaging-hosts *has* to be placed in ~/.mozilla
-      #home.activation.ff2mpv = ''
-      #  nmh="${home}/.mozilla/native-messaging-hosts"
-      #  mkdir -p "$nmh"
-      #  ${pkgs.ff2mpv-go}/bin/ff2mpv-go --manifest > "$nmh/ff2mpv.json"
-      #  chown -R ${user}:users "$nmh"
-      #'';
+      config = {
+        preferences.aptPackages = [
+          "mpv"
+          "yt-dlp"
+        ];
 
+        preferences.pacmanPackages = [
+          "mpv"
+          "yt-dlp"
+        ];
+
+        home.packages =
+          with pkgs;
+          [
+            ff2mpv-go
+          ]
+          ++ lib.optionals (config.preferences.firefox.gnomeIntegration) [
+            gnome-browser-connector
+          ];
+
+        programs.firefox = {
+          enable = true;
+          package = pkgs.firefox;
+          configPath = ".mozilla/firefox";
+          nativeMessagingHosts = [ pkgs.ff2mpv-go ];
+
+          policies.ExtensionSettings = {
+            "*".installation_mode = "blocked"; # blocks all addons except specified below
+          }
+          // lib.mkMerge [
+            # https://gitlab.com/rycee/nur-expressions/-/blob/master/pkgs/firefox-addons/generated-firefox-addons.nix
+            (mkExtension "clearurls" "{74145f27-f039-47ce-a470-a662b129930a}" "menupanel")
+            (mkExtension "decentraleyes" "jid1-BoFifL9Vbdl2zQ@jetpack" "menupanel")
+            (mkExtension "fastforwardteam" "addon@fastforward.team" "menupanel")
+            (mkExtension "ff2mpv" "ff2mpv@yossarian.net" "navbar")
+            (lib.optionalAttrs config.preferences.firefox.gnomeIntegration (
+              mkExtension "gnome-shell-integration" "chrome-gnome-shell@gnome.org" "menupanel"
+            ))
+            (mkExtension "tree-style-tab" "treestyletab@piro.sakura.ne.jp" "menupanel")
+            (mkExtension "ublock-origin" "uBlock0@raymondhill.net" "navbar")
+            (mkExtension "vimium" "{d7742d87-e61d-4b78-b8a1-b469842139fa}" "navbar")
+            (mkExtension "violentmonkey" "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}" "menupanel")
+          ];
+        };
+
+        home.file = builtins.listToAttrs (
+          map (file: {
+            name = ".config/mozilla/firefox/${file}";
+            value = {
+              source = ./dotfiles + "/${file}";
+            };
+          }) files
+        );
+
+        # This is needed for nixos firefox, auto-install of "nativeMessagingHosts" is broken in it,
+        # it works properly with the home-manager module
+        ## BUG: native-messaging-hosts *has* to be placed in ~/.mozilla
+        #home.activation.ff2mpv = ''
+        #  nmh="${home}/.mozilla/native-messaging-hosts"
+        #  mkdir -p "$nmh"
+        #  ${pkgs.ff2mpv-go}/bin/ff2mpv-go --manifest > "$nmh/ff2mpv.json"
+        #  chown -R ${user}:users "$nmh"
+        #'';
+      };
     };
 }
