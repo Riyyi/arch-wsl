@@ -37,7 +37,6 @@
         "lazydocker"
         "mono-msbuild"
         "npm"
-        "omnisharp-roslyn-bin"
         "opencode"
         "typescript-language-server"
       ];
@@ -47,6 +46,7 @@
         with pkgs;
         [
           antares
+          omnisharp-roslyn
           postman
         ]
         ++ lib.optionals (config.preferences.distro == "ubuntu") [
@@ -57,7 +57,6 @@
           dive
           lazydocker
           # nodejs_24 # installed via nvm, non-deterministically
-          omnisharp-roslyn
           opencode
           pnpm
           typescript-language-server

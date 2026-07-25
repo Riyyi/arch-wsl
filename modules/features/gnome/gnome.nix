@@ -123,8 +123,8 @@
         # Wallpaper
         {
           "org/gnome/desktop/background" = {
-            picture-uri = "file://${config.home.homeDirectory}/Pictures/Wallpapers/wallpaper.png";
-            picture-uri-dark = "file://${config.home.homeDirectory}/Pictures/Wallpapers/wallpaper.png";
+            picture-uri = "file://${config.preferences.user.home}/Pictures/Wallpapers/wallpaper.png";
+            picture-uri-dark = "file://${config.preferences.user.home}/Pictures/Wallpapers/wallpaper.png";
             picture-options = "zoom";
           };
         }
