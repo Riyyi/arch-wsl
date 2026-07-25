@@ -3,6 +3,7 @@
   flake.homeModules.theme =
     {
       config,
+      lib,
       pkgs,
       ...
     }:
@@ -12,16 +13,22 @@
       # Calculate the subdirectory directory from root this module is in
       subDir = self.lib.subDir __curPos;
 
-      files = [
-        "ghostty/themes/noctalia"
-        # "gtk-3.0/gtk.css"
-        # "gtk-3.0/noctalia.css"
-        # "gtk-3.0/settings.ini"
-        # "gtk-4.0/gtk.css"
-        # "gtk-4.0/noctalia.css"
-        # "gtk-4.0/settings.ini"
-        #"xsettingsd/xsettingsd.conf"
-      ];
+      files =
+        if config.preferences.distro == "ubuntu" then
+          [
+            "ghostty/themes/noctalia"
+          ]
+        else
+          [
+            "ghostty/themes/noctalia"
+            "gtk-3.0/gtk.css"
+            "gtk-3.0/noctalia.css"
+            "gtk-3.0/settings.ini"
+            "gtk-4.0/gtk.css"
+            "gtk-4.0/noctalia.css"
+            "gtk-4.0/settings.ini"
+            "xsettingsd/xsettingsd.conf"
+          ];
     in
     {
 
@@ -54,7 +61,7 @@
         ];
 
       home.sessionVariables = {
-        # GTK_THEME = "adw-gtk3";
+        GTK_THEME = if config.preferences.distro == "ubuntu" then null else "adw-gtk3";
 
         # Qt apps use Gtk passthrough styling, for simplification
         # https://wiki.archlinux.org/title/Uniform_look_for_Qt_and_GTK_applications#QGtk3Style
@@ -64,6 +71,15 @@
 
         XCURSOR_THEME = "capitaine-cursors-light";
         XCURSOR_SIZE = 24;
+      };
+
+      # TODO: also set for Ubuntu, when different themes have been figured out
+      dconf.settings = lib.optionalAttrs (config.preferences.distro != "ubuntu") {
+        "org/gnome/desktop/interface" = {
+          color-scheme = "prefer-dark";
+          gtk-theme = "adw-gtk3";
+          icon-theme = "Papirus";
+        };
       };
 
       home.file = builtins.listToAttrs (
