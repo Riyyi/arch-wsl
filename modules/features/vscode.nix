@@ -8,9 +8,12 @@
     }:
     {
 
-      home.packages = with pkgs; [
-        # vscode-fhs # installed via M$ ppa, non-deterministically
+      preferences.pacmanPackages = [
+        "visual-studio-code-bin"
       ];
+
+      # Ubuntu:
+      # installed via M$ PPA, non-deterministically
 
       home.file = {
         ".vscode/argv.json".text = builtins.toJSON {
@@ -145,36 +148,44 @@
         };
       };
 
-      home.activation.vscodeExtensions = lib.hm.dag.entryAfter [ "pacmanPackages" "aptPackages" ] ''
-        if test -x $HOME/.nix-profile/bin/code > /dev/null 2>&1; then
-            install_ext() {
-              local id=$1 ver=''${2:-""}
-              $HOME/.nix-profile/bin/code --list-extensions --show-versions \
-                  | grep -qi "^''${id}''${ver}" || $HOME/.nix-profile/bin/code --install-extension "''${id}''${ver}" --force
-            }
+      home.activation.vscodeExtensions =
+        let
+          vscode =
+            if config.preferences.distro == "ubuntu" then
+              "${config.preferences.user.home}/.nix-profile/bin/code"
+            else
+              "/bin/code";
+        in
+        lib.hm.dag.entryAfter [ "pacmanPackages" "aptPackages" ] ''
+          if test -x ${vscode} > /dev/null 2>&1; then
+              install_ext() {
+                local id=$1 ver=''${2:-""}
+                ${vscode} --list-extensions --show-versions \
+                    | grep -qi "^''${id}''${ver}" || ${vscode} --install-extension "''${id}''${ver}" --force
+              }
 
-            install_ext "antfu.goto-alias"
-            install_ext "antfu.iconify"
-            install_ext "bradlc.vscode-tailwindcss"
-            install_ext "dbaeumer.vscode-eslint"
-            install_ext "eamodio.gitlens"
-            install_ext "firefox-devtools.vscode-firefox-debug"
-            #install_ext "GitHub.copilot-chat" # this is built-in
-            install_ext "ms-dotnettools.csharp"
-            install_ext "ms-dotnettools.csdevkit"
-            install_ext "ms-vscode.Theme-TomorrowKit"
-            install_ext "Nuxt.mdc"
-            install_ext "Nuxtr.nuxtr-vscode"
-            install_ext "pbkit.vscode-pbkit"
-            install_ext "takumiI.markdowntable"
-            install_ext "vscodevim.vim"
-            install_ext "vue.volar"
+              install_ext "antfu.goto-alias"
+              install_ext "antfu.iconify"
+              install_ext "bradlc.vscode-tailwindcss"
+              install_ext "dbaeumer.vscode-eslint"
+              install_ext "eamodio.gitlens"
+              install_ext "firefox-devtools.vscode-firefox-debug"
+              #install_ext "GitHub.copilot-chat" # this is built-in
+              install_ext "ms-dotnettools.csharp"
+              install_ext "ms-dotnettools.csdevkit"
+              install_ext "ms-vscode.Theme-TomorrowKit"
+              install_ext "Nuxt.mdc"
+              install_ext "Nuxtr.nuxtr-vscode"
+              install_ext "pbkit.vscode-pbkit"
+              install_ext "takumiI.markdowntable"
+              install_ext "vscodevim.vim"
+              install_ext "vue.volar"
 
-            unset install_ext
-        else
-            _iError "Package not installed, skipping 'vscode'"
-        fi
-      '';
+              unset install_ext
+          else
+              _iError "Package not installed, skipping 'vscode'"
+          fi
+        '';
 
     };
 }
