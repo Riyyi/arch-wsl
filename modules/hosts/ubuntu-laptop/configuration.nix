@@ -60,8 +60,7 @@
 
           home.stateVersion = "25.11";
 
-          home.activation.configuration = lib.hm.dag.entryAfter [ "aptPackages" ] ''
-          '';
+          home.activation.configuration = lib.hm.dag.entryAfter [ "aptPackages" ] "";
 
           sops.secrets.zshrc-extended = {
             # owner = user; # not available in home-manager standalone

@@ -94,32 +94,30 @@
         lib.hm.dag.entryAfter [ "pacmanPackages" "aptPackages" ] (
           if config.preferences.distro == "ubuntu" then
             ''
-              UNIT_SRC="${
-                pkgs.writeText "${service}" ''
-                  [Unit]
-                  Description=Docker Application Container Engine
-                  Documentation=https://docs.docker.com
-                  After=network-online.target
-                  Wants=network-online.target
+              UNIT_SRC="${pkgs.writeText "${service}" ''
+                [Unit]
+                Description=Docker Application Container Engine
+                Documentation=https://docs.docker.com
+                After=network-online.target
+                Wants=network-online.target
 
-                  [Service]
-                  Type=notify
-                  ExecStart=${pkgs.docker}/bin/dockerd
-                  ExecReload=/bin/kill -s HUP $MAINPID
-                  TimeoutStartSec=0
-                  RestartSec=2
-                  Restart=always
-                  LimitNOFILE=infinity
-                  LimitNPROC=infinity
-                  LimitCORE=infinity
-                  Delegate=yes
-                  KillMode=process
-                  OOMScoreAdjust=-500
+                [Service]
+                Type=notify
+                ExecStart=${pkgs.docker}/bin/dockerd
+                ExecReload=/bin/kill -s HUP $MAINPID
+                TimeoutStartSec=0
+                RestartSec=2
+                Restart=always
+                LimitNOFILE=infinity
+                LimitNPROC=infinity
+                LimitCORE=infinity
+                Delegate=yes
+                KillMode=process
+                OOMScoreAdjust=-500
 
-                  [Install]
-                  WantedBy=multi-user.target
-                ''
-              }"
+                [Install]
+                WantedBy=multi-user.target
+              ''}"
 
               /bin/sudo cp "$UNIT_SRC" /etc/systemd/system/${service}
               /bin/sudo systemctl daemon-reload
