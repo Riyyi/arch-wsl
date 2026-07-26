@@ -28,6 +28,7 @@
         self.homeModules.desktop
         self.homeModules.development
         self.homeModules.general
+        self.homeModules.greeter
         self.homeModules.mangowc
         self.homeModules.noctalia
         self.homeModules.systemdUserUnits
