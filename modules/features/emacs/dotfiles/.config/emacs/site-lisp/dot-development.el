@@ -200,6 +200,7 @@
        kotlin-mode    ; kotlin-language-server
        lua-mode       ; lua-language-server
        latex-mode     ; texlab
+       nix-mode       ; nixd
        swift-mode     ; swift-bin
        web-mode)
     (:hook lsp-deferred))
@@ -225,6 +226,8 @@
     ;; (setq lsp-modeline-code-actions-enable nil)
     ;; (setq lsp-modeline-diagnostics-enable nil)
     ;; (setq lsp-modeline-workspace-status-enable nil)
+    (setq lsp-nix-nixd-formatting-command [ "nixfmt" ])
+    (setq lsp-nix-nixd-server-path "nixd")
     (setq lsp-prefer-flymake nil)
     (setq lsp-session-file (expand-file-name "lsp-session-v1" dot-cache-dir))
 
@@ -366,6 +369,9 @@
 
 (elpaca-setup lua-mode
   (:when-loaded (setq lua-indent-level (default-value 'tab-width))))
+
+;;; Nix
+(elpaca-setup nix-mode)
 
 ;;; PHP
 

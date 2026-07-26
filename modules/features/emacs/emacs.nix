@@ -1,6 +1,6 @@
 {
   flake.homeModules.emacs =
-    { lib, ... }:
+    { lib, pkgs, ... }:
     let
       recursiveListFiles =
         dir:
@@ -29,6 +29,12 @@
         "hunspell"
         "hunspell-en_us"
         "hunspell-nl"
+      ];
+
+      # These packages arent available the the official repos
+      home.packages = with pkgs; [
+        nixd
+        nixfmt
       ];
 
       home.file = builtins.listToAttrs (
