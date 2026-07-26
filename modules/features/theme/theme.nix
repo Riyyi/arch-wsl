@@ -27,6 +27,7 @@
             "gtk-4.0/gtk.css"
             "gtk-4.0/noctalia.css"
             "gtk-4.0/settings.ini"
+            "xfce4/xfconf/xfce-perchannel-xml/xsettings.xml"
             "xsettingsd/xsettingsd.conf"
           ];
     in

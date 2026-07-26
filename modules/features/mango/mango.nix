@@ -33,7 +33,7 @@
       home.file.".config/mango/config.conf".text = ''
         exec-once = ${noctalia}
 
-        cursor_theme = capitaine-cursors-white
+        cursor_theme = capitaine-cursors-light
         cursor_size = 24
 
         # ----------------------------

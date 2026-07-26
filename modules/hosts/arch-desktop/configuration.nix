@@ -40,6 +40,11 @@
             "networkmanager"
             "network-manager-applet" # this is required for the password prompt
             "nm-connection-editor"
+
+            # TODO: GPU module?
+            "mesa"
+            "vulkan-icd-loader"
+            "vulkan-radeon"
           ];
 
           # Improve home-manager on non-NixOS distros
