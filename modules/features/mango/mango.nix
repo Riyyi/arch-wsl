@@ -21,17 +21,25 @@
     in
     {
       preferences.aptPackages = [
+        "polkit-kde-agent-1"
+        "xdg-desktop-portal-gtk"
         "xdg-desktop-portal-wlr"
       ];
 
       preferences.pacmanPackages = [
+        "polkit-kde-agent"
+        "xdg-desktop-portal"
+        "xdg-desktop-portal-gtk"
         "xdg-desktop-portal-wlr"
       ];
 
       home.packages = [ pkgs.mangowc ];
 
+      polkit = "/usr/lib/polkit-kde-authentication-agent-1";
+
       home.file.".config/mango/config.conf".text = ''
         exec-once = ${noctalia}
+        exec-once = ${polkit}
 
         cursor_theme = capitaine-cursors-light
         cursor_size = 24
