@@ -14,6 +14,29 @@
       ghostty =
         if config.preferences.distro == "ubuntu" then "${pkgs.ghostty}/bin/ghostty" else "ghostty";
 
+      polkit = "/usr/lib/polkit-kde-authentication-agent-1";
+
+      # Generate mango monitorrule lines from preferences.monitors
+      monitors = lib.concatStringsSep "\n        " (
+        map (
+          m:
+          let
+            parts = lib.optional (m.name != "") "name:${m.name}"
+            ++ lib.optional (m.make != "") "make:${m.make}"
+            ++ lib.optional (m.model != "") "model:${m.model}"
+            ++ lib.optional (m.serial != "") "serial:${m.serial}"
+            ++ [
+              "width:${toString m.width}"
+              "height:${toString m.height}"
+              "x:${toString m.x}"
+              "y:${toString m.y}"
+              "scale:${toString m.scale}"
+            ];
+          in
+          "monitorrule = ${lib.concatStringsSep "," parts}"
+        ) config.preferences.monitors
+      );
+
       dotfiles = config.preferences.path.dotfiles;
 
       # Calculate the subdirectory directory from root this module is in
@@ -24,6 +47,7 @@
         "polkit-kde-agent-1"
         "xdg-desktop-portal-gtk"
         "xdg-desktop-portal-wlr"
+        "wlr-randr"
       ];
 
       preferences.pacmanPackages = [
@@ -31,11 +55,10 @@
         "xdg-desktop-portal"
         "xdg-desktop-portal-gtk"
         "xdg-desktop-portal-wlr"
+        "wlr-randr"
       ];
 
       home.packages = [ pkgs.mangowc ];
-
-      polkit = "/usr/lib/polkit-kde-authentication-agent-1";
 
       home.file.".config/mango/config.conf".text = ''
         exec-once = ${noctalia}
@@ -58,8 +81,10 @@
         borderpx = 2
         gappih = 8
         gappiv = 8
+        overviewgappi = 32
         gappoh = 10
         gappov = 10
+        overviewgappo = 40
 
         source-optional = ~/${noctalia-colors}
 
@@ -71,17 +96,16 @@
         no_border_when_single = 1
 
         # Window switch overview
+        enable_hotarea = 0
         ov_tab_mode = 1
 
         # Drag tiles with mouse
         drag_tile_to_tile = 1
 
         # ----------------------------
-        # Monitors (left to right: eDP-1, DP-6, HDMI-A-1)
+        # Monitors
 
-        monitorrule = name:^eDP-1$,width:1920,height:1080,x:0,y:0,scale:1.25
-        monitorrule = name:^DP-6$,width:2560,height:1440,x:1536,y:0,scale:1.25
-        monitorrule = name:^HDMI-A-1$,width:2560,height:1440,x:3584,y:0,scale:1.25
+        ${monitors}
 
         # ----------------------------
         # Input

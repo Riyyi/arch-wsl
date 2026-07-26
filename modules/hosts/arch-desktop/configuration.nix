@@ -35,6 +35,29 @@
         self.homeModules.systemdUserUnits
 
         {
+          preferences.monitors = [
+            {
+              make = "Ancor Communications Inc";
+              model = "ASUS PB298";
+              width = 2560;
+              height = 1080;
+              refresh = 59.978001;
+              x = 0;
+              y = 0;
+              scale = 1.0;
+            }
+            {
+              make = "Iiyama North America";
+              model = "PL2492H";
+              width = 1920;
+              height = 1080;
+              refresh = 60;
+              x = 2560;
+              y = 50;
+              scale = 1.0;
+            }
+          ];
+
           preferences.pacmanPackages = [
             "dhcpcd"
             "neovim"
