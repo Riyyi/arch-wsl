@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# Exit on any error
+set -e
+
+# ------------------------------------------
+# Check the environment
+
+[ "$(tty)" != "/dev/tty1" ] || { echo "error: script must not run from TTY1" >&2; exit 1; }
+
+# ------------------------------------------
+# Configure system
+
+if ! pacman -Qs declpac-git > /dev/null; then
+	rm -rf ./declpac-git
+	git clone https://aur.archlinux.org/declpac-git.git
+	cd ./declpac-git
+	makepkg -s
+	rm -f ./declpac-git-debug*
+	makepkg -i
+	cd - > /dev/null
+	rm -rf ./declpac-git
+fi
+
+# Install nix
+if ! command -v nix > /dev/null 2>&1; then
+	curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install | sh -s -- --daemon
+	. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+	echo "experimental-features = flakes nix-command pipe-operators" | sudo tee -a /etc/nix/nix.conf > /dev/null
+fi
+
+# Switch everything!
+nix run nixpkgs#home-manager -- switch --flake .#arch-desktop
+declpac --state /home/rick/.config/declpac
+nix run nixpkgs#home-manager -- switch --flake .#arch-desktop
+chsh -s /bin/zsh
+
+# Reboot
+reboot

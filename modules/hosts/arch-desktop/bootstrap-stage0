@@ -1,0 +1,45 @@
+#!/bin/sh
+
+# Exit on any error
+set -e
+
+# ------------------------------------------
+# Check the environment
+
+[ -f /sys/firmware/efi/fw_platform_size ] || { echo "error: EFI not enabled" >&2; exit 1; }
+
+ping -c1 -W1 1.1.1.1 >/dev/null 2>&1 ||  { echo "error: no internet" >&2; exit 1; }
+
+stage1="$(command -v -- "$0")"
+stage1="${stage1%0}1"
+[ -f "${stage1}" ] || { echo "error: script must run from repo root" >&2; exit 1; }
+
+# ------------------------------------------
+# Start installation
+#
+printf "Enter new username: "
+IFS= read -r user
+
+timedatectl
+
+printf "Format and mount your disks manually: "
+IFS= read -r
+
+# Install minimal packages
+pacstrap -K /mnt base base-devel linux linux-firmware sudo git neovim networkmanager
+
+# Generate filesystem table
+genfstab -U /mnt >> /mnt/etc/fstab
+
+# Copy dotfiles to installation partition
+directory="$(basename "$(pwd)")"
+cp -R "../$directory" /mnt/dotfiles
+
+# Run bootstrap-stage1 inside installation environment
+cp "$stage1" /mnt/stage1
+arch-chroot /mnt /stage1 "$user"
+rm -f /mnt/stage1
+
+# Reboot
+umount -R /mnt
+reboot

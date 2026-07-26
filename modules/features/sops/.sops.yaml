@@ -7,6 +7,11 @@ creation_rules:
       - age:
         - *primary
 
+  - path_regex: secrets/arch-desktop/.+\.(yaml|json|env|ini|sops|sh)$
+    key_groups:
+      - age:
+        - *primary
+
   - path_regex: secrets/arch-vm/.+\.(yaml|json|env|ini|sops|sh)$
     key_groups:
       - age:

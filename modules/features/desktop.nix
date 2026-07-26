@@ -16,10 +16,12 @@
         self.homeModules.emacs
         self.homeModules.firefox
         self.homeModules.ghostty
-        self.homeModules.mangowc
-        # self.homeModules.noctalia
         self.homeModules.sound
         self.homeModules.vscode
+      ]
+      ++ lib.optionals (config.preferences.distro == "arch") [
+        self.homeModules.mangowc
+        self.homeModules.noctalia
       ];
 
       preferences.aptPackages = [
