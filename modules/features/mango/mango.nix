@@ -265,7 +265,7 @@
         windowrule = isfloating:1, appid:thunar, title:Rename ".*"
 
         tagrule = id:1, layout_name:tile
-        tagrule = id:2, layout_name:tile
+        tagrule = id:2, layout_name:right_tile
         tagrule = id:3, layout_name:tile
         tagrule = id:4, layout_name:tile
         tagrule = id:5, layout_name:tile

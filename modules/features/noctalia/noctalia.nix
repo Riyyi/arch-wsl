@@ -4,6 +4,7 @@
   flake.homeModules.noctalia =
     {
       config,
+      lib,
       pkgs,
       ...
     }:
@@ -74,5 +75,17 @@
             config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${subDir}/dotfiles/.config/noctalia/colorschemes";
         };
 
+      # noctalia-shell loads pam_unix.so from the Nix store, which is hard-coded
+      # to exec the setuid helper at /run/wrappers/bin/unix_chkpwd. That path
+      # only exists on NixOS. On Arch the setuid helper lives at
+      # /usr/sbin/unix_chkpwd, so PAM can never validate the password.
+      # Fix: create a tmpfiles.d drop-in that symlinks the expected path to the
+      # Arch helper, and apply it now. /run is tmpfs so the symlink is recreated
+      # on every boot by systemd-tmpfiles.
+      home.activation.noctaliaPamChkpwd = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        $DRY_RUN_CMD /bin/sudo install -d -m0755 /usr/lib/tmpfiles.d
+        $DRY_RUN_CMD /bin/sudo sh -c 'printf "%s\n%s\n" "d /run/wrappers 0755 root root -" "L /run/wrappers/bin/unix_chkpwd - - - - /usr/sbin/unix_chkpwd" > /usr/lib/tmpfiles.d/noctalia-pam.conf'
+        $DRY_RUN_CMD /bin/sudo systemd-tmpfiles --create
+      '';
     };
 }
