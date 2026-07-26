@@ -37,6 +37,9 @@
         "lazydocker"
         "mono-msbuild"
         "npm"
+        "odin"
+        "odinfmt"
+        "ols"
         "opencode"
         "typescript-language-server"
       ];
@@ -126,7 +129,7 @@
           else
             ''
               if test -x /bin/docker > /dev/null 2>&1; then
-                  /bin/sudo systemctl enable --now docker.service
+                  /bin/sudo systemctl enable --now ${service}
               else
                   _iError "Package not installed, skipping 'docker'"
               fi

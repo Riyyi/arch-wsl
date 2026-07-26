@@ -201,6 +201,7 @@
        lua-mode       ; lua-language-server
        latex-mode     ; texlab
        nix-mode       ; nixd
+       odin-mode      ; ols
        swift-mode     ; swift-bin
        web-mode)
     (:hook lsp-deferred))
@@ -228,6 +229,7 @@
     ;; (setq lsp-modeline-workspace-status-enable nil)
     (setq lsp-nix-nixd-formatting-command [ "nixfmt" ])
     (setq lsp-nix-nixd-server-path "nixd")
+    (setq lsp-odin-ols-binary-path "ols")
     (setq lsp-prefer-flymake nil)
     (setq lsp-session-file (expand-file-name "lsp-session-v1" dot-cache-dir))
 
@@ -372,6 +374,10 @@
 
 ;;; Nix
 (elpaca-setup nix-mode)
+
+;;; Odin
+(elpaca-setup (odin-mode :repo "https://github.com/mattt-b/odin-mode.git" :depth 1)
+  (:match-file "\\.odin"))
 
 ;;; PHP
 
