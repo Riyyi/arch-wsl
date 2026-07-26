@@ -11,7 +11,8 @@
       mod = "SUPER";
       noctalia = "${pkgs.noctalia-shell}/bin/noctalia-shell";
       noctalia-colors = ".config/mango/noctalia.conf";
-      ghostty = "${pkgs.ghostty}/bin/ghostty";
+      ghostty =
+        if config.preferences.distro == "ubuntu" then "${pkgs.ghostty}/bin/ghostty" else "ghostty";
 
       dotfiles = config.preferences.path.dotfiles;
 
@@ -250,12 +251,12 @@
       home.activation.mango =
         let
           mango = ''
-[Desktop Entry]
-Name=Mango
-Comment=Lightweight Wayland compositor based on dwl
-Exec=${pkgs.mangowc}/bin/mango
-Type=Application
-DesktopNames=mango
+            [Desktop Entry]
+            Name=Mango
+            Comment=Lightweight Wayland compositor based on dwl
+            Exec=${pkgs.mangowc}/bin/mango
+            Type=Application
+            DesktopNames=mango
           '';
         in
         lib.hm.dag.entryAfter [ "checkLinkTargets" ] ''
