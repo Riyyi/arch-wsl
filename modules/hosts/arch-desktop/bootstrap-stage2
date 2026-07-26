@@ -11,6 +11,14 @@ set -e
 # ------------------------------------------
 # Configure system
 
+# Refresh keyring
+sudo pacman -Syy
+sudo rm -rf "/etc/pacman.d/gnupg"
+sudo pacman-key --init
+sudo pacman-key --populate archlinux
+sudo pacman -S --noconfirm archlinux-keyring
+
+# Setup declarative package manager
 if ! pacman -Qs declpac-git > /dev/null; then
 	rm -rf ./declpac-git
 	git clone https://aur.archlinux.org/declpac-git.git

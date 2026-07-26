@@ -25,9 +25,11 @@
         self.modules.generic.base
 
         self.homeModules.arch
+        self.homeModules.desktop
         self.homeModules.development
         self.homeModules.general
-        self.homeModules.desktop
+        self.homeModules.mangowc
+        self.homeModules.noctalia
         self.homeModules.systemdUserUnits
 
         {

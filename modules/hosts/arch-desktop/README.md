@@ -17,7 +17,7 @@ The machine will reboot automatically.
 
 ## Bootstrap Stage 2
 
-Run these commands after the machine reboots.
+Run these commands from TTY2 after the machine reboots.
 
 ```bash
 cd dotfiles
