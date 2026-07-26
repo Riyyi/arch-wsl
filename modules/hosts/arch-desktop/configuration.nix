@@ -27,6 +27,7 @@
         self.homeModules.arch
         self.homeModules.desktop
         self.homeModules.development
+        self.homeModules.games
         self.homeModules.general
         self.homeModules.greeter
         self.homeModules.mangowc
@@ -42,6 +43,9 @@
             "nm-connection-editor"
 
             # TODO: GPU module?
+            "lib32-mesa"
+            "lib32-vulkan-icd-loader"
+            "lib32-vulkan-radeon"
             "mesa"
             "vulkan-icd-loader"
             "vulkan-radeon"

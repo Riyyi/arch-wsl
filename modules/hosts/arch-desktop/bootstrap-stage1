@@ -74,3 +74,8 @@ chown -R "$user:$user" "/home/$user/dotfiles"
 sed -Ei '
 	s/^#(Color)/\1/;
 ' /etc/pacman.conf
+
+# Enable multilib repository
+sed -E '
+	/^#\[multilib\]/,/^#Include = \/etc\/pacman.d\/mirrorlist$/ s/^#//
+' /etc/pacman.conf
