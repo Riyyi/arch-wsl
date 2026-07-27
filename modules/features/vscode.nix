@@ -3,7 +3,6 @@
     {
       config,
       lib,
-      pkgs,
       ...
     }:
     {
@@ -150,11 +149,7 @@
 
       home.activation.vscodeExtensions =
         let
-          vscode =
-            if config.preferences.distro == "ubuntu" then
-              "${config.preferences.user.home}/.nix-profile/bin/code"
-            else
-              "/bin/code";
+          vscode = "/bin/code";
         in
         lib.hm.dag.entryAfter [ "pacmanPackages" "aptPackages" ] ''
           if test -x ${vscode} > /dev/null 2>&1; then
