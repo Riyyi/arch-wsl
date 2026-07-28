@@ -31,6 +31,7 @@
         self.homeModules.desktop
         self.homeModules.systemdUserUnits
         self.homeModules.ubuntu
+        self.homeModules.work
 
         {
           preferences.aptPackages = [
