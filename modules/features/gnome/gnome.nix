@@ -156,6 +156,7 @@
           # Focus previous workspace
           "org/gnome/shell/extensions/workspace-previous" = {
             switch-to-previous-workspace = [ "<Super>grave" ];
+            move-window-to-previous-workspace = [ "<Super><Shift>grave" ];
           };
         }
 

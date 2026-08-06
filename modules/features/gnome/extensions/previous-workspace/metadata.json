@@ -1,7 +1,7 @@
 {
   "uuid": "previous-workspace@dotfiles",
   "name": "Previous Workspace",
-  "description": "Provides a keybinding to move to the previously active workspace by tracking the current and previous workspace indices.",
+  "description": "Provides keybindings to switch to, and move the focused window to, the previously active workspace by tracking the current and previous workspace indices.",
   "shell-version": [
     "46",
     "47",

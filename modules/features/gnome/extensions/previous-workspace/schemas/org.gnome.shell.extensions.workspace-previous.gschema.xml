@@ -7,5 +7,10 @@
       <summary>Switch to previous workspace</summary>
       <description>Keybinding to switch to the previously active workspace.</description>
     </key>
+    <key name="move-window-to-previous-workspace" type="as">
+      <default>[]</default>
+      <summary>Move window to previous workspace</summary>
+      <description>Keybinding to move the focused window to the previously active workspace and switch to it.</description>
+    </key>
   </schema>
 </schemalist>

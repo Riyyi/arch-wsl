@@ -44,12 +44,24 @@ const WorkspaceSwitcher = GObject.registerClass(
                     Meta.KeyBindingFlags.NONE,
                     Shell.ActionMode.NORMAL,
                     () => this._switchToPrevious());
+
+            this._moveKeybindingId =
+                Main.wm.addKeybinding(
+                    'move-window-to-previous-workspace',
+                    settings,
+                    Meta.KeyBindingFlags.NONE,
+                    Shell.ActionMode.NORMAL,
+                    () => this._moveWindowToPrevious());
         }
 
         disable() {
             if (this._keybindingId) {
                 Main.wm.removeKeybinding('switch-to-previous-workspace');
                 this._keybindingId = 0;
+            }
+            if (this._moveKeybindingId) {
+                Main.wm.removeKeybinding('move-window-to-previous-workspace');
+                this._moveKeybindingId = 0;
             }
             if (this._workspaceSwitchedId) {
                 this._workspaceManager.disconnect(this._workspaceSwitchedId);
@@ -72,6 +84,27 @@ const WorkspaceSwitcher = GObject.registerClass(
             const target = this._workspaceManager.get_workspace_by_index(this._previous);
             if (target)
                 target.activate(global.get_current_time());
+        }
+
+        _moveWindowToPrevious() {
+            const window = global.display.focus_window;
+            if (!window)
+                return;
+
+            const n = this._workspaceManager.get_n_workspaces();
+            if (n < 2)
+                return;
+
+            // If we never saw a switch (e.g. freshly enabled), no-op gracefully.
+            if (this._previous === null || this._previous === this._current)
+                return;
+
+            const target = this._workspaceManager.get_workspace_by_index(this._previous);
+            if (!target)
+                return;
+
+            window.change_workspace(target);
+            target.activate(global.get_current_time());
         }
     });
 
