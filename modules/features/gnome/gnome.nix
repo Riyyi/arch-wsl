@@ -164,6 +164,9 @@
 
         # Remap super -> super+d for Activities Overview page
         {
+          "org/gnome/desktop/wm/keybindings" = {
+            show-desktop = [];
+          };
           "org/gnome/mutter" = {
             overlay-key = "";
           };
