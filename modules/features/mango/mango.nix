@@ -21,17 +21,18 @@
         map (
           m:
           let
-            parts = lib.optional (m.name != "") "name:${m.name}"
-            ++ lib.optional (m.make != "") "make:${m.make}"
-            ++ lib.optional (m.model != "") "model:${m.model}"
-            ++ lib.optional (m.serial != "") "serial:${m.serial}"
-            ++ [
-              "width:${toString m.width}"
-              "height:${toString m.height}"
-              "x:${toString m.x}"
-              "y:${toString m.y}"
-              "scale:${toString m.scale}"
-            ];
+            parts =
+              lib.optional (m.name != "") "name:${m.name}"
+              ++ lib.optional (m.make != "") "make:${m.make}"
+              ++ lib.optional (m.model != "") "model:${m.model}"
+              ++ lib.optional (m.serial != "") "serial:${m.serial}"
+              ++ [
+                "width:${toString m.width}"
+                "height:${toString m.height}"
+                "x:${toString m.x}"
+                "y:${toString m.y}"
+                "scale:${toString m.scale}"
+              ];
           in
           "monitorrule = ${lib.concatStringsSep "," parts}"
         ) config.preferences.monitors

@@ -32,6 +32,7 @@
         self.homeModules.greeter
         self.homeModules.mangowc
         self.homeModules.noctalia
+        self.homeModules.syncthing
         self.homeModules.systemdUserUnits
 
         {

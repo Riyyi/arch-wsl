@@ -1,0 +1,7 @@
+/emacs/etc/custom.el
+!/emacs/etc/*
+!/gnupg/trustdb.gpg
+!/gnupg/private-keys-v1.d/*
+!/gnupg/openpgp-revocs.d/*
+!/zsh/.zshrc_extended
+*
