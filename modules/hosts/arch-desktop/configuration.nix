@@ -65,6 +65,7 @@
             "networkmanager"
             "network-manager-applet" # this is required for the password prompt
             "nm-connection-editor"
+            "ntfs-3g"
 
             # TODO: GPU module?
             "lib32-mesa"
