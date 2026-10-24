@@ -1,0 +1,175 @@
+#!/bin/sh
+
+# Take screenshots
+# Depends: grim, slurp, wl-clipboard, mmsg, jq, wayfreeze, satty, rofi
+
+help() {
+	B=$(tput bold)
+	U=$(tput smul)
+	N=$(tput sgr0)
+
+	cat << EOF
+${B}NAME${N}
+	screenshot - take screenshots
+
+${B}SYNOPSIS${N}
+	${B}screenshot${N} [${U}OPTION${N}] [${U}COMMAND${N}]
+
+${B}DESCRIPTION${N}
+	${B}screenshot${N} captures the screen, a region, or a window.
+
+	Commands can be truncated, i.e. "${B}screenshot f${N}" for "${B}screenshot fullscreen${N}".
+
+${B}OPTIONS${N}
+	${B}-h${N}	Display usage message and exit.
+
+${B}COMMANDS${N}
+	${B}f${N}, ${B}fullscreen${N}
+		Freeze and capture the entire screen.
+
+	${B}r${N}, ${B}region${N}
+		Freeze and capture a selected region.
+
+	${B}w${N}, ${B}window${N}
+		Freeze and capture the focused window.
+
+	${B}fa${N}, ${B}fullscreen-annotate${N}
+		Freeze, capture the entire screen, and annotate.
+
+	${B}ra${N}, ${B}region-annotate${N}
+		Freeze, capture a selected region, and annotate.
+
+	${B}wa${N}, ${B}window-annotate${N}
+		Freeze, capture the focused window, and annotate.
+EOF
+}
+
+SCRIPT="$(basename "$0")"
+
+# Option handling
+while getopts ':h?' opt; do
+	case $opt in
+		h)
+			help
+			exit 0
+			;;
+		\?)
+			echo "$SCRIPT: invalid option '$OPTARG'"
+			echo "Try '$SCRIPT -h' for more information."
+			exit 1
+			;;
+	esac
+done
+
+CAPTURE="${SCREENSHOT_DIR:-$HOME/Pictures/Screenshots}"
+FILENAME="$CAPTURE/$(date '+%Y-%m-%d-%H%M%S')_grim.png"
+
+mkdir -p "$CAPTURE"
+
+capture_fullscreen() {
+	grim "$FILENAME"
+}
+
+capture_region() {
+	g=$(slurp -d)
+	[ -z "$g" ] && return 1
+	grim -g "$g" "$FILENAME"
+}
+
+capture_window() {
+	g=$(mmsg get focusing-client | jq -r '"\(.x),\(.y) \(.width)x\(.height)"')
+	[ -z "$g" ] && return 1
+	grim -g "$g" "$FILENAME"
+}
+
+freeze_wait() {
+	p=$(mktemp -u).fifo
+	mkfifo "$p"
+	wayfreeze --after-freeze-timeout 100 --after-freeze-cmd "echo > $p" & wp=$!
+	read -r _ < "$p"
+	rm -f "$p"
+	trap 'kill "$wp" 2>/dev/null' EXIT
+}
+
+annotate() {
+	satty --filename "$FILENAME" --output-filename "$FILENAME" \
+		  --actions-on-enter save-to-file --early-exit
+}
+
+# Command handling
+shift $((OPTIND - 1))
+
+# If no command, prompt with rofi
+if [ "$#" -eq 0 ]; then
+	options="\
+region:Region
+region-annotate:Region (annotated)
+window:Active window
+window-annotate:Active window (annotated)
+fullscreen:Fullscreen
+fullscreen-annotate:Fullscreen (annotated)"
+
+	choice=$(echo "$options" | \
+				 rofi -no-fixed-num-lines -dmenu -i -p "Screenshot" \
+					  -display-columns 2 -display-column-separator ":")
+	[ -z "$choice" ] && exit 0
+	choice=${choice%:*} # cut off the presentation value
+	set -- "$choice"
+
+	# Give Rofi menu time to disappear
+	sleep 0.2
+fi
+
+ANNOTATE_AFTER=false
+SCOPE=""
+case "$1" in
+	fullscreen-annotate|fa*)
+		ANNOTATE_AFTER=true
+		SCOPE=fullscreen
+		;;
+	region-annotate|ra*)
+		ANNOTATE_AFTER=true
+		SCOPE=region
+		;;
+	window-annotate|wa*)
+		ANNOTATE_AFTER=true
+		SCOPE=window
+		;;
+	fullscreen|f*)
+		SCOPE=fullscreen
+		;;
+	region|r*)
+		SCOPE=region
+		;;
+	window|w*)
+		SCOPE=window
+		;;
+	*)
+		echo "$SCRIPT: invalid command '$1'"
+		echo "Try '$SCRIPT -h' for more information."
+		exit 1
+		;;
+esac
+
+freeze_wait
+
+case "$SCOPE" in
+	fullscreen)
+		capture_fullscreen || { kill "$wp" 2>/dev/null || true; exit 1; }
+		;;
+	region)
+		capture_region || { kill "$wp" 2>/dev/null || true; exit 1; }
+		;;
+	window)
+		capture_window || { kill "$wp" 2>/dev/null || true; exit 1; }
+		;;
+esac
+
+kill "$wp" 2>/dev/null || true
+
+if $ANNOTATE_AFTER; then
+	annotate
+fi
+
+wl-copy < "$FILENAME"
+echo "$FILENAME"

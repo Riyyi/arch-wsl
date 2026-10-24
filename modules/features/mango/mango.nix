@@ -129,6 +129,9 @@
         # Lock screen
         bind = ${mod}, C, spawn, ${noctalia} ipc call lockScreen lock
 
+        # Screenshot
+        bind = NONE, Print, spawn, ${config.preferences.user.home}/.local/bin/screenshot
+
         #--- Control ---#
 
         # Hot-reload config
