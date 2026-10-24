@@ -20,6 +20,65 @@ return {
 
 			-- Icons in the completion menu
 			"onsails/lspkind.nvim",
+
+			-- AI completion
+			{
+				"milanglacier/minuet-ai.nvim",
+				config = function()
+					if not vim.env.OPENCODE_GO_API_KEY or vim.env.OPENCODE_GO_API_KEY == "" then
+						return
+					end
+
+					require("minuet").setup({
+						provider = "openai_compatible",
+						request_timeout = 2.5,
+						throttle = 1500, -- Increase to reduce costs and avoid rate limits
+						debounce = 600, -- Increase to reduce costs and avoid rate limits
+						n_completions = 1,
+						virtualtext = {
+							auto_trigger_ft = { "*" },
+							keymap = {
+								accept = "<A-A>",
+								accept_line = "<A-a>",
+								accept_n_lines = "<A-z>",
+								prev = "<A-[>",
+								next = "<A-]>",
+								dismiss = "<A-e>",
+							},
+						},
+						provider_options = {
+							openai_compatible = {
+								api_key = "OPENCODE_GO_API_KEY",
+								end_point = "https://opencode.ai/inference/go/openai/v1/chat/completions",
+								model = "deepseek-v4.1-flash",
+								name = "Opencode",
+								optional = {
+									max_tokens = 56,
+									top_p = 0.9,
+									-- disable thinking to avoid first token latency
+									thinking = { type = "disabled" },
+								},
+								-- OpenCode Go requires a stable session ID and a non-generic User-Agent.
+								-- Use one session ID per buffer for better prompt caching.
+								--   https://opencode.ai/v2/docs/console/go/#where-can-i-use-it
+								transform = {
+									function(data)
+										local bufnr = vim.api.nvim_get_current_buf()
+										local ok, session_id = pcall(vim.api.nvim_buf_get_var, bufnr, "minuet_opencode_session")
+										if not ok or not session_id then
+											session_id = "nvim-minuet-buf-" .. bufnr .. "-" .. vim.fn.getpid()
+											vim.api.nvim_buf_set_var(bufnr, "minuet_opencode_session", session_id)
+										end
+										data.headers["x-opencode-session"] = session_id
+										data.headers["User-Agent"] = "nvim-minuet/v0.10.0"
+										return data
+									end,
+								},
+							},
+						},
+					})
+				end,
+			},
 		},
 		config = function()
 			local luasnip = require("luasnip")
