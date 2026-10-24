@@ -1,3 +1,10 @@
+// Stop trashing the disk
+user_pref("browser.cache.disk.capacity", 0);
+user_pref("browser.cache.disk.enable", false);
+user_pref("browser.cache.disk.smart_size.enabled", false);
+user_pref("browser.cache.memory.enable", true);
+user_pref("browser.sessionstore.interval", 3600000);
+
 // Download directory
 user_pref("browser.download.dir", "~/Downloads");
 
@@ -13,6 +20,10 @@ user_pref("browser.urlbar.openViewOnFocus", false);
 user_pref("browser.urlbar.update1", false);
 user_pref("browser.urlbar.update1.interventions", false);
 user_pref("browser.urlbar.update1.searchTips", false);
+
+// Enable browser toolbox (Ctrl-Alt-Shift-i)
+user_pref("devtools.chrome.enabled", true);
+user_pref("devtools.debugger.remote-enabled", true);
 
 // Disable extension recommendations
 user_pref("extensions.htmlaboutaddons.recommendations.enabled", false);
@@ -30,6 +41,9 @@ user_pref("media.ffmpeg.vaapi.enabled", true);
 
 // Dont make it too easy for phishers
 user_pref("network.IDN_show_punycode", true);
+
+// Hide sidebar tools section
+user_pref("sidebar.visibility", "hide-launcher");
 
 // Do not save logins
 user_pref("signon.rememberSignons", false);

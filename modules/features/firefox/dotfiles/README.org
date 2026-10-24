@@ -31,7 +31,7 @@ Tree Style Tab style rules.
   }
 
   .tab {
-	  height: 23px;
+	  height: 32px;
 	  margin-bottom: 1px;
 	  background: #404552;
 	  border: 0px;

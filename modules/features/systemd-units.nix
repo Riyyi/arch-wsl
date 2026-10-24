@@ -45,6 +45,10 @@
         mkdir -p "$unitsDir"
         src="$HOME/.nix-profile/share/systemd/user"
 
+        # Drop dead symlinks (units removed from the profile) before creating
+        # new ones, so we don't race with or overwrite Home Manager-managed units.
+        find "$unitsDir" -maxdepth 1 -xtype l -delete >/dev/null 2>&1 || true
+
         shopt -s nullglob
         for unit in \
           "$src"/*.service \
@@ -54,12 +58,11 @@
           "$src"/*.path
         do
           name="''${unit##*/}"
-          ln -sf "$unit" "$unitsDir/$name"
+          if [[ ! -e "$unitsDir/$name" ]]; then
+            ln -s "$unit" "$unitsDir/$name"
+          fi
         done
         shopt -u nullglob
-
-        # Drop dead symlinks (units removed from the profile).
-        find "$unitsDir" -maxdepth 1 -xtype l -delete >/dev/null 2>&1 || true
 
         systemctl --user daemon-reload >/dev/null 2>&1 || true
       '';

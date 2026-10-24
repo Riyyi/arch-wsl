@@ -31,7 +31,7 @@
 		display: none;
 	}
 
-	/* Hide TreeStyleTab header */
+	/* Hide TreeStyleTab header (legacy sidebar) */
 	#sidebar-header {
 		display: none;
 	}
@@ -80,5 +80,31 @@
 	/* Subtle border between results */
 	#urlbar-results .urlbarView-row:not(:last-of-type) {
 		border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+	}
+
+	/* Remove rounded corners / gap between sidebar and content */
+	:root {
+		--chrome-window-gap: 0 !important;
+		--chrome-block-radius: 0 !important;
+		--chrome-content-separator-color: transparent !important;
+	}
+
+	.chrome-block,
+	.browserContainer,
+	.browserSidebarContainer,
+	#appcontent,
+	#sidebar,
+	#sidebar-box {
+		border-radius: 0 !important;
+		box-shadow: none !important;
+		border-color: transparent !important;
+	}
+}
+
+/* Extension sidebars (TreeStyleTab) render in their own chrome document */
+@-moz-document url("chrome://browser/content/webext-panels.xhtml") {
+	/* Hide TreeStyleTab header */
+	#sidebar-panel-header {
+		display: none !important;
 	}
 }
