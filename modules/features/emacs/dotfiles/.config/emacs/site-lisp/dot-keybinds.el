@@ -36,13 +36,11 @@
 ;; Disable keybinds of native modes that clash with other custom keybinds.
 
 (elpaca-nil (setup emacs
-       (:global
-        "M-h" nil
-        "M-j" nil
-        "M-k" nil
-        "M-l" nil
-        "<pinch>" nil ; Do not scale text when pinching touchpad
-        )))
+       (keymap-global-set "M-h" nil)
+       (keymap-global-set "M-j" nil)
+       (keymap-global-set "M-k" nil)
+       (keymap-global-set "M-l" nil)
+       (keymap-global-set "<pinch>" nil))) ; Do not scale text when pinching touchpad
 
 (elpaca-nil (setup org
        (:bind "M-h" nil
@@ -50,10 +48,10 @@
               )))
 
 (elpaca-nil (setup cc-mode
-       (:bind-into c-mode-base-map
-         "M-j" nil
-         "C-M-h" nil
-         )))
+       (:with-map c-mode-base-map
+         (:bind "M-j" nil
+                "C-M-h" nil
+                ))))
 
 (elpaca-nil (setup nxml-mode
        (:bind "M-h" nil
@@ -65,8 +63,9 @@
 ;; Disable keybinds of installed packages that clash with other custom keybinds.
 
 (elpaca-nil (setup evil-states
-       (:bind-into evil-motion-state-map dot/leader-key nil
-                   )))
+       (:with-map evil-motion-state-map
+         (:bind dot/leader-key nil
+                 ))))
 
 (elpaca-nil (setup magit
        (:evil-bind normal
@@ -86,28 +85,26 @@
 ;;; Set Native Global Keybinds
 
 (elpaca-nil (setup emacs
-       (:global
-        ;; Buffers
-        "C-x C-b" ibuffer
-        "M-w" kill-buffer-and-window
+       ;; Buffers
+       (keymap-global-set "C-x C-b" #'ibuffer)
+       (keymap-global-set "M-w" #'kill-buffer-and-window)
 
-        ;; Config edit/reload
-        "C-c r" dot/config-reload
-        "C-c v" dot/config-visit
+       ;; Config edit/reload
+       (keymap-global-set "C-c r" #'dot/config-reload)
+       (keymap-global-set "C-c v" #'dot/config-visit)
 
-        ;; Find file
-        "C-x C-f" dot/find-file-in-project-root
+       ;; Find file
+       (keymap-global-set "C-x C-f" #'dot/find-file-in-project-root)
 
-        ;; Split and follow window
-        "C-x 2" split-follow-horizontally
-        "C-x 3" split-follow-vertically
+       ;; Split and follow window
+       (keymap-global-set "C-x 2" #'split-follow-horizontally)
+       (keymap-global-set "C-x 3" #'split-follow-vertically)
 
-        ;; Terminal
-        "<s-backspace>" ansi-term
+       ;; Terminal
+       (keymap-global-set "s-<backspace>" #'ansi-term)
 
-        ;; Universal prefix argument
-        "C-M-u" universal-argument
-        )))
+       ;; Universal prefix argument
+       (keymap-global-set "C-M-u" #'universal-argument)))
 
 ;;; Set Native Mode Keybinds
 
@@ -138,70 +135,67 @@
 ;; Set keybinds to functionality of installed packages.
 
 (elpaca-nil (setup emacs
-       (:global
-        ;; Buffers
-        "M-h" centaur-tabs-backward-tab
-        "M-j" centaur-tabs-forward-group
-        "M-k" centaur-tabs-backward-group
-        "M-l" centaur-tabs-forward-tab
-        "M-H" centaur-tabs-move-current-tab-to-left
-        "M-L" centaur-tabs-move-current-tab-to-right
-        "M-\`" evil-switch-to-windows-last-buffer
-        ;; Other
-        "M-s" avy-goto-char-timer
-        "M-x" dot/M-x
-        )))
+       ;; Buffers
+       (keymap-global-set "M-h" #'centaur-tabs-backward-tab)
+       (keymap-global-set "M-j" #'centaur-tabs-forward-group)
+       (keymap-global-set "M-k" #'centaur-tabs-backward-group)
+       (keymap-global-set "M-l" #'centaur-tabs-forward-tab)
+       (keymap-global-set "M-H" #'centaur-tabs-move-current-tab-to-left)
+       (keymap-global-set "M-L" #'centaur-tabs-move-current-tab-to-right)
+       (keymap-global-set "M-`" #'evil-switch-to-windows-last-buffer)
+       ;; Other
+       (keymap-global-set "M-s" #'avy-goto-char-timer)
+       (keymap-global-set "M-x" #'dot/M-x)))
 
 (elpaca-nil (setup company
-       (:bind-into company-active-map
-         ;; Company completion selection
-         "M-n" nil
-         "M-p" nil
-         "M-h" company-abort
-         "M-j" company-select-next
-         "M-k" company-select-previous
-         "M-l" company-complete-selection
-         "<escape>" company-abort
-         )))
+       (:with-map company-active-map
+         (:bind ;; Company completion selection
+                "M-n" nil
+                "M-p" nil
+                "M-h" company-abort
+                "M-j" company-select-next
+                "M-k" company-select-previous
+                "M-l" company-complete-selection
+                "<escape>" company-abort
+                ))))
 
 (elpaca-nil (setup evil-ex
-       (:bind-into evil-ex-completion-map
-         ;; Evil command history selection
-         "M-h" abort-recursive-edit
-         "M-j" next-complete-history-element
-         "M-k" previous-complete-history-element
-         "M-l" exit-minibuffer
-         )))
+       (:with-map evil-ex-completion-map
+         (:bind ;; Evil command history selection
+                "M-h" abort-recursive-edit
+                "M-j" next-complete-history-element
+                "M-k" previous-complete-history-element
+                "M-l" exit-minibuffer
+                ))))
 
 (elpaca-nil (setup emacs
-       (:global
-        ;; flyspell-correct
-        [remap ispell-word] flyspell-correct-at-point ; z=
+       ;; flyspell-correct
+       (keymap-global-set "<remap> <ispell-word>" #'flyspell-correct-at-point) ; z=
 
-        ;; Helpful overwrite default help functions
-        [remap describe-command] helpful-command
-        [remap describe-function] helpful-callable
-        [remap describe-key] helpful-key
-        [remap describe-symbol] helpful-at-point
-        [remap describe-variable] helpful-variable
-        )
+       ;; Helpful overwrite default help functions
+       (keymap-global-set "<remap> <describe-command>" #'helpful-command)
+       (keymap-global-set "<remap> <describe-function>" #'helpful-callable)
+       (keymap-global-set "<remap> <describe-key>" #'helpful-key)
+       (keymap-global-set "<remap> <describe-symbol>" #'helpful-at-point)
+       (keymap-global-set "<remap> <describe-variable>" #'helpful-variable)
+
        (setup which-key
          (:when-loaded
            (which-key-add-key-based-replacements "C-h o" "describe-symbol-at-point")))))
 
 ;; LSP
 (elpaca-nil (setup lsp-mode
-       (:bind-into lsp-signature-mode-map
-         "M-j" lsp-signature-next
-         "M-k" lsp-signature-previous
-         )))
+       (:with-map lsp-signature-mode-map
+         (:bind "M-j" lsp-signature-next
+                "M-k" lsp-signature-previous
+                ))))
 
 ;; Magit
 (elpaca-nil (setup magit
-       (:bind-into magit-log-select-mode-map
-         "M-c" magit-log-select-pick
-         "M-k" magit-log-select-quit
-         )))
+       (:with-map magit-log-select-mode-map
+         (:bind "M-c" magit-log-select-pick
+                "M-k" magit-log-select-quit
+                ))))
 
 ;; Org-roam
 (elpaca-nil (setup org-roam
@@ -210,18 +204,18 @@
 
 ;; Minibuffer completion selection
 (elpaca-nil (setup minibuffer
-       (:bind-into minibuffer-local-map
-         "M-J" next-history-element
-         "M-K" previous-history-element
-         "M-h" abort-recursive-edit
-		 "M-i" vertico-quick-insert
-         "M-j" vertico-next
-         "M-k" vertico-previous
-         "M-l" vertico-exit
-		 "M-m" vertico-quick-exit
-         "<backspace>"   dot/vertico-backspace
-         "<S-backspace>" evil-delete-backward-char-and-join
-         )))
+       (:with-map minibuffer-local-map
+         (:bind "M-J" next-history-element
+                "M-K" previous-history-element
+                "M-h" abort-recursive-edit
+                "M-i" vertico-quick-insert
+                "M-j" vertico-next
+                "M-k" vertico-previous
+                "M-l" vertico-exit
+                "M-m" vertico-quick-exit
+                "<backspace>"   dot/vertico-backspace
+                "<S-backspace>" evil-delete-backward-char-and-join
+                ))))
 
 ;; with-editor
 (elpaca-nil (setup with-editor
@@ -233,26 +227,26 @@
 ;;; Global evil keymap
 
 (elpaca-nil (setup evil
-       (:bind-into evil-normal-state-map
-         "C-n"      neotree-toggle-in-project-root
-         "C-S-p"    evil-paste-pop-next
-         "S-<up>"   scroll-down-line
-         "S-<down>" scroll-up-line
-         )
+       (:with-map evil-normal-state-map
+         (:bind "C-n"      neotree-toggle-in-project-root
+                "C-S-p"    evil-paste-pop-next
+                "S-<up>"   scroll-down-line
+                "S-<down>" scroll-up-line
+                ))
 
-       (:bind-into evil-insert-state-map
-         "<backtab>" dot/evil-insert-shift-left  ; <S-Tab>
-         "TAB"       dot/evil-insert-shift-right ; <Tab>
-         )
+       (:with-map evil-insert-state-map
+         (:bind "<backtab>" dot/evil-insert-shift-left  ; <S-Tab>
+                "TAB"       dot/evil-insert-shift-right ; <Tab>
+                ))
 
-       (:bind-into evil-visual-state-map
-         "<" dot/evil-visual-shift-left   ; <gv
-         ">" dot/evil-visual-shift-right  ; >gv
-         )
+       (:with-map evil-visual-state-map
+         (:bind "<" dot/evil-visual-shift-left   ; <gv
+                ">" dot/evil-visual-shift-right  ; >gv
+                ))
 
-       (:bind-into evil-ex-map
-         "e" dot/find-file-in-project-root
-         )))
+       (:with-map evil-ex-map
+         (:bind "e" dot/find-file-in-project-root
+                 ))))
 
 ;;; Other evil state-related keybinds
 
