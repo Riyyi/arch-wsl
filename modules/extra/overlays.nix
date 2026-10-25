@@ -23,6 +23,14 @@ let
       };
     };
 
+    neovim-pinned = final: prev: {
+      neovim-pinned = import inputs.nixpkgs-neovim-pinned {
+        system = final.stdenv.hostPlatform.system;
+        config.allowUnfree = true;
+        overlays = [ ];
+      };
+    };
+
   };
 
   lib = inputs.nixpkgs.lib;

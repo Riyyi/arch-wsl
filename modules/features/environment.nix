@@ -35,7 +35,6 @@
         "man-db"
         "manpages"
         "ncdu"
-        "neovim"
         "openssh-client"
         "openssh-server"
         "rsync"
@@ -68,7 +67,6 @@
         "man-db"
         "man-pages"
         "ncdu"
-        "neovim"
         "openssh"
         "rsync"
         "sudo"
@@ -85,7 +83,10 @@
 
       home.packages =
         with pkgs;
-        [ selfpkgs.ns ]
+        [
+          neovim-pinned.neovim
+          selfpkgs.ns
+        ]
         ++ lib.optionals (config.preferences.distro == "ubuntu") [
           fastfetch
           tokei

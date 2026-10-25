@@ -1,4 +1,5 @@
 require("core")
+pcall(require, "nix") -- dont error on non-exist
 require("packages").setup({
 	require("ui"),
 	require("selection"),

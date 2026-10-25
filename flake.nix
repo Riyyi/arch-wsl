@@ -8,11 +8,9 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-neovim-pinned.url = "github:nixos/nixpkgs/26f4107e47e3ad0ffd0db220469ba83b6f6d96e8";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
-
-    wrappers.url = "github:Lassulus/wrappers";
-    wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
 
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
     firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
@@ -22,7 +20,6 @@
 
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
-
   };
 
   outputs =

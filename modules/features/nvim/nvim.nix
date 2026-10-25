@@ -14,7 +14,7 @@
 
       files = [
         "init.lua"
-        #"lazy-lock.json"
+        "lazy-lock.json"
 
         "after/ftplugin/lua.lua"
 
@@ -37,6 +37,8 @@
         "lua/terminal.lua"
         "lua/ui.lua"
       ];
+
+      sqliteLib = "${pkgs.sqlite.out}/lib/libsqlite3${pkgs.stdenv.hostPlatform.extensions.sharedLibrary}";
     in
     {
 
@@ -55,7 +57,6 @@
         "make"
         "libgcc"
         "lua-language-server"
-        "neovim"
         "sqlite"
         "tree-sitter"
         "tree-sitter-cli"
@@ -65,12 +66,13 @@
       home.packages =
         with pkgs;
         [
+          neovim-pinned.neovim
           nixd
           nixfmt
+          sqlite
         ]
         ++ lib.optionals (config.preferences.distro == "ubuntu") [
           git # Ubuntu 24.04 ships old git 2.43, which doesnt have the --no-advice flag
-          neovim # also too old
           lua-language-server
           tree-sitter # also too old
         ];
@@ -80,17 +82,15 @@
           map (file: {
             name = ".config/nvim/${file}";
             value = {
-              source = ./dotfiles + "/${file}";
+              # Not linked from Nix store, so it remains writable
+              source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${subDir}/dotfiles/${file}";
             };
           }) files
         )
         // {
-          # lazy-lock.json wont be linked from Nix store, so it remains writable
-          ".config/nvim/lazy-lock.json".source =
-            config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${subDir}/dotfiles/lazy-lock.json";
-
-          # Used for nvim config testing
-          ".config/nvim-dev".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${subDir}/dotfiles";
+          ".config/nvim/lua/nix.lua".text = ''
+            vim.g.sqlite_clib_path = "${sqliteLib}" -- use Nix sqlite
+          '';
         };
 
     };
