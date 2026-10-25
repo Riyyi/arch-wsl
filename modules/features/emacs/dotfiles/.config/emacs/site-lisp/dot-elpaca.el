@@ -8,6 +8,10 @@
 
 ;; -----------------------------------------
 
+;; M-x elpaca-write-lock-file
+(setq elpaca-lock-file
+      (expand-file-name "elpaca-lock.el" user-emacs-directory))
+
 ;; Elpaca bootstrap
 (defvar elpaca-installer-version 0.12)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
