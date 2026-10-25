@@ -79,12 +79,12 @@
         # ----------------------------
         # Look and feel
 
-        borderpx = 2
-        gappih = 8
-        gappiv = 8
-        overviewgappi = 32
-        gappoh = 10
-        gappov = 10
+        borderpx = 3
+        gappih = 15
+        gappiv = 15
+        overviewgappi = 30
+        gappoh = 15
+        gappov = 15
         overviewgappo = 40
 
         source-optional = ~/${noctalia-colors}
