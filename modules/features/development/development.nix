@@ -20,7 +20,6 @@
     {
 
       preferences.aptPackages = [
-        "keepassxc"
         "libnss3-tools"
         "mono-complete"
       ];
@@ -33,7 +32,6 @@
         "docker-buildx"
         "docker-compose"
         "dotnet-sdk"
-        "keepassxc"
         "lazydocker"
         "mono-msbuild"
         "npm"
@@ -49,6 +47,7 @@
         with pkgs;
         [
           antares
+          keepassxc # breaks when mixing non-nix keepassxc with nix firefox, LD_LIBRARY_PATH leaks into keepassxc-proxy
           omnisharp-roslyn
           postman
         ]

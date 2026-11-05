@@ -44,7 +44,6 @@
         "unzip"
         "util-linux"
         "wget"
-        "yt-dlp"
       ];
 
       preferences.pacmanPackages = [
@@ -91,6 +90,7 @@
           fastfetch
           tokei
           tree-sitter
+          unstable.yt-dlp
         ];
 
     };

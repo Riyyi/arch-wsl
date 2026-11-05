@@ -47,7 +47,6 @@
       config = {
         preferences.aptPackages = [
           "mpv"
-          "yt-dlp"
         ];
 
         preferences.pacmanPackages = [
@@ -62,13 +61,19 @@
           ]
           ++ lib.optionals (config.preferences.firefox.gnomeIntegration) [
             gnome-browser-connector
+          ]
+          ++ lib.optionals (config.preferences.distro == "ubuntu") [
+            unstable.yt-dlp
           ];
 
         programs.firefox = {
           enable = true;
           package = pkgs.firefox;
           configPath = ".config/mozilla/firefox";
-          nativeMessagingHosts = [ pkgs.ff2mpv-go ];
+          nativeMessagingHosts = [
+            pkgs.ff2mpv-go
+          ]
+          ++ lib.optionals (config.preferences.distro == "ubuntu") [ pkgs.keepassxc ];
 
           policies.ExtensionSettings = {
             "*".installation_mode = "blocked"; # blocks all addons except specified below
@@ -82,6 +87,7 @@
             (lib.optionalAttrs config.preferences.firefox.gnomeIntegration (
               mkExtension "gnome-shell-integration" "chrome-gnome-shell@gnome.org" "menupanel"
             ))
+            (mkExtension "keepassxc-browser" "keepassxc-browser@keepassxc.org" "menupanel")
             (mkExtension "tree-style-tab" "treestyletab@piro.sakura.ne.jp" "menupanel")
             (mkExtension "ublock-origin" "uBlock0@raymondhill.net" "navbar")
             (mkExtension "vimium" "{d7742d87-e61d-4b78-b8a1-b469842139fa}" "navbar")
