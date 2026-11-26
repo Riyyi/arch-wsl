@@ -68,6 +68,20 @@
             "nm-connection-editor"
             "ntfs-3g"
 
+            # Latex
+            "tesseract-data-eng"
+            "texlive-bin"
+            "texlive-binextra"
+            "texlive-core"
+            "texlive-fontsextra"
+            "texlive-fontsrecommended"
+            "texlive-langenglish"
+            "texlive-langeuropean"
+            "texlive-latexextra"
+            "texlive-pictures"
+            "zathura"
+            "zathura-pdf-mupdf"
+
             # TODO: GPU module?
             "lib32-mesa"
             "lib32-vulkan-icd-loader"
